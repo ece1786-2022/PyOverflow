@@ -1,0 +1,1731 @@
+[
+    {
+        "Topic": "Built-in Types",
+        "content": [
+            "The following sections describe the standard types that are built into the\ninterpreter.",
+            "The principal built-in types are numerics, sequences, mappings, classes,\ninstances and exceptions.",
+            "Some collection classes are mutable.  The methods that add, subtract, or\nrearrange their members in place, and don\u2019t return a specific item, never return\nthe collection instance itself but None.",
+            "Some operations are supported by several object types; in particular,\npractically all objects can be compared for equality, tested for truth\nvalue, and converted to a string (with the repr() function or the\nslightly different str() function).  The latter function is implicitly\nused when an object is written by the print() function."
+        ],
+        "functions": [],
+        "code_demo": [],
+        "Subtopics": [
+            {
+                "Topic": "Truth Value Testing",
+                "content": [
+                    "Any object can be tested for truth value, for use in an if or\nwhile condition or as operand of the Boolean operations below.",
+                    "By default, an object is considered true unless its class defines either a\n__bool__() method that returns False or a __len__() method that\nreturns zero, when called with the object. 1  Here are most of the built-in\nobjects considered false:",
+                    "Operations and built-in functions that have a Boolean result always return 0\nor False for false and 1 or True for true, unless otherwise stated.\n(Important exception: the Boolean operations or and and always return\none of their operands.)"
+                ],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Boolean Operations and, or, not",
+                "content": [
+                    "These are the Boolean operations, ordered by ascending priority:",
+                    "Notes:",
+                    "This is a short-circuit operator, so it only evaluates the second\nargument if the first one is false.",
+                    "This is a short-circuit operator, so it only evaluates the second\nargument if the first one is true.",
+                    "not has a lower priority than non-Boolean operators, so not a == b is\ninterpreted as not (a == b), and a == not b is a syntax error."
+                ],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Comparisons",
+                "content": [
+                    "There are eight comparison operations in Python.  They all have the same\npriority (which is higher than that of the Boolean operations).  Comparisons can\nbe chained arbitrarily; for example, x < y <= z is equivalent to x < y and\ny <= z, except that y is evaluated only once (but in both cases z is not\nevaluated at all when x < y is found to be false).",
+                    "This table summarizes the comparison operations:",
+                    "Objects of different types, except different numeric types, never compare equal.\nThe == operator is always defined but for some object types (for example,\nclass objects) is equivalent to is. The <, <=, > and >=\noperators are only defined where they make sense; for example, they raise a\nTypeError exception when one of the arguments is a complex number.",
+                    "Non-identical instances of a class normally compare as non-equal unless the\nclass defines the __eq__() method.",
+                    "Instances of a class cannot be ordered with respect to other instances of the\nsame class, or other types of object, unless the class defines enough of the\nmethods __lt__(), __le__(), __gt__(), and\n__ge__() (in general, __lt__() and\n__eq__() are sufficient, if you want the conventional meanings of the\ncomparison operators).",
+                    "The behavior of the is and is not operators cannot be\ncustomized; also they can be applied to any two objects and never raise an\nexception.",
+                    "Two more operations with the same syntactic priority, in and\nnot in, are supported by types that are iterable or\nimplement the __contains__() method."
+                ],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Numeric Types int, float, complex",
+                "content": [
+                    "There are three distinct numeric types: integers, floating\npoint numbers, and complex numbers.  In addition, Booleans are a\nsubtype of integers.  Integers have unlimited precision.  Floating point\nnumbers are usually implemented using double in C; information\nabout the precision and internal representation of floating point\nnumbers for the machine on which your program is running is available\nin sys.float_info.  Complex numbers have a real and imaginary\npart, which are each a floating point number.  To extract these parts\nfrom a complex number z, use z.real and z.imag. (The standard\nlibrary includes the additional numeric types fractions.Fraction, for\nrationals, and decimal.Decimal, for floating-point numbers with\nuser-definable precision.)",
+                    "Numbers are created by numeric literals or as the result of built-in functions\nand operators.  Unadorned integer literals (including hex, octal and binary\nnumbers) yield integers.  Numeric literals containing a decimal point or an\nexponent sign yield floating point numbers.  Appending 'j' or 'J' to a\nnumeric literal yields an imaginary number (a complex number with a zero real\npart) which you can add to an integer or float to get a complex number with real\nand imaginary parts.",
+                    "Python fully supports mixed arithmetic: when a binary arithmetic operator has\noperands of different numeric types, the operand with the \u201cnarrower\u201d type is\nwidened to that of the other, where integer is narrower than floating point,\nwhich is narrower than complex. A comparison between numbers of different types\nbehaves as though the exact values of those numbers were being compared. 2",
+                    "The constructors int(), float(), and\ncomplex() can be used to produce numbers of a specific type.",
+                    "All numeric types (except complex) support the following operations (for priorities of\nthe operations, see Operator precedence):",
+                    "Notes:",
+                    "All numbers.Real types (int and float) also include\nthe following operations:",
+                    "For additional numeric operations see the math and cmath\nmodules.",
+                    "Also referred to as integer division.  The resultant value is a whole\ninteger, though the result\u2019s type is not necessarily int.  The result is\nalways rounded towards minus infinity: 1//2 is 0, (-1)//2 is\n-1, 1//(-2) is -1, and (-1)//(-2) is 0.",
+                    "Not for complex numbers.  Instead convert to floats using abs() if\nappropriate.",
+                    "Conversion from floating point to integer may round or truncate\nas in C; see functions math.floor() and math.ceil() for\nwell-defined conversions.\n",
+                    "float also accepts the strings \u201cnan\u201d and \u201cinf\u201d with an optional prefix \u201c+\u201d\nor \u201c-\u201d for Not a Number (NaN) and positive or negative infinity.",
+                    "Python defines pow(0, 0) and 0 ** 0 to be 1, as is common for\nprogramming languages.",
+                    "The numeric literals accepted include the digits 0 to 9 or any\nUnicode equivalent (code points with the Nd property).\nSee https://www.unicode.org/Public/14.0.0/ucd/extracted/DerivedNumericType.txt\nfor a complete list of code points with the Nd property.\n"
+                ],
+                "functions": [
+                    {
+                        "name": "abs()",
+                        "content": [
+                            "Return the absolute value of a number. The argument may be an integer, a floating point number, or an object implementing __abs__(). If the argument is a complex number, its magnitude is returned."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "int()",
+                        "content": ["Return an integer object constructed from a number or string x, or return 0 if no arguments are given. If x defines __int__(), int(x) returns x.__int__(). If x defines __index__(), it returns x.__index__(). If x defines __trunc__(), it returns x.__trunc__(). For floating point numbers, this truncates towards zero.",
+                        "If x is not a number or if base is given, then x must be a string, bytes, or bytearray instance representing an integer literal in radix base. Optionally, the literal can be preceded by + or - (with no space in between) and surrounded by whitespace. A base-n literal consists of the digits 0 to n-1, with a to z (or A to Z) having values 10 to 35. The default base is 10. The allowed values are 0 and 2–36. Base-2, -8, and -16 literals can be optionally prefixed with 0b/0B, 0o/0O, or 0x/0X, as with integer literals in code. Base 0 means to interpret exactly as a code literal, so that the actual base is 2, 8, 10, or 16, and so that int('010', 0) is not legal, while int('010') is, as well as int('010', 8).",
+                        "The integer type is described in Numeric Types — int, float, complex.",
+                        "Changed in version 3.4: If base is not an instance of int and the base object has a base.__index__ method, that method is called to obtain an integer for the base. Previous versions used base.__int__ instead of base.__index__.",
+                        "Changed in version 3.6: Grouping digits with underscores as in code literals is allowed.",
+                        "Changed in version 3.7: x is now a positional-only parameter.",
+                        "Changed in version 3.8: Falls back to __index__() if __int__() is not defined.",
+                        "Changed in version 3.11: The delegation to __trunc__() is deprecated.",
+                        "Changed in version 3.11: int string inputs and string representations can be limited to help avoid denial of service attacks. A ValueError is raised when the limit is exceeded while converting a string x to an int or when converting an int into a string would exceed the limit. See the integer string conversion length limitation documentation."
+                    ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "float()",
+                        "content": ["Return a floating point number constructed from a number or string x.",
+                        "If the argument is a string, it should contain a decimal number, optionally preceded by a sign, and optionally embedded in whitespace. The optional sign may be '+' or '-'; a '+' sign has no effect on the value produced. The argument may also be a string representing a NaN (not-a-number), or positive or negative infinity. More precisely, the input must conform to the following grammar after leading and trailing whitespace characters are removed:",
+                        "Here floatnumber is the form of a Python floating-point literal, described in Floating point literals. Case is not significant, so, for example, “inf”, “Inf”, “INFINITY”, and “iNfINity” are all acceptable spellings for positive infinity.",
+                        "Otherwise, if the argument is an integer or a floating point number, a floating point number with the same value (within Python’s floating point precision) is returned. If the argument is outside the range of a Python float, an OverflowError will be raised.",
+                        "For a general Python object x, float(x) delegates to x.__float__(). If __float__() is not defined then it falls back to __index__().",
+                        "If no argument is given, 0.0 is returned.",
+                        "The float type is described in Numeric Types — int, float, complex.",
+                        "Changed in version 3.6: Grouping digits with underscores as in code literals is allowed.",
+                        "Changed in version 3.7: x is now a positional-only parameter.",
+                        "Changed in version 3.8: Falls back to __index__() if __float__() is not defined."
+                    ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "complex()",
+                        "content": ["Return a complex number with the value real + imag*1j or convert a string or number to a complex number. If the first parameter is a string, it will be interpreted as a complex number and the function must be called without a second parameter. The second parameter can never be a string. Each argument may be any numeric type (including complex). If imag is omitted, it defaults to zero and the constructor serves as a numeric conversion like int and float. If both arguments are omitted, returns 0j.",
+                        "For a general Python object x, complex(x) delegates to x.__complex__(). If __complex__() is not defined then it falls back to __float__(). If __float__() is not defined then it falls back to __index__().",
+                        "The complex type is described in Numeric Types — int, float, complex.",
+                        "Changed in version 3.6: Grouping digits with underscores as in code literals is allowed.",
+                        "Changed in version 3.8: Falls back to __index__() if __complex__() and __float__() are not defined."
+                    ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "divmod()",
+                        "content": [
+                            "Take two (non-complex) numbers as arguments and return a pair of numbers consisting of their quotient and remainder when using integer division. With mixed operand types, the rules for binary arithmetic operators apply. For integers, the result is the same as (a // b, a % b). For floating point numbers the result is (q, a % b), where q is usually math.floor(a / b) but may be 1 less than that. In any case q * b + a % b is very close to a, if a % b is non-zero it has the same sign as b, and 0 <= abs(a % b) < abs(b)."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "pow()",
+                        "content": [
+                            "Return base to the power exp; if mod is present, return base to the power exp, modulo mod (computed more efficiently than pow(base, exp) % mod). The two-argument form pow(base, exp) is equivalent to using the power operator: base**exp.",
+                            "The arguments must have numeric types. With mixed operand types, the coercion rules for binary arithmetic operators apply. For int operands, the result has the same type as the operands (after coercion) unless the second argument is negative; in that case, all arguments are converted to float and a float result is delivered. For example, pow(10, 2) returns 100, but pow(10, -2) returns 0.01. For a negative base of type int or float and a non-integral exponent, a complex result is delivered. For example, pow(-9, 0.5) returns a value close to 3j.",
+                            "For int operands base and exp, if mod is present, mod must also be of integer type and mod must be nonzero. If mod is present and exp is negative, base must be relatively prime to mod. In that case, pow(inv_base, -exp, mod) is returned, where inv_base is an inverse to base modulo mod.",
+                            "Here’s an example of computing an inverse for 38 modulo 97:",
+                            "Changed in version 3.8: For int operands, the three-argument form of pow now allows the second argument to be negative, permitting computation of modular inverses.",
+                            "Changed in version 3.8: Allow keyword arguments. Formerly, only positional arguments were supported."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": [
+                    {
+                        "Topic": "Bitwise Operations on Integer Types",
+                        "content": [
+                            "Bitwise operations only make sense for integers. The result of bitwise\noperations is calculated as though carried out in two\u2019s complement with an\ninfinite number of sign bits.",
+                            "The priorities of the binary bitwise operations are all lower than the numeric\noperations and higher than the comparisons; the unary operation ~ has the\nsame priority as the other unary numeric operations (+ and -).",
+                            "This table lists the bitwise operations sorted in ascending priority:",
+                            "Notes:",
+                            "Negative shift counts are illegal and cause a ValueError to be raised.",
+                            "A left shift by n bits is equivalent to multiplication by pow(2, n).",
+                            "A right shift by n bits is equivalent to floor division by pow(2, n).",
+                            "Performing these calculations with at least one extra sign extension bit in\na finite two\u2019s complement representation (a working bit-width of\n1 + max(x.bit_length(), y.bit_length()) or more) is sufficient to get the\nsame result as if there were an infinite number of sign bits."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Additional Methods on Integer Types",
+                        "content": [
+                            "The int type implements the numbers.Integral abstract base\nclass. In addition, it provides a few more methods:"
+                        ],
+                        "functions": [
+                            {
+                                "name": "int.bit_length()",
+                                "content": [
+                                    "Return the number of bits necessary to represent an integer in binary,\nexcluding the sign and leading zeros:",
+                                    "More precisely, if x is nonzero, then x.bit_length() is the\nunique positive integer k such that 2**(k-1) <= abs(x) < 2**k.\nEquivalently, when abs(x) is small enough to have a correctly\nrounded logarithm, then k = 1 + int(log(abs(x), 2)).\nIf x is zero, then x.bit_length() returns 0.",
+                                    "Equivalent to:"
+                                ],
+                                "code_demo": [
+                                    ">>> n = -37\n>>> bin(n)\n'-0b100101'\n>>> n.bit_length()\n6\n\n",
+                                    "def bit_length(self):\n    s = bin(self)       # binary representation:  bin(-37) --> '-0b100101'\n    s = s.lstrip('-0b') # remove leading zeros and minus sign\n    return len(s)       # len('100101') --> 6\n\n"
+                                ]
+                            },
+                            {
+                                "name": "int.bit_count()",
+                                "content": [
+                                    "Return the number of ones in the binary representation of the absolute\nvalue of the integer. This is also known as the population count.\nExample:",
+                                    "Equivalent to:"
+                                ],
+                                "code_demo": [
+                                    ">>> n = 19\n>>> bin(n)\n'0b10011'\n>>> n.bit_count()\n3\n>>> (-n).bit_count()\n3\n\n",
+                                    "def bit_count(self):\n    return bin(self).count(\"1\")\n\n"
+                                ]
+                            },
+                            {
+                                "name": "int.to_bytes(length=1, byteorder='big', *, signed=False)",
+                                "content": [
+                                    "Return an array of bytes representing an integer.",
+                                    "The integer is represented using length bytes, and defaults to 1.  An\nOverflowError is raised if the integer is not representable with\nthe given number of bytes.",
+                                    "The byteorder argument determines the byte order used to represent the\ninteger, and defaults to \"big\".  If byteorder is\n\"big\", the most significant byte is at the beginning of the byte\narray.  If byteorder is \"little\", the most significant byte is at\nthe end of the byte array.",
+                                    "The signed argument determines whether two\u2019s complement is used to\nrepresent the integer.  If signed is False and a negative integer is\ngiven, an OverflowError is raised. The default value for signed\nis False.",
+                                    "The default values can be used to conveniently turn an integer into a\nsingle byte object.  However, when using the default arguments, don\u2019t try\nto convert a value greater than 255 or you\u2019ll get an OverflowError:",
+                                    "Equivalent to:"
+                                ],
+                                "code_demo": [
+                                    ">>> (1024).to_bytes(2, byteorder='big')\nb'\\x04\\x00'\n>>> (1024).to_bytes(10, byteorder='big')\nb'\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x04\\x00'\n>>> (-1024).to_bytes(10, byteorder='big', signed=True)\nb'\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xfc\\x00'\n>>> x = 1000\n>>> x.to_bytes((x.bit_length() + 7) // 8, byteorder='little')\nb'\\xe8\\x03'\n\n",
+                                    ">>> (65).to_bytes()\nb'A'\n\n",
+                                    "def to_bytes(n, length=1, byteorder='big', signed=False):\n    if byteorder == 'little':\n        order = range(length)\n    elif byteorder == 'big':\n        order = reversed(range(length))\n    else:\n        raise ValueError(\"byteorder must be either 'little' or 'big'\")\n\n    return bytes((n >> i*8) & 0xff for i in order)\n\n",
+                                    "\nNew in version 3.2.\n",
+                                    "\nChanged in version 3.11: Added default argument values for length and byteorder.\n"
+                                ]
+                            },
+                            {
+                                "name": "classmethod int.from_bytes(bytes, byteorder='big', *, signed=False)",
+                                "content": [
+                                    "Return the integer represented by the given array of bytes.",
+                                    "The argument bytes must either be a bytes-like object or an\niterable producing bytes.",
+                                    "The byteorder argument determines the byte order used to represent the\ninteger, and defaults to \"big\".  If byteorder is\n\"big\", the most significant byte is at the beginning of the byte\narray.  If byteorder is \"little\", the most significant byte is at\nthe end of the byte array.  To request the native byte order of the host\nsystem, use sys.byteorder as the byte order value.",
+                                    "The signed argument indicates whether two\u2019s complement is used to\nrepresent the integer.",
+                                    "Equivalent to:"
+                                ],
+                                "code_demo": [
+                                    ">>> int.from_bytes(b'\\x00\\x10', byteorder='big')\n16\n>>> int.from_bytes(b'\\x00\\x10', byteorder='little')\n4096\n>>> int.from_bytes(b'\\xfc\\x00', byteorder='big', signed=True)\n-1024\n>>> int.from_bytes(b'\\xfc\\x00', byteorder='big', signed=False)\n64512\n>>> int.from_bytes([255, 0, 0], byteorder='big')\n16711680\n\n",
+                                    "def from_bytes(bytes, byteorder='big', signed=False):\n    if byteorder == 'little':\n        little_ordered = list(bytes)\n    elif byteorder == 'big':\n        little_ordered = list(reversed(bytes))\n    else:\n        raise ValueError(\"byteorder must be either 'little' or 'big'\")\n\n    n = sum(b << i*8 for i, b in enumerate(little_ordered))\n    if signed and little_ordered and (little_ordered[-1] & 0x80):\n        n -= 1 << 8*len(little_ordered)\n\n    return n\n\n",
+                                    "\nNew in version 3.2.\n",
+                                    "\nChanged in version 3.11: Added default argument value for byteorder.\n"
+                                ]
+                            },
+                            {
+                                "name": "int.as_integer_ratio()",
+                                "content": [
+                                    "Return a pair of integers whose ratio is exactly equal to the original\ninteger and with a positive denominator. The integer ratio of integers\n(whole numbers) is always the integer as the numerator and 1 as the\ndenominator."
+                                ],
+                                "code_demo": []
+                            }
+                        ],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Additional Methods on Float",
+                        "content": [
+                            "The float type implements the numbers.Real abstract base\nclass. float also has the following additional methods.",
+                            "Two methods support conversion to\nand from hexadecimal strings.  Since Python\u2019s floats are stored\ninternally as binary numbers, converting a float to or from a\ndecimal string usually involves a small rounding error.  In\ncontrast, hexadecimal strings allow exact representation and\nspecification of floating-point numbers.  This can be useful when\ndebugging, and in numerical work.",
+                            "Note that float.hex() is an instance method, while\nfloat.fromhex() is a class method.",
+                            "A hexadecimal string takes the form:",
+                            "where the optional sign may by either + or -, integer\nand fraction are strings of hexadecimal digits, and exponent\nis a decimal integer with an optional leading sign.  Case is not\nsignificant, and there must be at least one hexadecimal digit in\neither the integer or the fraction.  This syntax is similar to the\nsyntax specified in section 6.4.4.2 of the C99 standard, and also to\nthe syntax used in Java 1.5 onwards.  In particular, the output of\nfloat.hex() is usable as a hexadecimal floating-point literal in\nC or Java code, and hexadecimal strings produced by C\u2019s %a format\ncharacter or Java\u2019s Double.toHexString are accepted by\nfloat.fromhex().",
+                            "Note that the exponent is written in decimal rather than hexadecimal,\nand that it gives the power of 2 by which to multiply the coefficient.\nFor example, the hexadecimal string 0x3.a7p10 represents the\nfloating-point number (3 + 10./16 + 7./16**2) * 2.0**10, or\n3740.0:",
+                            "Applying the reverse conversion to 3740.0 gives a different\nhexadecimal string representing the same number:"
+                        ],
+                        "functions": [
+                            {
+                                "name": "float.as_integer_ratio()",
+                                "content": [
+                                    "Return a pair of integers whose ratio is exactly equal to the\noriginal float and with a positive denominator.  Raises\nOverflowError on infinities and a ValueError on\nNaNs."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "float.is_integer()",
+                                "content": [
+                                    "Return True if the float instance is finite with integral\nvalue, and False otherwise:"
+                                ],
+                                "code_demo": [
+                                    ">>> (-2.0).is_integer()\nTrue\n>>> (3.2).is_integer()\nFalse\n\n"
+                                ]
+                            },
+                            {
+                                "name": "float.hex()",
+                                "content": [
+                                    "Return a representation of a floating-point number as a hexadecimal\nstring.  For finite floating-point numbers, this representation\nwill always include a leading 0x and a trailing p and\nexponent."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "classmethod float.fromhex(s)",
+                                "content": [
+                                    "Class method to return the float represented by a hexadecimal\nstring s.  The string s may have leading and trailing\nwhitespace."
+                                ],
+                                "code_demo": []
+                            }
+                        ],
+                        "code_demo": [
+                            "[sign] ['0x'] integer ['.' fraction] ['p' exponent]\n\n",
+                            ">>> float.fromhex('0x3.a7p10')\n3740.0\n\n",
+                            ">>> float.hex(3740.0)\n'0x1.d380000000000p+11'\n\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Hashing of numeric types",
+                        "content": [
+                            "For numbers x and y, possibly of different types, it\u2019s a requirement\nthat hash(x) == hash(y) whenever x == y (see the __hash__()\nmethod documentation for more details).  For ease of implementation and\nefficiency across a variety of numeric types (including int,\nfloat, decimal.Decimal and fractions.Fraction)\nPython\u2019s hash for numeric types is based on a single mathematical function\nthat\u2019s defined for any rational number, and hence applies to all instances of\nint and fractions.Fraction, and all finite instances of\nfloat and decimal.Decimal.  Essentially, this function is\ngiven by reduction modulo P for a fixed prime P.  The value of P is\nmade available to Python as the modulus attribute of\nsys.hash_info.",
+                            "Here are the rules in detail:",
+                            "To clarify the above rules, here\u2019s some example Python code,\nequivalent to the built-in hash, for computing the hash of a rational\nnumber, float, or complex:"
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            "\nCPython implementation detail: Currently, the prime used is P = 2**31 - 1 on machines with 32-bit C\nlongs and P = 2**61 - 1 on machines with 64-bit C longs.\n",
+                            "import sys, math\n\ndef hash_fraction(m, n):\n    \"\"\"Compute the hash of a rational number m / n.\n\n    Assumes m and n are integers, with n positive.\n    Equivalent to hash(fractions.Fraction(m, n)).\n\n    \"\"\"\n    P = sys.hash_info.modulus\n    # Remove common factors of P.  (Unnecessary if m and n already coprime.)\n    while m % P == n % P == 0:\n        m, n = m // P, n // P\n\n    if n % P == 0:\n        hash_value = sys.hash_info.inf\n    else:\n        # Fermat's Little Theorem: pow(n, P-1, P) is 1, so\n        # pow(n, P-2, P) gives the inverse of n modulo P.\n        hash_value = (abs(m) % P) * pow(n, P - 2, P) % P\n    if m < 0:\n        hash_value = -hash_value\n    if hash_value == -1:\n        hash_value = -2\n    return hash_value\n\ndef hash_float(x):\n    \"\"\"Compute the hash of a float x.\"\"\"\n\n    if math.isnan(x):\n        return object.__hash__(x)\n    elif math.isinf(x):\n        return sys.hash_info.inf if x > 0 else -sys.hash_info.inf\n    else:\n        return hash_fraction(*x.as_integer_ratio())\n\ndef hash_complex(z):\n    \"\"\"Compute the hash of a complex number z.\"\"\"\n\n    hash_value = hash_float(z.real) + sys.hash_info.imag * hash_float(z.imag)\n    # do a signed reduction modulo 2**sys.hash_info.width\n    M = 2**(sys.hash_info.width - 1)\n    hash_value = (hash_value & (M - 1)) - (hash_value & M)\n    if hash_value == -1:\n        hash_value = -2\n    return hash_value\n\n"
+                        ],
+                        "Subtopics": []
+                    }
+                ]
+            },
+            {
+                "Topic": "Iterator Types",
+                "content": [
+                    "Python supports a concept of iteration over containers.  This is implemented\nusing two distinct methods; these are used to allow user-defined classes to\nsupport iteration.  Sequences, described below in more detail, always support\nthe iteration methods.",
+                    "One method needs to be defined for container objects to provide iterable\nsupport:",
+                    "The iterator objects themselves are required to support the following two\nmethods, which together form the iterator protocol:",
+                    "Python defines several iterator objects to support iteration over general and\nspecific sequence types, dictionaries, and other more specialized forms.  The\nspecific types are not important beyond their implementation of the iterator\nprotocol.",
+                    "Once an iterator\u2019s __next__() method raises\nStopIteration, it must continue to do so on subsequent calls.\nImplementations that do not obey this property are deemed broken."
+                ],
+                "functions": [
+                    {
+                        "name": "container.__iter__()",
+                        "content": [
+                            "Return an iterator object.  The object is required to support the\niterator protocol described below.  If a container supports different types\nof iteration, additional methods can be provided to specifically request\niterators for those iteration types.  (An example of an object supporting\nmultiple forms of iteration would be a tree structure which supports both\nbreadth-first and depth-first traversal.)  This method corresponds to the\ntp_iter slot of the type structure for Python\nobjects in the Python/C API."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "iterator.__iter__()",
+                        "content": [
+                            "Return the iterator object itself.  This is required to allow both\ncontainers and iterators to be used with the for and\nin statements.  This method corresponds to the\ntp_iter slot of the type structure for Python\nobjects in the Python/C API."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "iterator.__next__()",
+                        "content": [
+                            "Return the next item from the iterator.  If there are no further\nitems, raise the StopIteration exception.  This method corresponds to\nthe tp_iternext slot of the type structure for\nPython objects in the Python/C API."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": [
+                    {
+                        "Topic": "Generator Types",
+                        "content": [
+                            "Python\u2019s generators provide a convenient way to implement the iterator\nprotocol.  If a container object\u2019s __iter__() method is implemented as a\ngenerator, it will automatically return an iterator object (technically, a\ngenerator object) supplying the __iter__() and __next__()\nmethods.\nMore information about generators can be found in the documentation for\nthe yield expression."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    }
+                ]
+            },
+            {
+                "Topic": "Sequence Types list, tuple, range",
+                "content": [
+                    "There are three basic sequence types: lists, tuples, and range objects.\nAdditional sequence types tailored for processing of\nbinary data and text strings are\ndescribed in dedicated sections."
+                ],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": [
+                    {
+                        "Topic": "Common Sequence Operations",
+                        "content": [
+                            "The operations in the following table are supported by most sequence types,\nboth mutable and immutable. The collections.abc.Sequence ABC is\nprovided to make it easier to correctly implement these operations on\ncustom sequence types.",
+                            "This table lists the sequence operations sorted in ascending priority.  In the\ntable, s and t are sequences of the same type, n, i, j and k are\nintegers and x is an arbitrary object that meets any type and value\nrestrictions imposed by s.",
+                            "The in and not in operations have the same priorities as the\ncomparison operations. The + (concatenation) and * (repetition)\noperations have the same priority as the corresponding numeric operations. 3",
+                            "Sequences of the same type also support comparisons.  In particular, tuples\nand lists are compared lexicographically by comparing corresponding elements.\nThis means that to compare equal, every element must compare equal and the\ntwo sequences must be of the same type and have the same length.  (For full\ndetails see Comparisons in the language reference.)",
+                            "Forward and reversed iterators over mutable sequences access values using an\nindex.  That index will continue to march forward (or backward) even if the\nunderlying sequence is mutated.  The iterator terminates only when an\nIndexError or a StopIteration is encountered (or when the index\ndrops below zero).",
+                            "Notes:",
+                            "While the in and not in operations are used only for simple\ncontainment testing in the general case, some specialised sequences\n(such as str, bytes and bytearray) also use\nthem for subsequence testing:\n>>> \"gg\" in \"eggs\"\nTrue\n\n\n",
+                            "Values of n less than 0 are treated as 0 (which yields an empty\nsequence of the same type as s).  Note that items in the sequence s\nare not copied; they are referenced multiple times.  This often haunts\nnew Python programmers; consider:\n>>> lists = [[]] * 3\n>>> lists\n[[], [], []]\n>>> lists[0].append(3)\n>>> lists\n[[3], [3], [3]]\n\n\nWhat has happened is that [[]] is a one-element list containing an empty\nlist, so all three elements of [[]] * 3 are references to this single empty\nlist.  Modifying any of the elements of lists modifies this single list.\nYou can create a list of different lists this way:\n>>> lists = [[] for i in range(3)]\n>>> lists[0].append(3)\n>>> lists[1].append(5)\n>>> lists[2].append(7)\n>>> lists\n[[3], [5], [7]]\n\n\nFurther explanation is available in the FAQ entry\nHow do I create a multidimensional list?.\n",
+                            "If i or j is negative, the index is relative to the end of sequence s:\nlen(s) + i or len(s) + j is substituted.  But note that -0 is\nstill 0.",
+                            "The slice of s from i to j is defined as the sequence of items with index\nk such that i <= k < j.  If i or j is greater than len(s), use\nlen(s).  If i is omitted or None, use 0.  If j is omitted or\nNone, use len(s).  If i is greater than or equal to j, the slice is\nempty.",
+                            "The slice of s from i to j with step k is defined as the sequence of\nitems with index  x = i + n*k such that 0 <= n < (j-i)/k.  In other words,\nthe indices are i, i+k, i+2*k, i+3*k and so on, stopping when\nj is reached (but never including j).  When k is positive,\ni and j are reduced to len(s) if they are greater.\nWhen k is negative, i and j are reduced to len(s) - 1 if\nthey are greater.  If i or j are omitted or None, they become\n\u201cend\u201d values (which end depends on the sign of k).  Note, k cannot be zero.\nIf k is None, it is treated like 1.",
+                            "Concatenating immutable sequences always results in a new object.  This\nmeans that building up a sequence by repeated concatenation will have a\nquadratic runtime cost in the total sequence length.  To get a linear\nruntime cost, you must switch to one of the alternatives below:\n\nif concatenating str objects, you can build a list and use\nstr.join() at the end or else write to an io.StringIO\ninstance and retrieve its value when complete\nif concatenating bytes objects, you can similarly use\nbytes.join() or io.BytesIO, or you can do in-place\nconcatenation with a bytearray object.  bytearray\nobjects are mutable and have an efficient overallocation mechanism\nif concatenating tuple objects, extend a list instead\nfor other types, investigate the relevant class documentation\n\n",
+                            "Some sequence types (such as range) only support item sequences\nthat follow specific patterns, and hence don\u2019t support sequence\nconcatenation or repetition.",
+                            "index raises ValueError when x is not found in s.\nNot all implementations support passing the additional arguments i and j.\nThese arguments allow efficient searching of subsections of the sequence. Passing\nthe extra arguments is roughly equivalent to using s[i:j].index(x), only\nwithout copying any data and with the returned index being relative to\nthe start of the sequence rather than the start of the slice."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Immutable Sequence Types",
+                        "content": [
+                            "The only operation that immutable sequence types generally implement that is\nnot also implemented by mutable sequence types is support for the hash()\nbuilt-in.",
+                            "This support allows immutable sequences, such as tuple instances, to\nbe used as dict keys and stored in set and frozenset\ninstances.",
+                            "Attempting to hash an immutable sequence that contains unhashable values will\nresult in TypeError."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Mutable Sequence Types",
+                        "content": [
+                            "The operations in the following table are defined on mutable sequence types.\nThe collections.abc.MutableSequence ABC is provided to make it\neasier to correctly implement these operations on custom sequence types.",
+                            "In the table s is an instance of a mutable sequence type, t is any\niterable object and x is an arbitrary object that meets any type\nand value restrictions imposed by s (for example, bytearray only\naccepts integers that meet the value restriction 0 <= x <= 255).",
+                            "Notes:",
+                            "t must have the same length as the slice it is replacing.",
+                            "The optional argument i defaults to -1, so that by default the last\nitem is removed and returned.",
+                            "remove() raises ValueError when x is not found in s.",
+                            "The reverse() method modifies the sequence in place for economy of\nspace when reversing a large sequence.  To remind users that it operates by\nside effect, it does not return the reversed sequence.",
+                            "clear() and copy() are included for consistency with the\ninterfaces of mutable containers that don\u2019t support slicing operations\n(such as dict and set). copy() is not part of the\ncollections.abc.MutableSequence ABC, but most concrete\nmutable sequence classes provide it.\n\nNew in version 3.3: clear() and copy() methods.\n\n",
+                            "The value n is an integer, or an object implementing\n__index__().  Zero and negative values of n clear\nthe sequence.  Items in the sequence are not copied; they are referenced\nmultiple times, as explained for s * n under Common Sequence Operations."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Lists",
+                        "content": [
+                            "Lists are mutable sequences, typically used to store collections of\nhomogeneous items (where the precise degree of similarity will vary by\napplication)."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Tuples",
+                        "content": [
+                            "Tuples are immutable sequences, typically used to store collections of\nheterogeneous data (such as the 2-tuples produced by the enumerate()\nbuilt-in). Tuples are also used for cases where an immutable sequence of\nhomogeneous data is needed (such as allowing storage in a set or\ndict instance).",
+                            "For heterogeneous collections of data where access by name is clearer than\naccess by index, collections.namedtuple() may be a more appropriate\nchoice than a simple tuple object."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Ranges",
+                        "content": [
+                            "The range type represents an immutable sequence of numbers and is\ncommonly used for looping a specific number of times in for\nloops.",
+                            "The advantage of the range type over a regular list or\ntuple is that a range object will always take the same\n(small) amount of memory, no matter the size of the range it represents (as it\nonly stores the start, stop and step values, calculating individual\nitems and subranges as needed).",
+                            "Range objects implement the collections.abc.Sequence ABC, and provide\nfeatures such as containment tests, element index lookup, slicing and\nsupport for negative indices (see Sequence Types \u2014 list, tuple, range):",
+                            "Testing range objects for equality with == and != compares\nthem as sequences.  That is, two range objects are considered equal if\nthey represent the same sequence of values.  (Note that two range\nobjects that compare equal might have different start,\nstop and step attributes, for example\nrange(0) == range(2, 1, 3) or range(0, 3, 2) == range(0, 4, 2).)"
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> r = range(0, 20, 2)\n>>> r\nrange(0, 20, 2)\n>>> 11 in r\nFalse\n>>> 10 in r\nTrue\n>>> r.index(10)\n5\n>>> r[5]\n10\n>>> r[:5]\nrange(0, 10, 2)\n>>> r[-1]\n18\n\n",
+                            "\nChanged in version 3.2: Implement the Sequence ABC.\nSupport slicing and negative indices.\nTest int objects for membership in constant time instead of\niterating through all items.\n",
+                            "\nChanged in version 3.3: Define \u2018==\u2019 and \u2018!=\u2019 to compare range objects based on the\nsequence of values they define (instead of comparing based on\nobject identity).\n",
+                            "\nNew in version 3.3: The start, stop and step\nattributes.\n",
+                            "\nSee also\n\nThe linspace recipe\nshows how to implement a lazy version of range suitable for floating\npoint applications.\n\n"
+                        ],
+                        "Subtopics": []
+                    }
+                ]
+            },
+            {
+                "Topic": "Text Sequence Type str",
+                "content": [
+                    "Textual data in Python is handled with str objects, or strings.\nStrings are immutable\nsequences of Unicode code points.  String literals are\nwritten in a variety of ways:",
+                    "Triple quoted strings may span multiple lines - all associated whitespace will\nbe included in the string literal.",
+                    "String literals that are part of a single expression and have only whitespace\nbetween them will be implicitly converted to a single string literal. That\nis, (\"spam \" \"eggs\") == \"spam eggs\".",
+                    "See String and Bytes literals for more about the various forms of string literal,\nincluding supported escape sequences, and the r (\u201craw\u201d) prefix that\ndisables most escape sequence processing.",
+                    "Strings may also be created from other objects using the str\nconstructor.",
+                    "Since there is no separate \u201ccharacter\u201d type, indexing a string produces\nstrings of length 1. That is, for a non-empty string s, s[0] == s[0:1].",
+                    "There is also no mutable string type, but str.join() or\nio.StringIO can be used to efficiently construct strings from\nmultiple fragments."
+                ],
+                "functions": [],
+                "code_demo": [
+                    "\nChanged in version 3.3: For backwards compatibility with the Python 2 series, the u prefix is\nonce again permitted on string literals. It has no effect on the meaning\nof string literals and cannot be combined with the r prefix.\n"
+                ],
+                "Subtopics": [
+                    {
+                        "Topic": "String Methods",
+                        "content": [
+                            "Strings implement all of the common sequence\noperations, along with the additional methods described below.",
+                            "Strings also support two styles of string formatting, one providing a large\ndegree of flexibility and customization (see str.format(),\nFormat String Syntax and Custom String Formatting) and the other based on C\nprintf style formatting that handles a narrower range of types and is\nslightly harder to use correctly, but is often faster for the cases it can\nhandle (printf-style String Formatting).",
+                            "The Text Processing Services section of the standard library covers a number of\nother modules that provide various text related utilities (including regular\nexpression support in the re module)."
+                        ],
+                        "functions": [
+                            {
+                                "name": "str.capitalize()",
+                                "content": [
+                                    "Return a copy of the string with its first character capitalized and the\nrest lowercased."
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.8: The first character is now put into titlecase rather than uppercase.\nThis means that characters like digraphs will only have their first\nletter capitalized, instead of the full character.\n"
+                                ]
+                            },
+                            {
+                                "name": "str.casefold()",
+                                "content": [
+                                    "Return a casefolded copy of the string. Casefolded strings may be used for\ncaseless matching.",
+                                    "Casefolding is similar to lowercasing but more aggressive because it is\nintended to remove all case distinctions in a string. For example, the German\nlowercase letter '\u00df' is equivalent to \"ss\". Since it is already\nlowercase, lower() would do nothing to '\u00df'; casefold()\nconverts it to \"ss\".",
+                                    "The casefolding algorithm is described in section 3.13 of the Unicode\nStandard."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.center(width[, fillchar])",
+                                "content": [
+                                    "Return centered in a string of length width. Padding is done using the\nspecified fillchar (default is an ASCII space). The original string is\nreturned if width is less than or equal to len(s)."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.count(sub[, start[, end]])",
+                                "content": [
+                                    "Return the number of non-overlapping occurrences of substring sub in the\nrange [start, end].  Optional arguments start and end are\ninterpreted as in slice notation."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.encode(encoding='utf-8', errors='strict')",
+                                "content": [
+                                    "Return an encoded version of the string as a bytes object. Default encoding\nis 'utf-8'. errors may be given to set a different error handling scheme.\nThe default for errors is 'strict', meaning that encoding errors raise\na UnicodeError. Other possible\nvalues are 'ignore', 'replace', 'xmlcharrefreplace',\n'backslashreplace' and any other name registered via\ncodecs.register_error(), see section Error Handlers. For a\nlist of possible encodings, see section Standard Encodings.",
+                                    "By default, the errors argument is not checked for best performances, but\nonly used at the first encoding error. Enable the Python Development\nMode, or use a debug build to check\nerrors."
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.1: Support for keyword arguments added.\n",
+                                    "\nChanged in version 3.9: The errors is now checked in development mode and\nin debug mode.\n"
+                                ]
+                            },
+                            {
+                                "name": "str.endswith(suffix[, start[, end]])",
+                                "content": [
+                                    "Return True if the string ends with the specified suffix, otherwise return\nFalse.  suffix can also be a tuple of suffixes to look for.  With optional\nstart, test beginning at that position.  With optional end, stop comparing\nat that position."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.expandtabs(tabsize=8)",
+                                "content": [
+                                    "Return a copy of the string where all tab characters are replaced by one or\nmore spaces, depending on the current column and the given tab size.  Tab\npositions occur every tabsize characters (default is 8, giving tab\npositions at columns 0, 8, 16 and so on).  To expand the string, the current\ncolumn is set to zero and the string is examined character by character.  If\nthe character is a tab (\\t), one or more space characters are inserted\nin the result until the current column is equal to the next tab position.\n(The tab character itself is not copied.)  If the character is a newline\n(\\n) or return (\\r), it is copied and the current column is reset to\nzero.  Any other character is copied unchanged and the current column is\nincremented by one regardless of how the character is represented when\nprinted."
+                                ],
+                                "code_demo": [
+                                    ">>> '01\\t012\\t0123\\t01234'.expandtabs()\n'01      012     0123    01234'\n>>> '01\\t012\\t0123\\t01234'.expandtabs(4)\n'01  012 0123    01234'\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.find(sub[, start[, end]])",
+                                "content": [
+                                    "Return the lowest index in the string where substring sub is found within\nthe slice s[start:end].  Optional arguments start and end are\ninterpreted as in slice notation.  Return -1 if sub is not found."
+                                ],
+                                "code_demo": [
+                                    "\nNote\nThe find() method should be used only if you need to know the\nposition of sub.  To check if sub is a substring or not, use the\nin operator:\n>>> 'Py' in 'Python'\nTrue\n\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.format(*args, **kwargs)",
+                                "content": [
+                                    "Perform a string formatting operation.  The string on which this method is\ncalled can contain literal text or replacement fields delimited by braces\n{}.  Each replacement field contains either the numeric index of a\npositional argument, or the name of a keyword argument.  Returns a copy of\nthe string where each replacement field is replaced with the string value of\nthe corresponding argument.",
+                                    "See Format String Syntax for a description of the various formatting options\nthat can be specified in format strings."
+                                ],
+                                "code_demo": [
+                                    ">>> \"The sum of 1 + 2 is {0}\".format(1+2)\n'The sum of 1 + 2 is 3'\n\n",
+                                    "\nNote\nWhen formatting a number (int, float, complex,\ndecimal.Decimal and subclasses) with the n type\n(ex: '{:n}'.format(1234)), the function temporarily sets the\nLC_CTYPE locale to the LC_NUMERIC locale to decode\ndecimal_point and thousands_sep fields of localeconv() if\nthey are non-ASCII or longer than 1 byte, and the LC_NUMERIC locale is\ndifferent than the LC_CTYPE locale.  This temporary change affects\nother threads.\n",
+                                    "\nChanged in version 3.7: When formatting a number with the n type, the function sets\ntemporarily the LC_CTYPE locale to the LC_NUMERIC locale in some\ncases.\n"
+                                ]
+                            },
+                            {
+                                "name": "str.format_map(mapping)",
+                                "content": [
+                                    "Similar to str.format(**mapping), except that mapping is\nused directly and not copied to a dict.  This is useful\nif for example mapping is a dict subclass:"
+                                ],
+                                "code_demo": [
+                                    ">>> class Default(dict):\n...     def __missing__(self, key):\n...         return key\n...\n>>> '{name} was born in {country}'.format_map(Default(name='Guido'))\n'Guido was born in country'\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.index(sub[, start[, end]])",
+                                "content": [
+                                    "Like find(), but raise ValueError when the substring is\nnot found."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isalnum()",
+                                "content": [
+                                    "Return True if all characters in the string are alphanumeric and there is at\nleast one character, False otherwise.  A character c is alphanumeric if one\nof the following returns True: c.isalpha(), c.isdecimal(),\nc.isdigit(), or c.isnumeric()."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isalpha()",
+                                "content": [
+                                    "Return True if all characters in the string are alphabetic and there is at least\none character, False otherwise.  Alphabetic characters are those characters defined\nin the Unicode character database as \u201cLetter\u201d, i.e., those with general category\nproperty being one of \u201cLm\u201d, \u201cLt\u201d, \u201cLu\u201d, \u201cLl\u201d, or \u201cLo\u201d.  Note that this is different\nfrom the \u201cAlphabetic\u201d property defined in the Unicode Standard."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isascii()",
+                                "content": [
+                                    "Return True if the string is empty or all characters in the string are ASCII,\nFalse otherwise.\nASCII characters have code points in the range U+0000-U+007F."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isdecimal()",
+                                "content": [
+                                    "Return True if all characters in the string are decimal\ncharacters and there is at least one character, False\notherwise. Decimal characters are those that can be used to form\nnumbers in base 10, e.g. U+0660, ARABIC-INDIC DIGIT\nZERO.  Formally a decimal character is a character in the Unicode\nGeneral Category \u201cNd\u201d."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isdigit()",
+                                "content": [
+                                    "Return True if all characters in the string are digits and there is at least one\ncharacter, False otherwise.  Digits include decimal characters and digits that need\nspecial handling, such as the compatibility superscript digits.\nThis covers digits which cannot be used to form numbers in base 10,\nlike the Kharosthi numbers.  Formally, a digit is a character that has the\nproperty value Numeric_Type=Digit or Numeric_Type=Decimal."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isidentifier()",
+                                "content": [
+                                    "Return True if the string is a valid identifier according to the language\ndefinition, section Identifiers and keywords.",
+                                    "Call keyword.iskeyword() to test whether string s is a reserved\nidentifier, such as def and class.",
+                                    "Example:"
+                                ],
+                                "code_demo": [
+                                    ">>> from keyword import iskeyword\n\n>>> 'hello'.isidentifier(), iskeyword('hello')\n(True, False)\n>>> 'def'.isidentifier(), iskeyword('def')\n(True, True)\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.islower()",
+                                "content": [
+                                    "Return True if all cased characters 4 in the string are lowercase and\nthere is at least one cased character, False otherwise."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isnumeric()",
+                                "content": [
+                                    "Return True if all characters in the string are numeric\ncharacters, and there is at least one character, False\notherwise. Numeric characters include digit characters, and all characters\nthat have the Unicode numeric value property, e.g. U+2155,\nVULGAR FRACTION ONE FIFTH.  Formally, numeric characters are those with the property\nvalue Numeric_Type=Digit, Numeric_Type=Decimal or Numeric_Type=Numeric."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isprintable()",
+                                "content": [
+                                    "Return True if all characters in the string are printable or the string is\nempty, False otherwise.  Nonprintable characters are those characters defined\nin the Unicode character database as \u201cOther\u201d or \u201cSeparator\u201d, excepting the\nASCII space (0x20) which is considered printable.  (Note that printable\ncharacters in this context are those which should not be escaped when\nrepr() is invoked on a string.  It has no bearing on the handling of\nstrings written to sys.stdout or sys.stderr.)"
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isspace()",
+                                "content": [
+                                    "Return True if there are only whitespace characters in the string and there is\nat least one character, False otherwise.",
+                                    "A character is whitespace if in the Unicode character database\n(see unicodedata), either its general category is Zs\n(\u201cSeparator, space\u201d), or its bidirectional class is one of WS,\nB, or S."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.istitle()",
+                                "content": [
+                                    "Return True if the string is a titlecased string and there is at least one\ncharacter, for example uppercase characters may only follow uncased characters\nand lowercase characters only cased ones.  Return False otherwise."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.isupper()",
+                                "content": [
+                                    "Return True if all cased characters 4 in the string are uppercase and\nthere is at least one cased character, False otherwise."
+                                ],
+                                "code_demo": [
+                                    ">>> 'BANANA'.isupper()\nTrue\n>>> 'banana'.isupper()\nFalse\n>>> 'baNana'.isupper()\nFalse\n>>> ' '.isupper()\nFalse\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.join(iterable)",
+                                "content": [
+                                    "Return a string which is the concatenation of the strings in iterable.\nA TypeError will be raised if there are any non-string values in\niterable, including bytes objects.  The separator between\nelements is the string providing this method."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.ljust(width[, fillchar])",
+                                "content": [
+                                    "Return the string left justified in a string of length width. Padding is\ndone using the specified fillchar (default is an ASCII space). The\noriginal string is returned if width is less than or equal to len(s)."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.lower()",
+                                "content": [
+                                    "Return a copy of the string with all the cased characters 4 converted to\nlowercase.",
+                                    "The lowercasing algorithm used is described in section 3.13 of the Unicode\nStandard."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.lstrip([chars])",
+                                "content": [
+                                    "Return a copy of the string with leading characters removed.  The chars\nargument is a string specifying the set of characters to be removed.  If omitted\nor None, the chars argument defaults to removing whitespace.  The chars\nargument is not a prefix; rather, all combinations of its values are stripped:",
+                                    "See str.removeprefix() for a method that will remove a single prefix\nstring rather than all of a set of characters.  For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> '   spacious   '.lstrip()\n'spacious   '\n>>> 'www.example.com'.lstrip('cmowz.')\n'example.com'\n\n",
+                                    ">>> 'Arthur: three!'.lstrip('Arthur: ')\n'ee!'\n>>> 'Arthur: three!'.removeprefix('Arthur: ')\n'three!'\n\n"
+                                ]
+                            },
+                            {
+                                "name": "static str.maketrans(x[, y[, z]])",
+                                "content": [
+                                    "This static method returns a translation table usable for str.translate().",
+                                    "If there is only one argument, it must be a dictionary mapping Unicode\nordinals (integers) or characters (strings of length 1) to Unicode ordinals,\nstrings (of arbitrary lengths) or None.  Character keys will then be\nconverted to ordinals.",
+                                    "If there are two arguments, they must be strings of equal length, and in the\nresulting dictionary, each character in x will be mapped to the character at\nthe same position in y.  If there is a third argument, it must be a string,\nwhose characters will be mapped to None in the result."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.partition(sep)",
+                                "content": [
+                                    "Split the string at the first occurrence of sep, and return a 3-tuple\ncontaining the part before the separator, the separator itself, and the part\nafter the separator.  If the separator is not found, return a 3-tuple containing\nthe string itself, followed by two empty strings."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.removeprefix(prefix, /)",
+                                "content": [
+                                    "If the string starts with the prefix string, return\nstring[len(prefix):]. Otherwise, return a copy of the original\nstring:"
+                                ],
+                                "code_demo": [
+                                    ">>> 'TestHook'.removeprefix('Test')\n'Hook'\n>>> 'BaseTestCase'.removeprefix('Test')\n'BaseTestCase'\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.removesuffix(suffix, /)",
+                                "content": [
+                                    "If the string ends with the suffix string and that suffix is not empty,\nreturn string[:-len(suffix)]. Otherwise, return a copy of the\noriginal string:"
+                                ],
+                                "code_demo": [
+                                    ">>> 'MiscTests'.removesuffix('Tests')\n'Misc'\n>>> 'TmpDirMixin'.removesuffix('Tests')\n'TmpDirMixin'\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.replace(old, new[, count])",
+                                "content": [
+                                    "Return a copy of the string with all occurrences of substring old replaced by\nnew.  If the optional argument count is given, only the first count\noccurrences are replaced."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.rfind(sub[, start[, end]])",
+                                "content": [
+                                    "Return the highest index in the string where substring sub is found, such\nthat sub is contained within s[start:end].  Optional arguments start\nand end are interpreted as in slice notation.  Return -1 on failure."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.rindex(sub[, start[, end]])",
+                                "content": [
+                                    "Like rfind() but raises ValueError when the substring sub is not\nfound."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.rjust(width[, fillchar])",
+                                "content": [
+                                    "Return the string right justified in a string of length width. Padding is\ndone using the specified fillchar (default is an ASCII space). The\noriginal string is returned if width is less than or equal to len(s)."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.rpartition(sep)",
+                                "content": [
+                                    "Split the string at the last occurrence of sep, and return a 3-tuple\ncontaining the part before the separator, the separator itself, and the part\nafter the separator.  If the separator is not found, return a 3-tuple containing\ntwo empty strings, followed by the string itself."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.rsplit(sep=None, maxsplit=- 1)",
+                                "content": [
+                                    "Return a list of the words in the string, using sep as the delimiter string.\nIf maxsplit is given, at most maxsplit splits are done, the rightmost\nones.  If sep is not specified or None, any whitespace string is a\nseparator.  Except for splitting from the right, rsplit() behaves like\nsplit() which is described in detail below."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.rstrip([chars])",
+                                "content": [
+                                    "Return a copy of the string with trailing characters removed.  The chars\nargument is a string specifying the set of characters to be removed.  If omitted\nor None, the chars argument defaults to removing whitespace.  The chars\nargument is not a suffix; rather, all combinations of its values are stripped:",
+                                    "See str.removesuffix() for a method that will remove a single suffix\nstring rather than all of a set of characters.  For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> '   spacious   '.rstrip()\n'   spacious'\n>>> 'mississippi'.rstrip('ipz')\n'mississ'\n\n",
+                                    ">>> 'Monty Python'.rstrip(' Python')\n'M'\n>>> 'Monty Python'.removesuffix(' Python')\n'Monty'\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.split(sep=None, maxsplit=- 1)",
+                                "content": [
+                                    "Return a list of the words in the string, using sep as the delimiter\nstring.  If maxsplit is given, at most maxsplit splits are done (thus,\nthe list will have at most maxsplit+1 elements).  If maxsplit is not\nspecified or -1, then there is no limit on the number of splits\n(all possible splits are made).",
+                                    "If sep is given, consecutive delimiters are not grouped together and are\ndeemed to delimit empty strings (for example, '1,,2'.split(',') returns\n['1', '', '2']).  The sep argument may consist of multiple characters\n(for example, '1<>2<>3'.split('<>') returns ['1', '2', '3']).\nSplitting an empty string with a specified separator returns [''].",
+                                    "For example:",
+                                    "If sep is not specified or is None, a different splitting algorithm is\napplied: runs of consecutive whitespace are regarded as a single separator,\nand the result will contain no empty strings at the start or end if the\nstring has leading or trailing whitespace.  Consequently, splitting an empty\nstring or a string consisting of just whitespace with a None separator\nreturns [].",
+                                    "For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> '1,2,3'.split(',')\n['1', '2', '3']\n>>> '1,2,3'.split(',', maxsplit=1)\n['1', '2,3']\n>>> '1,2,,3,'.split(',')\n['1', '2', '', '3', '']\n\n",
+                                    ">>> '1 2 3'.split()\n['1', '2', '3']\n>>> '1 2 3'.split(maxsplit=1)\n['1', '2 3']\n>>> '   1   2   3   '.split()\n['1', '2', '3']\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.splitlines(keepends=False)",
+                                "content": [
+                                    "Return a list of the lines in the string, breaking at line boundaries.  Line\nbreaks are not included in the resulting list unless keepends is given and\ntrue.",
+                                    "This method splits on the following line boundaries.  In particular, the\nboundaries are a superset of universal newlines.",
+                                    "For example:",
+                                    "Unlike split() when a delimiter string sep is given, this\nmethod returns an empty list for the empty string, and a terminal line\nbreak does not result in an extra line:",
+                                    "For comparison, split('\\n') gives:"
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.2: \\v and \\f added to list of line boundaries.\n",
+                                    ">>> 'ab c\\n\\nde fg\\rkl\\r\\n'.splitlines()\n['ab c', '', 'de fg', 'kl']\n>>> 'ab c\\n\\nde fg\\rkl\\r\\n'.splitlines(keepends=True)\n['ab c\\n', '\\n', 'de fg\\r', 'kl\\r\\n']\n\n",
+                                    ">>> \"\".splitlines()\n[]\n>>> \"One line\\n\".splitlines()\n['One line']\n\n",
+                                    ">>> ''.split('\\n')\n['']\n>>> 'Two lines\\n'.split('\\n')\n['Two lines', '']\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.startswith(prefix[, start[, end]])",
+                                "content": [
+                                    "Return True if string starts with the prefix, otherwise return False.\nprefix can also be a tuple of prefixes to look for.  With optional start,\ntest string beginning at that position.  With optional end, stop comparing\nstring at that position."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.strip([chars])",
+                                "content": [
+                                    "Return a copy of the string with the leading and trailing characters removed.\nThe chars argument is a string specifying the set of characters to be removed.\nIf omitted or None, the chars argument defaults to removing whitespace.\nThe chars argument is not a prefix or suffix; rather, all combinations of its\nvalues are stripped:",
+                                    "The outermost leading and trailing chars argument values are stripped\nfrom the string. Characters are removed from the leading end until\nreaching a string character that is not contained in the set of\ncharacters in chars. A similar action takes place on the trailing end.\nFor example:"
+                                ],
+                                "code_demo": [
+                                    ">>> '   spacious   '.strip()\n'spacious'\n>>> 'www.example.com'.strip('cmowz.')\n'example'\n\n",
+                                    ">>> comment_string = '#....... Section 3.2.1 Issue #32 .......'\n>>> comment_string.strip('.#! ')\n'Section 3.2.1 Issue #32'\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.swapcase()",
+                                "content": [
+                                    "Return a copy of the string with uppercase characters converted to lowercase and\nvice versa. Note that it is not necessarily true that\ns.swapcase().swapcase() == s."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.title()",
+                                "content": [
+                                    "Return a titlecased version of the string where words start with an uppercase\ncharacter and the remaining characters are lowercase.",
+                                    "For example:",
+                                    "The algorithm uses a simple language-independent definition of a word as\ngroups of consecutive letters.  The definition works in many contexts but\nit means that apostrophes in contractions and possessives form word\nboundaries, which may not be the desired result:",
+                                    "The string.capwords() function does not have this problem, as it\nsplits words on spaces only.",
+                                    "Alternatively, a workaround for apostrophes can be constructed using regular\nexpressions:"
+                                ],
+                                "code_demo": [
+                                    ">>> 'Hello world'.title()\n'Hello World'\n\n",
+                                    ">>> \"they're bill's friends from the UK\".title()\n\"They'Re Bill'S Friends From The Uk\"\n\n",
+                                    ">>> import re\n>>> def titlecase(s):\n...     return re.sub(r\"[A-Za-z]+('[A-Za-z]+)?\",\n...                   lambda mo: mo.group(0).capitalize(),\n...                   s)\n...\n>>> titlecase(\"they're bill's friends.\")\n\"They're Bill's Friends.\"\n\n"
+                                ]
+                            },
+                            {
+                                "name": "str.translate(table)",
+                                "content": [
+                                    "Return a copy of the string in which each character has been mapped through\nthe given translation table.  The table must be an object that implements\nindexing via __getitem__(), typically a mapping or\nsequence.  When indexed by a Unicode ordinal (an integer), the\ntable object can do any of the following: return a Unicode ordinal or a\nstring, to map the character to one or more other characters; return\nNone, to delete the character from the return string; or raise a\nLookupError exception, to map the character to itself.",
+                                    "You can use str.maketrans() to create a translation map from\ncharacter-to-character mappings in different formats.",
+                                    "See also the codecs module for a more flexible approach to custom\ncharacter mappings."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.upper()",
+                                "content": [
+                                    "Return a copy of the string with all the cased characters 4 converted to\nuppercase.  Note that s.upper().isupper() might be False if s\ncontains uncased characters or if the Unicode category of the resulting\ncharacter(s) is not \u201cLu\u201d (Letter, uppercase), but e.g. \u201cLt\u201d (Letter,\ntitlecase).",
+                                    "The uppercasing algorithm used is described in section 3.13 of the Unicode\nStandard."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "str.zfill(width)",
+                                "content": [
+                                    "Return a copy of the string left filled with ASCII '0' digits to\nmake a string of length width. A leading sign prefix ('+'/'-')\nis handled by inserting the padding after the sign character rather\nthan before. The original string is returned if width is less than\nor equal to len(s).",
+                                    "For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> \"42\".zfill(5)\n'00042'\n>>> \"-42\".zfill(5)\n'-0042'\n\n"
+                                ]
+                            }
+                        ],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "printf-style String Formatting",
+                        "content": [
+                            "String objects have one unique built-in operation: the % operator (modulo).\nThis is also known as the string formatting or interpolation operator.\nGiven format % values (where format is a string), % conversion\nspecifications in format are replaced with zero or more elements of values.\nThe effect is similar to using the sprintf() in the C language.",
+                            "If format requires a single argument, values may be a single non-tuple\nobject. 5  Otherwise, values must be a tuple with exactly the number of\nitems specified by the format string, or a single mapping object (for example, a\ndictionary).",
+                            "A conversion specifier contains two or more characters and has the following\ncomponents, which must occur in this order:",
+                            "When the right argument is a dictionary (or other mapping type), then the\nformats in the string must include a parenthesised mapping key into that\ndictionary inserted immediately after the '%' character. The mapping key\nselects the value to be formatted from the mapping.  For example:",
+                            "In this case no * specifiers may occur in a format (since they require a\nsequential parameter list).",
+                            "The conversion flag characters are:",
+                            "A length modifier (h, l, or L) may be present, but is ignored as it\nis not necessary for Python \u2013 so e.g. %ld is identical to %d.",
+                            "The conversion types are:",
+                            "Notes:",
+                            "Since Python strings have an explicit length, %s conversions do not assume\nthat '\\0' is the end of the string.",
+                            "The '%' character, which marks the start of the specifier.",
+                            "Mapping key (optional), consisting of a parenthesised sequence of characters\n(for example, (somename)).",
+                            "Conversion flags (optional), which affect the result of some conversion\ntypes.",
+                            "Minimum field width (optional).  If specified as an '*' (asterisk), the\nactual width is read from the next element of the tuple in values, and the\nobject to convert comes after the minimum field width and optional precision.",
+                            "Precision (optional), given as a '.' (dot) followed by the precision.  If\nspecified as '*' (an asterisk), the actual precision is read from the next\nelement of the tuple in values, and the value to convert comes after the\nprecision.",
+                            "Length modifier (optional).",
+                            "Conversion type."
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            "\nNote\nThe formatting operations described here exhibit a variety of quirks that\nlead to a number of common errors (such as failing to display tuples and\ndictionaries correctly).  Using the newer formatted string literals, the str.format() interface, or template strings may help avoid these errors.  Each of these\nalternatives provides their own trade-offs and benefits of simplicity,\nflexibility, and/or extensibility.\n",
+                            ">>> print('%(language)s has %(number)03d quote types.' %\n...       {'language': \"Python\", \"number\": 2})\nPython has 002 quote types.\n\n",
+                            "\nChanged in version 3.1: %f conversions for numbers whose absolute value is over 1e50 are no\nlonger replaced by %g conversions.\n"
+                        ],
+                        "Subtopics": []
+                    }
+                ]
+            },
+            {
+                "Topic": "Binary Sequence Types bytes, bytearray, memoryview",
+                "content": [
+                    "The core built-in types for manipulating binary data are bytes and\nbytearray. They are supported by memoryview which uses\nthe buffer protocol to access the memory of other\nbinary objects without needing to make a copy.",
+                    "The array module supports efficient storage of basic data types like\n32-bit integers and IEEE754 double-precision floating values."
+                ],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": [
+                    {
+                        "Topic": "Bytes Objects",
+                        "content": [
+                            "Bytes objects are immutable sequences of single bytes. Since many major\nbinary protocols are based on the ASCII text encoding, bytes objects offer\nseveral methods that are only valid when working with ASCII compatible\ndata and are closely related to string objects in a variety of other ways.",
+                            "Since bytes objects are sequences of integers (akin to a tuple), for a bytes\nobject b, b[0] will be an integer, while b[0:1] will be a bytes\nobject of length 1.  (This contrasts with text strings, where both indexing\nand slicing will produce a string of length 1)",
+                            "The representation of bytes objects uses the literal format (b'...')\nsince it is often more useful than e.g. bytes([46, 46, 46]).  You can\nalways convert a bytes object into a list of integers using list(b)."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Bytearray Objects",
+                        "content": [
+                            "bytearray objects are a mutable counterpart to bytes\nobjects.",
+                            "Since bytearray objects are sequences of integers (akin to a list), for a\nbytearray object b, b[0] will be an integer, while b[0:1] will be\na bytearray object of length 1.  (This contrasts with text strings, where\nboth indexing and slicing will produce a string of length 1)",
+                            "The representation of bytearray objects uses the bytes literal format\n(bytearray(b'...')) since it is often more useful than e.g.\nbytearray([46, 46, 46]).  You can always convert a bytearray object into\na list of integers using list(b)."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Bytes and Bytearray Operations",
+                        "content": [
+                            "Both bytes and bytearray objects support the common\nsequence operations. They interoperate not just with operands of the same\ntype, but with any bytes-like object. Due to this flexibility, they can be\nfreely mixed in operations without causing errors. However, the return type\nof the result may depend on the order of operands.",
+                            "Some bytes and bytearray operations assume the use of ASCII compatible\nbinary formats, and hence should be avoided when working with arbitrary\nbinary data. These restrictions are covered below.",
+                            "The following methods on bytes and bytearray objects can be used with\narbitrary binary data.",
+                            "The following methods on bytes and bytearray objects have default behaviours\nthat assume the use of ASCII compatible binary formats, but can still be used\nwith arbitrary binary data by passing appropriate arguments. Note that all of\nthe bytearray methods in this section do not operate in place, and instead\nproduce new objects.",
+                            "The following methods on bytes and bytearray objects assume the use of ASCII\ncompatible binary formats and should not be applied to arbitrary binary data.\nNote that all of the bytearray methods in this section do not operate in\nplace, and instead produce new objects."
+                        ],
+                        "functions": [
+                            {
+                                "name": "bytes.count(sub[, start[, end]])",
+                                "content": [
+                                    "Return the number of non-overlapping occurrences of subsequence sub in\nthe range [start, end].  Optional arguments start and end are\ninterpreted as in slice notation.",
+                                    "The subsequence to search for may be any bytes-like object or an\ninteger in the range 0 to 255."
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.removeprefix(prefix, /)",
+                                "content": [
+                                    "If the binary data starts with the prefix string, return\nbytes[len(prefix):]. Otherwise, return a copy of the original\nbinary data:",
+                                    "The prefix may be any bytes-like object."
+                                ],
+                                "code_demo": [
+                                    ">>> b'TestHook'.removeprefix(b'Test')\nb'Hook'\n>>> b'BaseTestCase'.removeprefix(b'Test')\nb'BaseTestCase'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place -\nit always produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.removesuffix(suffix, /)",
+                                "content": [
+                                    "If the binary data ends with the suffix string and that suffix is\nnot empty, return bytes[:-len(suffix)].  Otherwise, return a copy of\nthe original binary data:",
+                                    "The suffix may be any bytes-like object."
+                                ],
+                                "code_demo": [
+                                    ">>> b'MiscTests'.removesuffix(b'Tests')\nb'Misc'\n>>> b'TmpDirMixin'.removesuffix(b'Tests')\nb'TmpDirMixin'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place -\nit always produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.decode(encoding='utf-8', errors='strict')",
+                                "content": [
+                                    "Return a string decoded from the given bytes.  Default encoding is\n'utf-8'. errors may be given to set a different\nerror handling scheme.  The default for errors is 'strict', meaning\nthat encoding errors raise a UnicodeError.  Other possible values are\n'ignore', 'replace' and any other name registered via\ncodecs.register_error(), see section Error Handlers. For a\nlist of possible encodings, see section Standard Encodings.",
+                                    "By default, the errors argument is not checked for best performances, but\nonly used at the first decoding error. Enable the Python Development\nMode, or use a debug build to check errors."
+                                ],
+                                "code_demo": [
+                                    "\nNote\nPassing the encoding argument to str allows decoding any\nbytes-like object directly, without needing to make a temporary\nbytes or bytearray object.\n",
+                                    "\nChanged in version 3.1: Added support for keyword arguments.\n",
+                                    "\nChanged in version 3.9: The errors is now checked in development mode and\nin debug mode.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.endswith(suffix[, start[, end]])",
+                                "content": [
+                                    "Return True if the binary data ends with the specified suffix,\notherwise return False.  suffix can also be a tuple of suffixes to\nlook for.  With optional start, test beginning at that position.  With\noptional end, stop comparing at that position.",
+                                    "The suffix(es) to search for may be any bytes-like object."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "bytes.find(sub[, start[, end]])",
+                                "content": [
+                                    "Return the lowest index in the data where the subsequence sub is found,\nsuch that sub is contained in the slice s[start:end].  Optional\narguments start and end are interpreted as in slice notation.  Return\n-1 if sub is not found.",
+                                    "The subsequence to search for may be any bytes-like object or an\ninteger in the range 0 to 255."
+                                ],
+                                "code_demo": [
+                                    "\nNote\nThe find() method should be used only if you need to know the\nposition of sub.  To check if sub is a substring or not, use the\nin operator:\n>>> b'Py' in b'Python'\nTrue\n\n\n",
+                                    "\nChanged in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.index(sub[, start[, end]])",
+                                "content": [
+                                    "Like find(), but raise ValueError when the\nsubsequence is not found.",
+                                    "The subsequence to search for may be any bytes-like object or an\ninteger in the range 0 to 255."
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.join(iterable)",
+                                "content": [
+                                    "Return a bytes or bytearray object which is the concatenation of the\nbinary data sequences in iterable.  A TypeError will be raised\nif there are any values in iterable that are not bytes-like\nobjects, including str objects.  The\nseparator between elements is the contents of the bytes or\nbytearray object providing this method."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "static bytes.maketrans(from, to)",
+                                "content": [
+                                    "This static method returns a translation table usable for\nbytes.translate() that will map each character in from into the\ncharacter at the same position in to; from and to must both be\nbytes-like objects and have the same length."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "bytes.partition(sep)",
+                                "content": [
+                                    "Split the sequence at the first occurrence of sep, and return a 3-tuple\ncontaining the part before the separator, the separator itself or its\nbytearray copy, and the part after the separator.\nIf the separator is not found, return a 3-tuple\ncontaining a copy of the original sequence, followed by two empty bytes or\nbytearray objects.",
+                                    "The separator to search for may be any bytes-like object."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "bytes.replace(old, new[, count])",
+                                "content": [
+                                    "Return a copy of the sequence with all occurrences of subsequence old\nreplaced by new.  If the optional argument count is given, only the\nfirst count occurrences are replaced.",
+                                    "The subsequence to search for and its replacement may be any\nbytes-like object."
+                                ],
+                                "code_demo": [
+                                    "\nNote\nThe bytearray version of this method does not operate in place - it\nalways produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.rfind(sub[, start[, end]])",
+                                "content": [
+                                    "Return the highest index in the sequence where the subsequence sub is\nfound, such that sub is contained within s[start:end].  Optional\narguments start and end are interpreted as in slice notation. Return\n-1 on failure.",
+                                    "The subsequence to search for may be any bytes-like object or an\ninteger in the range 0 to 255."
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.rindex(sub[, start[, end]])",
+                                "content": [
+                                    "Like rfind() but raises ValueError when the\nsubsequence sub is not found.",
+                                    "The subsequence to search for may be any bytes-like object or an\ninteger in the range 0 to 255."
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.3: Also accept an integer in the range 0 to 255 as the subsequence.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.rpartition(sep)",
+                                "content": [
+                                    "Split the sequence at the last occurrence of sep, and return a 3-tuple\ncontaining the part before the separator, the separator itself or its\nbytearray copy, and the part after the separator.\nIf the separator is not found, return a 3-tuple\ncontaining two empty bytes or bytearray objects, followed by a copy of the\noriginal sequence.",
+                                    "The separator to search for may be any bytes-like object."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "bytes.startswith(prefix[, start[, end]])",
+                                "content": [
+                                    "Return True if the binary data starts with the specified prefix,\notherwise return False.  prefix can also be a tuple of prefixes to\nlook for.  With optional start, test beginning at that position.  With\noptional end, stop comparing at that position.",
+                                    "The prefix(es) to search for may be any bytes-like object."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "bytes.translate(table, /, delete=b'')",
+                                "content": [
+                                    "Return a copy of the bytes or bytearray object where all bytes occurring in\nthe optional argument delete are removed, and the remaining bytes have\nbeen mapped through the given translation table, which must be a bytes\nobject of length 256.",
+                                    "You can use the bytes.maketrans() method to create a translation\ntable.",
+                                    "Set the table argument to None for translations that only delete\ncharacters:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'read this short text'.translate(None, b'aeiou')\nb'rd ths shrt txt'\n\n",
+                                    "\nChanged in version 3.6: delete is now supported as a keyword argument.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.center(width[, fillbyte])",
+                                "content": [
+                                    "Return a copy of the object centered in a sequence of length width.\nPadding is done using the specified fillbyte (default is an ASCII\nspace). For bytes objects, the original sequence is returned if\nwidth is less than or equal to len(s)."
+                                ],
+                                "code_demo": [
+                                    "\nNote\nThe bytearray version of this method does not operate in place -\nit always produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.ljust(width[, fillbyte])",
+                                "content": [
+                                    "Return a copy of the object left justified in a sequence of length width.\nPadding is done using the specified fillbyte (default is an ASCII\nspace). For bytes objects, the original sequence is returned if\nwidth is less than or equal to len(s)."
+                                ],
+                                "code_demo": [
+                                    "\nNote\nThe bytearray version of this method does not operate in place -\nit always produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.lstrip([chars])",
+                                "content": [
+                                    "Return a copy of the sequence with specified leading bytes removed.  The\nchars argument is a binary sequence specifying the set of byte values to\nbe removed - the name refers to the fact this method is usually used with\nASCII characters.  If omitted or None, the chars argument defaults\nto removing ASCII whitespace.  The chars argument is not a prefix;\nrather, all combinations of its values are stripped:",
+                                    "The binary sequence of byte values to remove may be any\nbytes-like object. See removeprefix() for a method\nthat will remove a single prefix string rather than all of a set of\ncharacters.  For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'   spacious   '.lstrip()\nb'spacious   '\n>>> b'www.example.com'.lstrip(b'cmowz.')\nb'example.com'\n\n",
+                                    ">>> b'Arthur: three!'.lstrip(b'Arthur: ')\nb'ee!'\n>>> b'Arthur: three!'.removeprefix(b'Arthur: ')\nb'three!'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place -\nit always produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.rjust(width[, fillbyte])",
+                                "content": [
+                                    "Return a copy of the object right justified in a sequence of length width.\nPadding is done using the specified fillbyte (default is an ASCII\nspace). For bytes objects, the original sequence is returned if\nwidth is less than or equal to len(s)."
+                                ],
+                                "code_demo": [
+                                    "\nNote\nThe bytearray version of this method does not operate in place -\nit always produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.rsplit(sep=None, maxsplit=- 1)",
+                                "content": [
+                                    "Split the binary sequence into subsequences of the same type, using sep\nas the delimiter string. If maxsplit is given, at most maxsplit splits\nare done, the rightmost ones.  If sep is not specified or None,\nany subsequence consisting solely of ASCII whitespace is a separator.\nExcept for splitting from the right, rsplit() behaves like\nsplit() which is described in detail below."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "bytes.rstrip([chars])",
+                                "content": [
+                                    "Return a copy of the sequence with specified trailing bytes removed.  The\nchars argument is a binary sequence specifying the set of byte values to\nbe removed - the name refers to the fact this method is usually used with\nASCII characters.  If omitted or None, the chars argument defaults to\nremoving ASCII whitespace.  The chars argument is not a suffix; rather,\nall combinations of its values are stripped:",
+                                    "The binary sequence of byte values to remove may be any\nbytes-like object. See removesuffix() for a method\nthat will remove a single suffix string rather than all of a set of\ncharacters.  For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'   spacious   '.rstrip()\nb'   spacious'\n>>> b'mississippi'.rstrip(b'ipz')\nb'mississ'\n\n",
+                                    ">>> b'Monty Python'.rstrip(b' Python')\nb'M'\n>>> b'Monty Python'.removesuffix(b' Python')\nb'Monty'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place -\nit always produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.split(sep=None, maxsplit=- 1)",
+                                "content": [
+                                    "Split the binary sequence into subsequences of the same type, using sep\nas the delimiter string. If maxsplit is given and non-negative, at most\nmaxsplit splits are done (thus, the list will have at most maxsplit+1\nelements).  If maxsplit is not specified or is -1, then there is no\nlimit on the number of splits (all possible splits are made).",
+                                    "If sep is given, consecutive delimiters are not grouped together and are\ndeemed to delimit empty subsequences (for example, b'1,,2'.split(b',')\nreturns [b'1', b'', b'2']).  The sep argument may consist of a\nmultibyte sequence (for example, b'1<>2<>3'.split(b'<>') returns\n[b'1', b'2', b'3']). Splitting an empty sequence with a specified\nseparator returns [b''] or [bytearray(b'')] depending on the type\nof object being split.  The sep argument may be any\nbytes-like object.",
+                                    "For example:",
+                                    "If sep is not specified or is None, a different splitting algorithm\nis applied: runs of consecutive ASCII whitespace are regarded as a single\nseparator, and the result will contain no empty strings at the start or\nend if the sequence has leading or trailing whitespace.  Consequently,\nsplitting an empty sequence or a sequence consisting solely of ASCII\nwhitespace without a specified separator returns [].",
+                                    "For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'1,2,3'.split(b',')\n[b'1', b'2', b'3']\n>>> b'1,2,3'.split(b',', maxsplit=1)\n[b'1', b'2,3']\n>>> b'1,2,,3,'.split(b',')\n[b'1', b'2', b'', b'3', b'']\n\n",
+                                    ">>> b'1 2 3'.split()\n[b'1', b'2', b'3']\n>>> b'1 2 3'.split(maxsplit=1)\n[b'1', b'2 3']\n>>> b'   1   2   3   '.split()\n[b'1', b'2', b'3']\n\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.strip([chars])",
+                                "content": [
+                                    "Return a copy of the sequence with specified leading and trailing bytes\nremoved. The chars argument is a binary sequence specifying the set of\nbyte values to be removed - the name refers to the fact this method is\nusually used with ASCII characters.  If omitted or None, the chars\nargument defaults to removing ASCII whitespace. The chars argument is\nnot a prefix or suffix; rather, all combinations of its values are\nstripped:",
+                                    "The binary sequence of byte values to remove may be any\nbytes-like object."
+                                ],
+                                "code_demo": [
+                                    ">>> b'   spacious   '.strip()\nb'spacious'\n>>> b'www.example.com'.strip(b'cmowz.')\nb'example'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place -\nit always produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.capitalize()",
+                                "content": [
+                                    "Return a copy of the sequence with each byte interpreted as an ASCII\ncharacter, and the first byte capitalized and the rest lowercased.\nNon-ASCII byte values are passed through unchanged."
+                                ],
+                                "code_demo": [
+                                    "\nNote\nThe bytearray version of this method does not operate in place - it\nalways produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.expandtabs(tabsize=8)",
+                                "content": [
+                                    "Return a copy of the sequence where all ASCII tab characters are replaced\nby one or more ASCII spaces, depending on the current column and the given\ntab size.  Tab positions occur every tabsize bytes (default is 8,\ngiving tab positions at columns 0, 8, 16 and so on).  To expand the\nsequence, the current column is set to zero and the sequence is examined\nbyte by byte.  If the byte is an ASCII tab character (b'\\t'), one or\nmore space characters are inserted in the result until the current column\nis equal to the next tab position. (The tab character itself is not\ncopied.)  If the current byte is an ASCII newline (b'\\n') or\ncarriage return (b'\\r'), it is copied and the current column is reset\nto zero.  Any other byte value is copied unchanged and the current column\nis incremented by one regardless of how the byte value is represented when\nprinted:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'01\\t012\\t0123\\t01234'.expandtabs()\nb'01      012     0123    01234'\n>>> b'01\\t012\\t0123\\t01234'.expandtabs(4)\nb'01  012 0123    01234'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place - it\nalways produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.isalnum()",
+                                "content": [
+                                    "Return True if all bytes in the sequence are alphabetical ASCII characters\nor ASCII decimal digits and the sequence is not empty, False otherwise.\nAlphabetic ASCII characters are those byte values in the sequence\nb'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'. ASCII decimal\ndigits are those byte values in the sequence b'0123456789'.",
+                                    "For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'ABCabc1'.isalnum()\nTrue\n>>> b'ABC abc1'.isalnum()\nFalse\n\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.isalpha()",
+                                "content": [
+                                    "Return True if all bytes in the sequence are alphabetic ASCII characters\nand the sequence is not empty, False otherwise.  Alphabetic ASCII\ncharacters are those byte values in the sequence\nb'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.",
+                                    "For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'ABCabc'.isalpha()\nTrue\n>>> b'ABCabc1'.isalpha()\nFalse\n\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.isascii()",
+                                "content": [
+                                    "Return True if the sequence is empty or all bytes in the sequence are ASCII,\nFalse otherwise.\nASCII bytes are in the range 0-0x7F."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "bytes.isdigit()",
+                                "content": [
+                                    "Return True if all bytes in the sequence are ASCII decimal digits\nand the sequence is not empty, False otherwise. ASCII decimal digits are\nthose byte values in the sequence b'0123456789'.",
+                                    "For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'1234'.isdigit()\nTrue\n>>> b'1.23'.isdigit()\nFalse\n\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.islower()",
+                                "content": [
+                                    "Return True if there is at least one lowercase ASCII character\nin the sequence and no uppercase ASCII characters, False otherwise.",
+                                    "For example:",
+                                    "Lowercase ASCII characters are those byte values in the sequence\nb'abcdefghijklmnopqrstuvwxyz'. Uppercase ASCII characters\nare those byte values in the sequence b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'."
+                                ],
+                                "code_demo": [
+                                    ">>> b'hello world'.islower()\nTrue\n>>> b'Hello world'.islower()\nFalse\n\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.isspace()",
+                                "content": [
+                                    "Return True if all bytes in the sequence are ASCII whitespace and the\nsequence is not empty, False otherwise.  ASCII whitespace characters are\nthose byte values in the sequence b' \\t\\n\\r\\x0b\\f' (space, tab, newline,\ncarriage return, vertical tab, form feed)."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "bytes.istitle()",
+                                "content": [
+                                    "Return True if the sequence is ASCII titlecase and the sequence is not\nempty, False otherwise. See bytes.title() for more details on the\ndefinition of \u201ctitlecase\u201d.",
+                                    "For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'Hello World'.istitle()\nTrue\n>>> b'Hello world'.istitle()\nFalse\n\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.isupper()",
+                                "content": [
+                                    "Return True if there is at least one uppercase alphabetic ASCII character\nin the sequence and no lowercase ASCII characters, False otherwise.",
+                                    "For example:",
+                                    "Lowercase ASCII characters are those byte values in the sequence\nb'abcdefghijklmnopqrstuvwxyz'. Uppercase ASCII characters\nare those byte values in the sequence b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'."
+                                ],
+                                "code_demo": [
+                                    ">>> b'HELLO WORLD'.isupper()\nTrue\n>>> b'Hello world'.isupper()\nFalse\n\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.lower()",
+                                "content": [
+                                    "Return a copy of the sequence with all the uppercase ASCII characters\nconverted to their corresponding lowercase counterpart.",
+                                    "For example:",
+                                    "Lowercase ASCII characters are those byte values in the sequence\nb'abcdefghijklmnopqrstuvwxyz'. Uppercase ASCII characters\nare those byte values in the sequence b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'."
+                                ],
+                                "code_demo": [
+                                    ">>> b'Hello World'.lower()\nb'hello world'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place - it\nalways produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.splitlines(keepends=False)",
+                                "content": [
+                                    "Return a list of the lines in the binary sequence, breaking at ASCII\nline boundaries. This method uses the universal newlines approach\nto splitting lines. Line breaks are not included in the resulting list\nunless keepends is given and true.",
+                                    "For example:",
+                                    "Unlike split() when a delimiter string sep is given, this\nmethod returns an empty list for the empty string, and a terminal line\nbreak does not result in an extra line:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'ab c\\n\\nde fg\\rkl\\r\\n'.splitlines()\n[b'ab c', b'', b'de fg', b'kl']\n>>> b'ab c\\n\\nde fg\\rkl\\r\\n'.splitlines(keepends=True)\n[b'ab c\\n', b'\\n', b'de fg\\r', b'kl\\r\\n']\n\n",
+                                    ">>> b\"\".split(b'\\n'), b\"Two lines\\n\".split(b'\\n')\n([b''], [b'Two lines', b''])\n>>> b\"\".splitlines(), b\"One line\\n\".splitlines()\n([], [b'One line'])\n\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.swapcase()",
+                                "content": [
+                                    "Return a copy of the sequence with all the lowercase ASCII characters\nconverted to their corresponding uppercase counterpart and vice-versa.",
+                                    "For example:",
+                                    "Lowercase ASCII characters are those byte values in the sequence\nb'abcdefghijklmnopqrstuvwxyz'. Uppercase ASCII characters\nare those byte values in the sequence b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.",
+                                    "Unlike str.swapcase(), it is always the case that\nbin.swapcase().swapcase() == bin for the binary versions. Case\nconversions are symmetrical in ASCII, even though that is not generally\ntrue for arbitrary Unicode code points."
+                                ],
+                                "code_demo": [
+                                    ">>> b'Hello World'.swapcase()\nb'hELLO wORLD'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place - it\nalways produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.title()",
+                                "content": [
+                                    "Return a titlecased version of the binary sequence where words start with\nan uppercase ASCII character and the remaining characters are lowercase.\nUncased byte values are left unmodified.",
+                                    "For example:",
+                                    "Lowercase ASCII characters are those byte values in the sequence\nb'abcdefghijklmnopqrstuvwxyz'. Uppercase ASCII characters\nare those byte values in the sequence b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.\nAll other byte values are uncased.",
+                                    "The algorithm uses a simple language-independent definition of a word as\ngroups of consecutive letters.  The definition works in many contexts but\nit means that apostrophes in contractions and possessives form word\nboundaries, which may not be the desired result:",
+                                    "A workaround for apostrophes can be constructed using regular expressions:"
+                                ],
+                                "code_demo": [
+                                    ">>> b'Hello world'.title()\nb'Hello World'\n\n",
+                                    ">>> b\"they're bill's friends from the UK\".title()\nb\"They'Re Bill'S Friends From The Uk\"\n\n",
+                                    ">>> import re\n>>> def titlecase(s):\n...     return re.sub(rb\"[A-Za-z]+('[A-Za-z]+)?\",\n...                   lambda mo: mo.group(0)[0:1].upper() +\n...                              mo.group(0)[1:].lower(),\n...                   s)\n...\n>>> titlecase(b\"they're bill's friends.\")\nb\"They're Bill's Friends.\"\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place - it\nalways produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.upper()",
+                                "content": [
+                                    "Return a copy of the sequence with all the lowercase ASCII characters\nconverted to their corresponding uppercase counterpart.",
+                                    "For example:",
+                                    "Lowercase ASCII characters are those byte values in the sequence\nb'abcdefghijklmnopqrstuvwxyz'. Uppercase ASCII characters\nare those byte values in the sequence b'ABCDEFGHIJKLMNOPQRSTUVWXYZ'."
+                                ],
+                                "code_demo": [
+                                    ">>> b'Hello World'.upper()\nb'HELLO WORLD'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place - it\nalways produces a new object, even if no changes were made.\n"
+                                ]
+                            },
+                            {
+                                "name": "bytes.zfill(width)",
+                                "content": [
+                                    "Return a copy of the sequence left filled with ASCII b'0' digits to\nmake a sequence of length width. A leading sign prefix (b'+'/\nb'-') is handled by inserting the padding after the sign character\nrather than before. For bytes objects, the original sequence is\nreturned if width is less than or equal to len(seq).",
+                                    "For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> b\"42\".zfill(5)\nb'00042'\n>>> b\"-42\".zfill(5)\nb'-0042'\n\n",
+                                    "\nNote\nThe bytearray version of this method does not operate in place - it\nalways produces a new object, even if no changes were made.\n"
+                                ]
+                            }
+                        ],
+                        "code_demo": [
+                            "\nNote\nThe methods on bytes and bytearray objects don\u2019t accept strings as their\narguments, just as the methods on strings don\u2019t accept bytes as their\narguments.  For example, you have to write:\na = \"abc\"\nb = a.replace(\"a\", \"f\")\n\n\nand:\na = b\"abc\"\nb = a.replace(b\"a\", b\"f\")\n\n\n",
+                            "\nNote\nUsing these ASCII based operations to manipulate binary data that is not\nstored in an ASCII based format may lead to data corruption.\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "printf-style Bytes Formatting",
+                        "content": [
+                            "Bytes objects (bytes/bytearray) have one unique built-in operation:\nthe % operator (modulo).\nThis is also known as the bytes formatting or interpolation operator.\nGiven format % values (where format is a bytes object), % conversion\nspecifications in format are replaced with zero or more elements of values.\nThe effect is similar to using the sprintf() in the C language.",
+                            "If format requires a single argument, values may be a single non-tuple\nobject. 5  Otherwise, values must be a tuple with exactly the number of\nitems specified by the format bytes object, or a single mapping object (for\nexample, a dictionary).",
+                            "A conversion specifier contains two or more characters and has the following\ncomponents, which must occur in this order:",
+                            "When the right argument is a dictionary (or other mapping type), then the\nformats in the bytes object must include a parenthesised mapping key into that\ndictionary inserted immediately after the '%' character. The mapping key\nselects the value to be formatted from the mapping.  For example:",
+                            "In this case no * specifiers may occur in a format (since they require a\nsequential parameter list).",
+                            "The conversion flag characters are:",
+                            "A length modifier (h, l, or L) may be present, but is ignored as it\nis not necessary for Python \u2013 so e.g. %ld is identical to %d.",
+                            "The conversion types are:",
+                            "Notes:",
+                            "The '%' character, which marks the start of the specifier.",
+                            "Mapping key (optional), consisting of a parenthesised sequence of characters\n(for example, (somename)).",
+                            "Conversion flags (optional), which affect the result of some conversion\ntypes.",
+                            "Minimum field width (optional).  If specified as an '*' (asterisk), the\nactual width is read from the next element of the tuple in values, and the\nobject to convert comes after the minimum field width and optional precision.",
+                            "Precision (optional), given as a '.' (dot) followed by the precision.  If\nspecified as '*' (an asterisk), the actual precision is read from the next\nelement of the tuple in values, and the value to convert comes after the\nprecision.",
+                            "Length modifier (optional).",
+                            "Conversion type."
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            "\nNote\nThe formatting operations described here exhibit a variety of quirks that\nlead to a number of common errors (such as failing to display tuples and\ndictionaries correctly).  If the value being printed may be a tuple or\ndictionary, wrap it in a tuple.\n",
+                            ">>> print(b'%(language)s has %(number)03d quote types.' %\n...       {b'language': b\"Python\", b\"number\": 2})\nb'Python has 002 quote types.'\n\n",
+                            "\nNote\nThe bytearray version of this method does not operate in place - it\nalways produces a new object, even if no changes were made.\n",
+                            "\nSee also\nPEP 461 - Adding % formatting to bytes and bytearray\n",
+                            "\nNew in version 3.5.\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Memory Views",
+                        "content": [
+                            "memoryview objects allow Python code to access the internal data\nof an object that supports the buffer protocol without\ncopying."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    }
+                ]
+            },
+            {
+                "Topic": "Set Types set, frozenset",
+                "content": [
+                    "A set object is an unordered collection of distinct hashable objects.\nCommon uses include membership testing, removing duplicates from a sequence, and\ncomputing mathematical operations such as intersection, union, difference, and\nsymmetric difference.\n(For other containers see the built-in dict, list,\nand tuple classes, and the collections module.)",
+                    "Like other collections, sets support x in set, len(set), and for x in\nset.  Being an unordered collection, sets do not record element position or\norder of insertion.  Accordingly, sets do not support indexing, slicing, or\nother sequence-like behavior.",
+                    "There are currently two built-in set types, set and frozenset.\nThe set type is mutable \u2014 the contents can be changed using methods\nlike add() and remove().  Since it is mutable, it has no\nhash value and cannot be used as either a dictionary key or as an element of\nanother set.  The frozenset type is immutable and hashable \u2014\nits contents cannot be altered after it is created; it can therefore be used as\na dictionary key or as an element of another set.",
+                    "Non-empty sets (not frozensets) can be created by placing a comma-separated list\nof elements within braces, for example: {'jack', 'sjoerd'}, in addition to the\nset constructor.",
+                    "The constructors for both classes work the same:"
+                ],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Mapping Types dict",
+                "content": [
+                    "A mapping object maps hashable values to arbitrary objects.\nMappings are mutable objects.  There is currently only one standard mapping\ntype, the dictionary.  (For other containers see the built-in\nlist, set, and tuple classes, and the\ncollections module.)",
+                    "A dictionary\u2019s keys are almost arbitrary values.  Values that are not\nhashable, that is, values containing lists, dictionaries or other\nmutable types (that are compared by value rather than by object identity) may\nnot be used as keys.\nValues that compare equal (such as 1, 1.0, and True)\ncan be used interchangeably to index the same dictionary entry."
+                ],
+                "functions": [],
+                "code_demo": [
+                    "\nSee also\ntypes.MappingProxyType can be used to create a read-only view\nof a dict.\n"
+                ],
+                "Subtopics": [
+                    {
+                        "Topic": "Dictionary view objects",
+                        "content": [
+                            "The objects returned by dict.keys(), dict.values() and\ndict.items() are view objects.  They provide a dynamic view on the\ndictionary\u2019s entries, which means that when the dictionary changes, the view\nreflects these changes.",
+                            "Dictionary views can be iterated over to yield their respective data, and\nsupport membership tests:",
+                            "Keys views are set-like since their entries are unique and hashable.  If all\nvalues are hashable, so that (key, value) pairs are unique and hashable,\nthen the items view is also set-like.  (Values views are not treated as set-like\nsince the entries are generally not unique.)  For set-like views, all of the\noperations defined for the abstract base class collections.abc.Set are\navailable (for example, ==, <, or ^).",
+                            "An example of dictionary view usage:"
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> dishes = {'eggs': 2, 'sausage': 1, 'bacon': 1, 'spam': 500}\n>>> keys = dishes.keys()\n>>> values = dishes.values()\n\n>>> # iteration\n>>> n = 0\n>>> for val in values:\n...     n += val\n>>> print(n)\n504\n\n>>> # keys and values are iterated over in the same order (insertion order)\n>>> list(keys)\n['eggs', 'sausage', 'bacon', 'spam']\n>>> list(values)\n[2, 1, 1, 500]\n\n>>> # view objects are dynamic and reflect dict changes\n>>> del dishes['eggs']\n>>> del dishes['sausage']\n>>> list(keys)\n['bacon', 'spam']\n\n>>> # set operations\n>>> keys & {'eggs', 'bacon', 'salad'}\n{'bacon'}\n>>> keys ^ {'sausage', 'juice'}\n{'juice', 'sausage', 'bacon', 'spam'}\n\n>>> # get back a read-only proxy for the original dictionary\n>>> values.mapping\nmappingproxy({'eggs': 2, 'sausage': 1, 'bacon': 1, 'spam': 500})\n>>> values.mapping['spam']\n500\n\n"
+                        ],
+                        "Subtopics": []
+                    }
+                ]
+            },
+            {
+                "Topic": "Context Manager Types",
+                "content": [
+                    "Python\u2019s with statement supports the concept of a runtime context\ndefined by a context manager.  This is implemented using a pair of methods\nthat allow user-defined classes to define a runtime context that is entered\nbefore the statement body is executed and exited when the statement ends:",
+                    "Python defines several context managers to support easy thread synchronisation,\nprompt closure of files or other objects, and simpler manipulation of the active\ndecimal arithmetic context. The specific types are not treated specially beyond\ntheir implementation of the context management protocol. See the\ncontextlib module for some examples.",
+                    "Python\u2019s generators and the contextlib.contextmanager decorator\nprovide a convenient way to implement these protocols.  If a generator function is\ndecorated with the contextlib.contextmanager decorator, it will return a\ncontext manager implementing the necessary __enter__() and\n__exit__() methods, rather than the iterator produced by an\nundecorated generator function.",
+                    "Note that there is no specific slot for any of these methods in the type\nstructure for Python objects in the Python/C API. Extension types wanting to\ndefine these methods must provide them as a normal Python accessible method.\nCompared to the overhead of setting up the runtime context, the overhead of a\nsingle class dictionary lookup is negligible."
+                ],
+                "functions": [
+                    {
+                        "name": "contextmanager.__enter__()",
+                        "content": [
+                            "Enter the runtime context and return either this object or another object\nrelated to the runtime context. The value returned by this method is bound to\nthe identifier in the as clause of with statements using\nthis context manager.",
+                            "An example of a context manager that returns itself is a file object.\nFile objects return themselves from __enter__() to allow open() to be\nused as the context expression in a with statement.",
+                            "An example of a context manager that returns a related object is the one\nreturned by decimal.localcontext(). These managers set the active\ndecimal context to a copy of the original decimal context and then return the\ncopy. This allows changes to be made to the current decimal context in the body\nof the with statement without affecting code outside the\nwith statement."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "contextmanager.__exit__(exc_type, exc_val, exc_tb)",
+                        "content": [
+                            "Exit the runtime context and return a Boolean flag indicating if any exception\nthat occurred should be suppressed. If an exception occurred while executing the\nbody of the with statement, the arguments contain the exception type,\nvalue and traceback information. Otherwise, all three arguments are None.",
+                            "Returning a true value from this method will cause the with statement\nto suppress the exception and continue execution with the statement immediately\nfollowing the with statement. Otherwise the exception continues\npropagating after this method has finished executing. Exceptions that occur\nduring execution of this method will replace any exception that occurred in the\nbody of the with statement.",
+                            "The exception passed in should never be reraised explicitly - instead, this\nmethod should return a false value to indicate that the method completed\nsuccessfully and does not want to suppress the raised exception. This allows\ncontext management code to easily detect whether or not an __exit__()\nmethod has actually failed."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Type Annotation Types Generic Alias, Union",
+                "content": [
+                    "The core built-in types for type annotations are\nGeneric Alias and Union."
+                ],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": [
+                    {
+                        "Topic": "Generic Alias Type",
+                        "content": [
+                            "GenericAlias objects are generally created by\nsubscripting a class. They are most often used with\ncontainer classes, such as list or\ndict. For example, list[int] is a GenericAlias object created\nby subscripting the list class with the argument int.\nGenericAlias objects are intended primarily for use with\ntype annotations.",
+                            "A GenericAlias object acts as a proxy for a generic type,\nimplementing parameterized generics.",
+                            "For a container class, the\nargument(s) supplied to a subscription of the class may\nindicate the type(s) of the elements an object contains. For example,\nset[bytes] can be used in type annotations to signify a set in\nwhich all the elements are of type bytes.",
+                            "For a class which defines __class_getitem__() but is not a\ncontainer, the argument(s) supplied to a subscription of the class will often\nindicate the return type(s) of one or more methods defined on an object. For\nexample, regular expressions can be used on both the str data\ntype and the bytes data type:",
+                            "GenericAlias objects are instances of the class\ntypes.GenericAlias, which can also be used to create GenericAlias\nobjects directly.",
+                            "The builtin functions isinstance() and issubclass() do not accept\nGenericAlias types for their second argument:",
+                            "The Python runtime does not enforce type annotations.\nThis extends to generic types and their type parameters. When creating\na container object from a GenericAlias, the elements in the container are not checked\nagainst their type. For example, the following code is discouraged, but will\nrun without errors:",
+                            "Furthermore, parameterized generics erase type parameters during object\ncreation:",
+                            "Calling repr() or str() on a generic shows the parameterized type:",
+                            "The __getitem__() method of generic containers will raise an\nexception to disallow mistakes like dict[str][str]:",
+                            "However, such expressions are valid when type variables are\nused.  The index must have as many elements as there are type variable items\nin the GenericAlias object\u2019s __args__."
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            "\nNote\nIt is generally only possible to subscript a class if the class implements\nthe special method __class_getitem__().\n",
+                            ">>> isinstance([1, 2], list[str])\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: isinstance() argument 2 cannot be a parameterized generic\n\n",
+                            ">>> t = list[str]\n>>> t([1, 2, 3])\n[1, 2, 3]\n\n",
+                            ">>> t = list[str]\n>>> type(t)\n<class 'types.GenericAlias'>\n\n>>> l = t()\n>>> type(l)\n<class 'list'>\n\n",
+                            ">>> repr(list[int])\n'list[int]'\n\n>>> str(list[int])\n'list[int]'\n\n",
+                            ">>> dict[str][str]\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: There are no type variables left in dict[str]\n\n",
+                            ">>> from typing import TypeVar\n>>> Y = TypeVar('Y')\n>>> dict[str, Y][int]\ndict[str, int]\n\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Union Type",
+                        "content": [
+                            "A union object holds the value of the | (bitwise or) operation on\nmultiple type objects.  These types are intended\nprimarily for type annotations. The union type expression\nenables cleaner type hinting syntax compared to typing.Union.",
+                            "The user-exposed type for the union object can be accessed from\ntypes.UnionType and used for isinstance() checks.  An object cannot be\ninstantiated from the type:"
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> import types\n>>> isinstance(int | str, types.UnionType)\nTrue\n>>> types.UnionType()\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nTypeError: cannot create 'types.UnionType' instances\n\n",
+                            "\nNote\nThe __or__() method for type objects was added to support the syntax\nX | Y.  If a metaclass implements __or__(), the Union may\noverride it:\n>>> class M(type):\n...     def __or__(self, other):\n...         return \"Hello\"\n...\n>>> class C(metaclass=M):\n...     pass\n...\n>>> C | int\n'Hello'\n>>> int | C\nint | __main__.C\n\n\n",
+                            "\nSee also\nPEP 604 \u2013 PEP proposing the X | Y syntax and the Union type.\n",
+                            "\nNew in version 3.10.\n"
+                        ],
+                        "Subtopics": []
+                    }
+                ]
+            },
+            {
+                "Topic": "Other Built-in Types",
+                "content": [
+                    "The interpreter supports several other kinds of objects. Most of these support\nonly one or two operations."
+                ],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": [
+                    {
+                        "Topic": "Modules",
+                        "content": [
+                            "The only special operation on a module is attribute access: m.name, where\nm is a module and name accesses a name defined in m\u2019s symbol table.\nModule attributes can be assigned to.  (Note that the import\nstatement is not, strictly speaking, an operation on a module object; import\nfoo does not require a module object named foo to exist, rather it requires\nan (external) definition for a module named foo somewhere.)",
+                            "A special attribute of every module is __dict__. This is the\ndictionary containing the module\u2019s symbol table. Modifying this dictionary will\nactually change the module\u2019s symbol table, but direct assignment to the\n__dict__ attribute is not possible (you can write\nm.__dict__['a'] = 1, which defines m.a to be 1, but you can\u2019t write\nm.__dict__ = {}).  Modifying __dict__ directly is\nnot recommended.",
+                            "Modules built into the interpreter are written like this: <module 'sys'\n(built-in)>.  If loaded from a file, they are written as <module 'os' from\n'/usr/local/lib/pythonX.Y/os.pyc'>."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Classes and Class Instances",
+                        "content": [
+                            "See Objects, values and types and Class definitions for these."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Functions",
+                        "content": [
+                            "Function objects are created by function definitions.  The only operation on a\nfunction object is to call it: func(argument-list).",
+                            "There are really two flavors of function objects: built-in functions and\nuser-defined functions.  Both support the same operation (to call the function),\nbut the implementation is different, hence the different object types.",
+                            "See Function definitions for more information."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Methods",
+                        "content": [
+                            "Methods are functions that are called using the attribute notation. There are\ntwo flavors: built-in methods (such as append() on lists) and class\ninstance methods.  Built-in methods are described with the types that support\nthem.",
+                            "If you access a method (a function defined in a class namespace) through an\ninstance, you get a special object: a bound method (also called\ninstance method) object. When called, it will add the self argument\nto the argument list.  Bound methods have two special read-only attributes:\nm.__self__ is the object on which the method operates, and m.__func__ is\nthe function implementing the method.  Calling m(arg-1, arg-2, ..., arg-n)\nis completely equivalent to calling m.__func__(m.__self__, arg-1, arg-2, ...,\narg-n).",
+                            "Like function objects, bound method objects support getting arbitrary\nattributes.  However, since method attributes are actually stored on the\nunderlying function object (meth.__func__), setting method attributes on\nbound methods is disallowed.  Attempting to set an attribute on a method\nresults in an AttributeError being raised.  In order to set a method\nattribute, you need to explicitly set it on the underlying function object:",
+                            "See The standard type hierarchy for more information."
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> class C:\n...     def method(self):\n...         pass\n...\n>>> c = C()\n>>> c.method.whoami = 'my name is method'  # can't set on the method\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\nAttributeError: 'method' object has no attribute 'whoami'\n>>> c.method.__func__.whoami = 'my name is method'\n>>> c.method.whoami\n'my name is method'\n\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Code Objects",
+                        "content": [
+                            "Code objects are used by the implementation to represent \u201cpseudo-compiled\u201d\nexecutable Python code such as a function body. They differ from function\nobjects because they don\u2019t contain a reference to their global execution\nenvironment.  Code objects are returned by the built-in compile() function\nand can be extracted from function objects through their __code__\nattribute. See also the code module.",
+                            "Accessing __code__ raises an auditing event\nobject.__getattr__ with arguments obj and \"__code__\".",
+                            "A code object can be executed or evaluated by passing it (instead of a source\nstring) to the exec() or eval()  built-in functions.",
+                            "See The standard type hierarchy for more information."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Type Objects",
+                        "content": [
+                            "Type objects represent the various object types.  An object\u2019s type is accessed\nby the built-in function type().  There are no special operations on\ntypes.  The standard module types defines names for all standard built-in\ntypes.",
+                            "Types are written like this: <class 'int'>."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "The Null Object",
+                        "content": [
+                            "This object is returned by functions that don\u2019t explicitly return a value.  It\nsupports no special operations.  There is exactly one null object, named\nNone (a built-in name).  type(None)() produces the same singleton.",
+                            "It is written as None."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "The Ellipsis Object",
+                        "content": [
+                            "This object is commonly used by slicing (see Slicings).  It supports no\nspecial operations.  There is exactly one ellipsis object, named\nEllipsis (a built-in name).  type(Ellipsis)() produces the\nEllipsis singleton.",
+                            "It is written as Ellipsis or ...."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "The NotImplemented Object",
+                        "content": [
+                            "This object is returned from comparisons and binary operations when they are\nasked to operate on types they don\u2019t support. See Comparisons for more\ninformation.  There is exactly one NotImplemented object.\ntype(NotImplemented)() produces the singleton instance.",
+                            "It is written as NotImplemented."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Boolean Values",
+                        "content": [
+                            "Boolean values are the two constant objects False and True.  They are\nused to represent truth values (although other values can also be considered\nfalse or true).  In numeric contexts (for example when used as the argument to\nan arithmetic operator), they behave like the integers 0 and 1, respectively.\nThe built-in function bool() can be used to convert any value to a\nBoolean, if the value can be interpreted as a truth value (see section\nTruth Value Testing above).",
+                            "They are written as False and True, respectively."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Internal Objects",
+                        "content": [
+                            "See The standard type hierarchy for this information.  It describes stack frame objects,\ntraceback objects, and slice objects."
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    }
+                ]
+            },
+            {
+                "Topic": "Special Attributes",
+                "content": [
+                    "The implementation adds a few special read-only attributes to several object\ntypes, where they are relevant.  Some of these are not reported by the\ndir() built-in function."
+                ],
+                "functions": [
+                    {
+                        "name": "class.mro()",
+                        "content": [
+                            "This method can be overridden by a metaclass to customize the method\nresolution order for its instances.  It is called at class instantiation, and\nits result is stored in __mro__."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "class.__subclasses__()",
+                        "content": [
+                            "Each class keeps a list of weak references to its immediate subclasses.  This\nmethod returns a list of all those references still alive.  The list is in\ndefinition order.  Example:"
+                        ],
+                        "code_demo": [
+                            ">>> int.__subclasses__()\n[<class 'bool'>]\n\n"
+                        ]
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Integer string conversion length limitation",
+                "content": [
+                    "CPython has a global limit for converting between int and str\nto mitigate denial of service attacks. This limit only applies to decimal or\nother non-power-of-two number bases. Hexadecimal, octal, and binary conversions\nare unlimited. The limit can be configured.",
+                    "The int type in CPython is an abitrary length number stored in binary\nform (commonly known as a \u201cbignum\u201d). There exists no algorithm that can convert\na string to a binary integer or a binary integer to a string in linear time,\nunless the base is a power of 2. Even the best known algorithms for base 10\nhave sub-quadratic complexity. Converting a large value such as int('1' *\n500_000) can take over a second on a fast CPU.",
+                    "Limiting conversion size offers a practical way to avoid CVE-2020-10735.",
+                    "The limit is applied to the number of digit characters in the input or output\nstring when a non-linear conversion algorithm would be involved.  Underscores\nand the sign are not counted towards the limit.",
+                    "When an operation would exceed the limit, a ValueError is raised:",
+                    "The default limit is 4300 digits as provided in\nsys.int_info.default_max_str_digits.\nThe lowest limit that can be configured is 640 digits as provided in\nsys.int_info.str_digits_check_threshold.",
+                    "Verification:"
+                ],
+                "functions": [],
+                "code_demo": [
+                    ">>> import sys\n>>> sys.set_int_max_str_digits(4300)  # Illustrative, this is the default.\n>>> _ = int('2' * 5432)\nTraceback (most recent call last):\n...\nValueError: Exceeds the limit (4300) for integer string conversion: value has 5432 digits; use sys.set_int_max_str_digits() to increase the limit.\n>>> i = int('2' * 4300)\n>>> len(str(i))\n4300\n>>> i_squared = i*i\n>>> len(str(i_squared))\nTraceback (most recent call last):\n...\nValueError: Exceeds the limit (4300) for integer string conversion: value has 8599 digits; use sys.set_int_max_str_digits() to increase the limit.\n>>> len(hex(i_squared))\n7144\n>>> assert int(hex(i_squared), base=16) == i*i  # Hexadecimal is unlimited.\n\n",
+                    ">>> import sys\n>>> assert sys.int_info.default_max_str_digits == 4300, sys.int_info\n>>> assert sys.int_info.str_digits_check_threshold == 640, sys.int_info\n>>> msg = int('578966293710682886880994035146873798396722250538762761564'\n...           '9252925514383915483333812743580549779436104706260696366600'\n...           '571186405732').to_bytes(53, 'big')\n...\n\n",
+                    "\nNew in version 3.11.\n"
+                ],
+                "Subtopics": [
+                    {
+                        "Topic": "Affected APIs",
+                        "content": [
+                            "The limitation only applies to potentially slow conversions between int\nand str or bytes:",
+                            "The limitations do not apply to functions with a linear algorithm:"
+                        ],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Configuring the limit",
+                        "content": [
+                            "Before Python starts up you can use an environment variable or an interpreter\ncommand line flag to configure the limit:",
+                            "From code, you can inspect the current limit and set a new one using these\nsys APIs:",
+                            "Information about the default and minimum can be found in sys.int_info:"
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            "\nNew in version 3.11.\n",
+                            "\nCaution\nSetting a low limit can lead to problems. While rare, code exists that\ncontains integer constants in decimal in their source that exceed the\nminimum threshold. A consequence of setting the limit is that Python source\ncode containing decimal integer literals longer than the limit will\nencounter an error during parsing, usually at startup time or import time or\neven at installation time - anytime an up to date .pyc does not already\nexist for the code. A workaround for source that contains such large\nconstants is to convert them to 0x hexadecimal form as it has no limit.\nTest your application thoroughly if you use a low limit. Ensure your tests\nrun with the limit set early via the environment or flag so that it applies\nduring startup and even during any installation step that may invoke Python\nto precompile .py sources to .pyc files.\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Recommended configuration",
+                        "content": [
+                            "The default sys.int_info.default_max_str_digits is expected to be\nreasonable for most applications. If your application requires a different\nlimit, set it from your main entry point using Python version agnostic code as\nthese APIs were added in security patch releases in versions before 3.11.",
+                            "Example:",
+                            "If you need to disable it entirely, set it to 0.",
+                            "Footnotes"
+                        ],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> import sys\n>>> if hasattr(sys, \"set_int_max_str_digits\"):\n...     upper_bound = 68000\n...     lower_bound = 4004\n...     current_limit = sys.get_int_max_str_digits()\n...     if current_limit == 0 or current_limit > upper_bound:\n...         sys.set_int_max_str_digits(upper_bound)\n...     elif current_limit < lower_bound:\n...         sys.set_int_max_str_digits(lower_bound)\n\n"
+                        ],
+                        "Subtopics": []
+                    }
+                ]
+            }
+        ]
+    }
+]
