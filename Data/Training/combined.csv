@@ -12,7 +12,6 @@ g,Built-in Exceptions,0
   This can be used to test an exception handler or to report an error condition “just like” the situation in which the interpreter raises the same exception; but beware that there is nothing to prevent user code from raising an inappropriate error,Built-in Exceptions,0
 " The built-in exception classes can be subclassed to define new exceptions; programmers are encouraged to derive new exceptions from the Exception class or one of its subclasses, and not from BaseException",Built-in Exceptions,0
   More information on defining exceptions is available in the Python Tutorial under User-defined Exceptions,Built-in Exceptions,0
-,Built-in Exceptions,0
 " When raising a new exception while another exception is already being handled, the new exception’s __context__ attribute is automatically set to the handled exception",Built-in Exceptions,0
 "  An exception may be handled when an except or finally clause, or a with statement, is used",Built-in Exceptions,0
  This implicit exception context can be supplemented with an explicit cause by using from with raise: The expression following from must be an exception or None,Built-in Exceptions,0
@@ -24,22 +23,16 @@ g,Built-in Exceptions,0
  An explicitly chained exception in __cause__ is always shown when present,Built-in Exceptions,0
  An implicitly chained exception in __context__ is shown only if __cause__ is None and __suppress_context__ is false,Built-in Exceptions,0
 " In either case, the exception itself is always shown after any chained exceptions so that the final line of the traceback always shows the last exception that was raised",Built-in Exceptions,0
-,Built-in Exceptions,0
  User code can create subclasses that inherit from an exception type,Built-in Exceptions,0
 " It’s recommended to only subclass one exception type at a time to avoid any possible conflicts between how the bases handle the args attribute, as well as due to possible memory layout incompatibilities",Built-in Exceptions,0
-,Built-in Exceptions,0
  The following exceptions are used mostly as base classes for other exceptions,Built-in Exceptions,0
-,Built-in Exceptions,0
  The following exceptions are the exceptions that are usually raised,Built-in Exceptions,0
  The following exceptions are kept for compatibility with previous versions; starting from Python 3,Built-in Exceptions,0
 "3, they are aliases of OSError",Built-in Exceptions,0
-,Built-in Exceptions,0
  The following exceptions are used as warning categories; see the Warning Categories documentation for more details,Built-in Exceptions,0
-,Built-in Exceptions,0
  The following are used when it is necessary to raise multiple unrelated exceptions,Built-in Exceptions,0
  They are part of the exception hierarchy so they can be handled with except like all other exceptions,Built-in Exceptions,0
 " In addition, they are recognised by except*, which matches their subgroups based on the types of the contained exceptions",Built-in Exceptions,0
-,Built-in Exceptions,0
  The class hierarchy for built-in exceptions is:,Built-in Exceptions,0
 The following sections describe the standard types that are built into the interpreter,Built-in Types,1
 " The principal built-in types are numerics, sequences, mappings, classes, instances and exceptions",Built-in Types,1
@@ -47,7 +40,6 @@ The following sections describe the standard types that are built into the inter
 "  The methods that add, subtract, or rearrange their members in place, and don’t return a specific item, never return the collection instance itself but None",Built-in Types,1
 " Some operations are supported by several object types; in particular, practically all objects can be compared for equality, tested for truth value, and converted to a string (with the repr() function or the slightly different str() function)",Built-in Types,1
   The latter function is implicitly used when an object is written by the print() function,Built-in Types,1
-,Built-in Types,1
 " Any object can be tested for truth value, for use in an if or while condition or as operand of the Boolean operations below",Built-in Types,1
 " By default, an object is considered true unless its class defines either a __bool__() method that returns False or a __len__() method that returns zero, when called with the object",Built-in Types,1
 " 1  Here are most of the built-in objects considered false: Operations and built-in functions that have a Boolean result always return 0 or False for false and 1 or True for true, unless otherwise stated",Built-in Types,1
@@ -56,7 +48,6 @@ The following sections describe the standard types that are built into the inter
 " These are the Boolean operations, ordered by ascending priority: Notes: This is a short-circuit operator, so it only evaluates the second argument if the first one is false",Built-in Types,1
 " This is a short-circuit operator, so it only evaluates the second argument if the first one is true",Built-in Types,1
 " not has a lower priority than non-Boolean operators, so not a == b is interpreted as not (a == b), and a == not b is a syntax error",Built-in Types,1
-,Built-in Types,1
  There are eight comparison operations in Python,Built-in Types,1
   They all have the same priority (which is higher than that of the Boolean operations),Built-in Types,1
 "  Comparisons can be chained arbitrarily; for example, x < y <= z is equivalent to x < y and y <= z, except that y is evaluated only once (but in both cases z is not evaluated at all when x < y is found to be false)",Built-in Types,1
@@ -67,7 +58,6 @@ The following sections describe the standard types that are built into the inter
 " Instances of a class cannot be ordered with respect to other instances of the same class, or other types of object, unless the class defines enough of the methods __lt__(), __le__(), __gt__(), and __ge__() (in general, __lt__() and __eq__() are sufficient, if you want the conventional meanings of the comparison operators)",Built-in Types,1
  The behavior of the is and is not operators cannot be customized; also they can be applied to any two objects and never raise an exception,Built-in Types,1
 " Two more operations with the same syntactic priority, in and not in, are supported by types that are iterable or implement the __contains__() method",Built-in Types,1
-,Built-in Types,1
 " There are three distinct numeric types: integers, floating point numbers, and complex numbers",Built-in Types,1
 "  In addition, Booleans are a subtype of integers",Built-in Types,1
   Integers have unlimited precision,Built-in Types,1
@@ -114,10 +104,8 @@ txt for a complete list of code points with the Nd property,Built-in Types,1
   The specific types are not important beyond their implementation of the iterator protocol,Built-in Types,1
 " Once an iterator’s __next__() method raises StopIteration, it must continue to do so on subsequent calls",Built-in Types,1
  Implementations that do not obey this property are deemed broken,Built-in Types,1
-,Built-in Types,1
 " There are three basic sequence types: lists, tuples, and range objects",Built-in Types,1
  Additional sequence types tailored for processing of binary data and text strings are described in dedicated sections,Built-in Types,1
-,Built-in Types,1
 " Textual data in Python is handled with str objects, or strings",Built-in Types,1
  Strings are immutable sequences of Unicode code points,Built-in Types,1
   String literals are written in a variety of ways: Triple quoted strings may span multiple lines - all associated whitespace will be included in the string literal,Built-in Types,1
@@ -130,11 +118,9 @@ txt for a complete list of code points with the Nd property,Built-in Types,1
 " There is also no mutable string type, but str",Built-in Types,1
 join() or io,Built-in Types,1
 StringIO can be used to efficiently construct strings from multiple fragments,Built-in Types,1
-,Built-in Types,1
  The core built-in types for manipulating binary data are bytes and bytearray,Built-in Types,1
  They are supported by memoryview which uses the buffer protocol to access the memory of other binary objects without needing to make a copy,Built-in Types,1
  The array module supports efficient storage of basic data types like 32-bit integers and IEEE754 double-precision floating values,Built-in Types,1
-,Built-in Types,1
  A set object is an unordered collection of distinct hashable objects,Built-in Types,1
 " Common uses include membership testing, removing duplicates from a sequence, and computing mathematical operations such as intersection, union, difference, and symmetric difference",Built-in Types,1
 " (For other containers see the built-in dict, list, and tuple classes, and the collections module",Built-in Types,1
@@ -155,7 +141,6 @@ StringIO can be used to efficiently construct strings from multiple fragments,Bu
 "  Values that are not hashable, that is, values containing lists, dictionaries or other mutable types (that are compared by value rather than by object identity) may not be used as keys",Built-in Types,1
 " Values that compare equal (such as 1, 1",Built-in Types,1
 "0, and True) can be used interchangeably to index the same dictionary entry",Built-in Types,1
-,Built-in Types,1
  Python’s with statement supports the concept of a runtime context defined by a context manager,Built-in Types,1
 "  This is implemented using a pair of methods that allow user-defined classes to define a runtime context that is entered before the statement body is executed and exited when the statement ends: Python defines several context managers to support easy thread synchronisation, prompt closure of files or other objects, and simpler manipulation of the active decimal arithmetic context",Built-in Types,1
  The specific types are not treated specially beyond their implementation of the context management protocol,Built-in Types,1
@@ -167,15 +152,11 @@ contextmanager decorator provide a convenient way to implement these protocols,B
  Note that there is no specific slot for any of these methods in the type structure for Python objects in the Python/C API,Built-in Types,1
  Extension types wanting to define these methods must provide them as a normal Python accessible method,Built-in Types,1
 " Compared to the overhead of setting up the runtime context, the overhead of a single class dictionary lookup is negligible",Built-in Types,1
-,Built-in Types,1
  The core built-in types for type annotations are Generic Alias and Union,Built-in Types,1
-,Built-in Types,1
  The interpreter supports several other kinds of objects,Built-in Types,1
  Most of these support only one or two operations,Built-in Types,1
-,Built-in Types,1
 " The implementation adds a few special read-only attributes to several object types, where they are relevant",Built-in Types,1
   Some of these are not reported by the dir() built-in function,Built-in Types,1
-,Built-in Types,1
  CPython has a global limit for converting between int and str to mitigate denial of service attacks,Built-in Types,1
  This limit only applies to decimal or other non-power-of-two number bases,Built-in Types,1
 " Hexadecimal, octal, and binary conversions are unlimited",Built-in Types,1
