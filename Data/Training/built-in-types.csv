@@ -1,2 +1,154 @@
-,Topic,content
-0,Built-in Types,"['The following sections describe the standard types that are built into the interpreter', ' The principal built-in types are numerics, sequences, mappings, classes, instances and exceptions', ' Some collection classes are mutable', '  The methods that add, subtract, or rearrange their members in place, and don’t return a specific item, never return the collection instance itself but None', ' Some operations are supported by several object types; in particular, practically all objects can be compared for equality, tested for truth value, and converted to a string (with the repr() function or the slightly different str() function)', '  The latter function is implicitly used when an object is written by the print() function', '', ' Any object can be tested for truth value, for use in an if or while condition or as operand of the Boolean operations below', ' By default, an object is considered true unless its class defines either a __bool__() method that returns False or a __len__() method that returns zero, when called with the object', ' 1  Here are most of the built-in objects considered false: Operations and built-in functions that have a Boolean result always return 0 or False for false and 1 or True for true, unless otherwise stated', ' (Important exception: the Boolean operations or and and always return one of their operands', ')', ' These are the Boolean operations, ordered by ascending priority: Notes: This is a short-circuit operator, so it only evaluates the second argument if the first one is false', ' This is a short-circuit operator, so it only evaluates the second argument if the first one is true', ' not has a lower priority than non-Boolean operators, so not a == b is interpreted as not (a == b), and a == not b is a syntax error', '', ' There are eight comparison operations in Python', '  They all have the same priority (which is higher than that of the Boolean operations)', '  Comparisons can be chained arbitrarily; for example, x < y <= z is equivalent to x < y and y <= z, except that y is evaluated only once (but in both cases z is not evaluated at all when x < y is found to be false)', ' This table summarizes the comparison operations: Objects of different types, except different numeric types, never compare equal', ' The == operator is always defined but for some object types (for example, class objects) is equivalent to is', ' The <, <=, > and >= operators are only defined where they make sense; for example, they raise a TypeError exception when one of the arguments is a complex number', ' Non-identical instances of a class normally compare as non-equal unless the class defines the __eq__() method', ' Instances of a class cannot be ordered with respect to other instances of the same class, or other types of object, unless the class defines enough of the methods __lt__(), __le__(), __gt__(), and __ge__() (in general, __lt__() and __eq__() are sufficient, if you want the conventional meanings of the comparison operators)', ' The behavior of the is and is not operators cannot be customized; also they can be applied to any two objects and never raise an exception', ' Two more operations with the same syntactic priority, in and not in, are supported by types that are iterable or implement the __contains__() method', '', ' There are three distinct numeric types: integers, floating point numbers, and complex numbers', '  In addition, Booleans are a subtype of integers', '  Integers have unlimited precision', '  Floating point numbers are usually implemented using double in C; information about the precision and internal representation of floating point numbers for the machine on which your program is running is available in sys', 'float_info', '  Complex numbers have a real and imaginary part, which are each a floating point number', '  To extract these parts from a complex number z, use z', 'real and z', 'imag', ' (The standard library includes the additional numeric types fractions', 'Fraction, for rationals, and decimal', 'Decimal, for floating-point numbers with user-definable precision', ') Numbers are created by numeric literals or as the result of built-in functions and operators', '  Unadorned integer literals (including hex, octal and binary numbers) yield integers', '  Numeric literals containing a decimal point or an exponent sign yield floating point numbers', ""  Appending 'j' or 'J' to a numeric literal yields an imaginary number (a complex number with a zero real part) which you can add to an integer or float to get a complex number with real and imaginary parts"", ' Python fully supports mixed arithmetic: when a binary arithmetic operator has operands of different numeric types, the operand with the “narrower” type is widened to that of the other, where integer is narrower than floating point, which is narrower than complex', ' A comparison between numbers of different types behaves as though the exact values of those numbers were being compared', ' 2 The constructors int(), float(), and complex() can be used to produce numbers of a specific type', ' All numeric types (except complex) support the following operations (for priorities of the operations, see Operator precedence): Notes: All numbers', 'Real types (int and float) also include the following operations: For additional numeric operations see the math and cmath modules', ' Also referred to as integer division', '  The resultant value is a whole integer, though the result’s type is not necessarily int', '  The result is always rounded towards minus infinity: 1//2 is 0, (-1)//2 is -1, 1//(-2) is -1, and (-1)//(-2) is 0', ' Not for complex numbers', '  Instead convert to floats using abs() if appropriate', ' Conversion from floating point to integer may round or truncate as in C; see functions math', 'floor() and math', 'ceil() for well-defined conversions', '  float also accepts the strings “nan” and “inf” with an optional prefix “+” or “-” for Not a Number (NaN) and positive or negative infinity', ' Python defines pow(0, 0) and 0 ** 0 to be 1, as is common for programming languages', ' The numeric literals accepted include the digits 0 to 9 or any Unicode equivalent (code points with the Nd property)', ' See https://www', 'unicode', 'org/Public/14', '0', '0/ucd/extracted/DerivedNumericType', 'txt for a complete list of code points with the Nd property', ' ', ' Python supports a concept of iteration over containers', '  This is implemented using two distinct methods; these are used to allow user-defined classes to support iteration', '  Sequences, described below in more detail, always support the iteration methods', ' One method needs to be defined for container objects to provide iterable support: The iterator objects themselves are required to support the following two methods, which together form the iterator protocol: Python defines several iterator objects to support iteration over general and specific sequence types, dictionaries, and other more specialized forms', '  The specific types are not important beyond their implementation of the iterator protocol', ' Once an iterator’s __next__() method raises StopIteration, it must continue to do so on subsequent calls', ' Implementations that do not obey this property are deemed broken', '', ' There are three basic sequence types: lists, tuples, and range objects', ' Additional sequence types tailored for processing of binary data and text strings are described in dedicated sections', '', ' Textual data in Python is handled with str objects, or strings', ' Strings are immutable sequences of Unicode code points', '  String literals are written in a variety of ways: Triple quoted strings may span multiple lines - all associated whitespace will be included in the string literal', ' String literals that are part of a single expression and have only whitespace between them will be implicitly converted to a single string literal', ' That is, (""spam "" ""eggs"") == ""spam eggs""', ' See String and Bytes literals for more about the various forms of string literal, including supported escape sequences, and the r (“raw”) prefix that disables most escape sequence processing', ' Strings may also be created from other objects using the str constructor', ' Since there is no separate “character” type, indexing a string produces strings of length 1', ' That is, for a non-empty string s, s[0] == s[0:1]', ' There is also no mutable string type, but str', 'join() or io', 'StringIO can be used to efficiently construct strings from multiple fragments', '', ' The core built-in types for manipulating binary data are bytes and bytearray', ' They are supported by memoryview which uses the buffer protocol to access the memory of other binary objects without needing to make a copy', ' The array module supports efficient storage of basic data types like 32-bit integers and IEEE754 double-precision floating values', '', ' A set object is an unordered collection of distinct hashable objects', ' Common uses include membership testing, removing duplicates from a sequence, and computing mathematical operations such as intersection, union, difference, and symmetric difference', ' (For other containers see the built-in dict, list, and tuple classes, and the collections module', ') Like other collections, sets support x in set, len(set), and for x in set', '  Being an unordered collection, sets do not record element position or order of insertion', '  Accordingly, sets do not support indexing, slicing, or other sequence-like behavior', ' There are currently two built-in set types, set and frozenset', ' The set type is mutable — the contents can be changed using methods like add() and remove()', '  Since it is mutable, it has no hash value and cannot be used as either a dictionary key or as an element of another set', '  The frozenset type is immutable and hashable — its contents cannot be altered after it is created; it can therefore be used as a dictionary key or as an element of another set', "" Non-empty sets (not frozensets) can be created by placing a comma-separated list of elements within braces, for example: {'jack', 'sjoerd'}, in addition to the set constructor"", ' The constructors for both classes work the same:', ' A mapping object maps hashable values to arbitrary objects', ' Mappings are mutable objects', '  There is currently only one standard mapping type, the dictionary', '  (For other containers see the built-in list, set, and tuple classes, and the collections module', ') A dictionary’s keys are almost arbitrary values', '  Values that are not hashable, that is, values containing lists, dictionaries or other mutable types (that are compared by value rather than by object identity) may not be used as keys', ' Values that compare equal (such as 1, 1', '0, and True) can be used interchangeably to index the same dictionary entry', '', ' Python’s with statement supports the concept of a runtime context defined by a context manager', '  This is implemented using a pair of methods that allow user-defined classes to define a runtime context that is entered before the statement body is executed and exited when the statement ends: Python defines several context managers to support easy thread synchronisation, prompt closure of files or other objects, and simpler manipulation of the active decimal arithmetic context', ' The specific types are not treated specially beyond their implementation of the context management protocol', ' See the contextlib module for some examples', ' Python’s generators and the contextlib', 'contextmanager decorator provide a convenient way to implement these protocols', '  If a generator function is decorated with the contextlib', 'contextmanager decorator, it will return a context manager implementing the necessary __enter__() and __exit__() methods, rather than the iterator produced by an undecorated generator function', ' Note that there is no specific slot for any of these methods in the type structure for Python objects in the Python/C API', ' Extension types wanting to define these methods must provide them as a normal Python accessible method', ' Compared to the overhead of setting up the runtime context, the overhead of a single class dictionary lookup is negligible', '', ' The core built-in types for type annotations are Generic Alias and Union', '', ' The interpreter supports several other kinds of objects', ' Most of these support only one or two operations', '', ' The implementation adds a few special read-only attributes to several object types, where they are relevant', '  Some of these are not reported by the dir() built-in function', '', ' CPython has a global limit for converting between int and str to mitigate denial of service attacks', ' This limit only applies to decimal or other non-power-of-two number bases', ' Hexadecimal, octal, and binary conversions are unlimited', ' The limit can be configured', ' The int type in CPython is an abitrary length number stored in binary form (commonly known as a “bignum”)', ' There exists no algorithm that can convert a string to a binary integer or a binary integer to a string in linear time, unless the base is a power of 2', ' Even the best known algorithms for base 10 have sub-quadratic complexity', "" Converting a large value such as int('1' * 500_000) can take over a second on a fast CPU"", ' Limiting conversion size offers a practical way to avoid CVE-2020-10735', ' The limit is applied to the number of digit characters in the input or output string when a non-linear conversion algorithm would be involved', '  Underscores and the sign are not counted towards the limit', ' When an operation would exceed the limit, a ValueError is raised: The default limit is 4300 digits as provided in sys', 'int_info', 'default_max_str_digits', ' The lowest limit that can be configured is 640 digits as provided in sys', 'int_info', 'str_digits_check_threshold', ' Verification:']"
+,content,topic
+0,The following sections describe the standard types that are built into the interpreter,Built-in Types
+1," The principal built-in types are numerics, sequences, mappings, classes, instances and exceptions",Built-in Types
+2, Some collection classes are mutable,Built-in Types
+3,"  The methods that add, subtract, or rearrange their members in place, and don’t return a specific item, never return the collection instance itself but None",Built-in Types
+4," Some operations are supported by several object types; in particular, practically all objects can be compared for equality, tested for truth value, and converted to a string (with the repr() function or the slightly different str() function)",Built-in Types
+5,  The latter function is implicitly used when an object is written by the print() function,Built-in Types
+6,,Built-in Types
+7," Any object can be tested for truth value, for use in an if or while condition or as operand of the Boolean operations below",Built-in Types
+8," By default, an object is considered true unless its class defines either a __bool__() method that returns False or a __len__() method that returns zero, when called with the object",Built-in Types
+9," 1  Here are most of the built-in objects considered false: Operations and built-in functions that have a Boolean result always return 0 or False for false and 1 or True for true, unless otherwise stated",Built-in Types
+10, (Important exception: the Boolean operations or and and always return one of their operands,Built-in Types
+11,),Built-in Types
+12," These are the Boolean operations, ordered by ascending priority: Notes: This is a short-circuit operator, so it only evaluates the second argument if the first one is false",Built-in Types
+13," This is a short-circuit operator, so it only evaluates the second argument if the first one is true",Built-in Types
+14," not has a lower priority than non-Boolean operators, so not a == b is interpreted as not (a == b), and a == not b is a syntax error",Built-in Types
+15,,Built-in Types
+16, There are eight comparison operations in Python,Built-in Types
+17,  They all have the same priority (which is higher than that of the Boolean operations),Built-in Types
+18,"  Comparisons can be chained arbitrarily; for example, x < y <= z is equivalent to x < y and y <= z, except that y is evaluated only once (but in both cases z is not evaluated at all when x < y is found to be false)",Built-in Types
+19," This table summarizes the comparison operations: Objects of different types, except different numeric types, never compare equal",Built-in Types
+20," The == operator is always defined but for some object types (for example, class objects) is equivalent to is",Built-in Types
+21," The <, <=, > and >= operators are only defined where they make sense; for example, they raise a TypeError exception when one of the arguments is a complex number",Built-in Types
+22, Non-identical instances of a class normally compare as non-equal unless the class defines the __eq__() method,Built-in Types
+23," Instances of a class cannot be ordered with respect to other instances of the same class, or other types of object, unless the class defines enough of the methods __lt__(), __le__(), __gt__(), and __ge__() (in general, __lt__() and __eq__() are sufficient, if you want the conventional meanings of the comparison operators)",Built-in Types
+24, The behavior of the is and is not operators cannot be customized; also they can be applied to any two objects and never raise an exception,Built-in Types
+25," Two more operations with the same syntactic priority, in and not in, are supported by types that are iterable or implement the __contains__() method",Built-in Types
+26,,Built-in Types
+27," There are three distinct numeric types: integers, floating point numbers, and complex numbers",Built-in Types
+28,"  In addition, Booleans are a subtype of integers",Built-in Types
+29,  Integers have unlimited precision,Built-in Types
+30,  Floating point numbers are usually implemented using double in C; information about the precision and internal representation of floating point numbers for the machine on which your program is running is available in sys,Built-in Types
+31,float_info,Built-in Types
+32,"  Complex numbers have a real and imaginary part, which are each a floating point number",Built-in Types
+33,"  To extract these parts from a complex number z, use z",Built-in Types
+34,real and z,Built-in Types
+35,imag,Built-in Types
+36, (The standard library includes the additional numeric types fractions,Built-in Types
+37,"Fraction, for rationals, and decimal",Built-in Types
+38,"Decimal, for floating-point numbers with user-definable precision",Built-in Types
+39,) Numbers are created by numeric literals or as the result of built-in functions and operators,Built-in Types
+40,"  Unadorned integer literals (including hex, octal and binary numbers) yield integers",Built-in Types
+41,  Numeric literals containing a decimal point or an exponent sign yield floating point numbers,Built-in Types
+42,  Appending 'j' or 'J' to a numeric literal yields an imaginary number (a complex number with a zero real part) which you can add to an integer or float to get a complex number with real and imaginary parts,Built-in Types
+43," Python fully supports mixed arithmetic: when a binary arithmetic operator has operands of different numeric types, the operand with the “narrower” type is widened to that of the other, where integer is narrower than floating point, which is narrower than complex",Built-in Types
+44, A comparison between numbers of different types behaves as though the exact values of those numbers were being compared,Built-in Types
+45," 2 The constructors int(), float(), and complex() can be used to produce numbers of a specific type",Built-in Types
+46," All numeric types (except complex) support the following operations (for priorities of the operations, see Operator precedence): Notes: All numbers",Built-in Types
+47,Real types (int and float) also include the following operations: For additional numeric operations see the math and cmath modules,Built-in Types
+48, Also referred to as integer division,Built-in Types
+49,"  The resultant value is a whole integer, though the result’s type is not necessarily int",Built-in Types
+50,"  The result is always rounded towards minus infinity: 1//2 is 0, (-1)//2 is -1, 1//(-2) is -1, and (-1)//(-2) is 0",Built-in Types
+51, Not for complex numbers,Built-in Types
+52,  Instead convert to floats using abs() if appropriate,Built-in Types
+53, Conversion from floating point to integer may round or truncate as in C; see functions math,Built-in Types
+54,floor() and math,Built-in Types
+55,ceil() for well-defined conversions,Built-in Types
+56,  float also accepts the strings “nan” and “inf” with an optional prefix “+” or “-” for Not a Number (NaN) and positive or negative infinity,Built-in Types
+57," Python defines pow(0, 0) and 0 ** 0 to be 1, as is common for programming languages",Built-in Types
+58, The numeric literals accepted include the digits 0 to 9 or any Unicode equivalent (code points with the Nd property),Built-in Types
+59, See https://www,Built-in Types
+60,unicode,Built-in Types
+61,org/Public/14,Built-in Types
+62,0,Built-in Types
+63,0/ucd/extracted/DerivedNumericType,Built-in Types
+64,txt for a complete list of code points with the Nd property,Built-in Types
+65, ,Built-in Types
+66, Python supports a concept of iteration over containers,Built-in Types
+67,  This is implemented using two distinct methods; these are used to allow user-defined classes to support iteration,Built-in Types
+68,"  Sequences, described below in more detail, always support the iteration methods",Built-in Types
+69," One method needs to be defined for container objects to provide iterable support: The iterator objects themselves are required to support the following two methods, which together form the iterator protocol: Python defines several iterator objects to support iteration over general and specific sequence types, dictionaries, and other more specialized forms",Built-in Types
+70,  The specific types are not important beyond their implementation of the iterator protocol,Built-in Types
+71," Once an iterator’s __next__() method raises StopIteration, it must continue to do so on subsequent calls",Built-in Types
+72, Implementations that do not obey this property are deemed broken,Built-in Types
+73,,Built-in Types
+74," There are three basic sequence types: lists, tuples, and range objects",Built-in Types
+75, Additional sequence types tailored for processing of binary data and text strings are described in dedicated sections,Built-in Types
+76,,Built-in Types
+77," Textual data in Python is handled with str objects, or strings",Built-in Types
+78, Strings are immutable sequences of Unicode code points,Built-in Types
+79,  String literals are written in a variety of ways: Triple quoted strings may span multiple lines - all associated whitespace will be included in the string literal,Built-in Types
+80, String literals that are part of a single expression and have only whitespace between them will be implicitly converted to a single string literal,Built-in Types
+81," That is, (""spam "" ""eggs"") == ""spam eggs""",Built-in Types
+82," See String and Bytes literals for more about the various forms of string literal, including supported escape sequences, and the r (“raw”) prefix that disables most escape sequence processing",Built-in Types
+83, Strings may also be created from other objects using the str constructor,Built-in Types
+84," Since there is no separate “character” type, indexing a string produces strings of length 1",Built-in Types
+85," That is, for a non-empty string s, s[0] == s[0:1]",Built-in Types
+86," There is also no mutable string type, but str",Built-in Types
+87,join() or io,Built-in Types
+88,StringIO can be used to efficiently construct strings from multiple fragments,Built-in Types
+89,,Built-in Types
+90, The core built-in types for manipulating binary data are bytes and bytearray,Built-in Types
+91, They are supported by memoryview which uses the buffer protocol to access the memory of other binary objects without needing to make a copy,Built-in Types
+92, The array module supports efficient storage of basic data types like 32-bit integers and IEEE754 double-precision floating values,Built-in Types
+93,,Built-in Types
+94, A set object is an unordered collection of distinct hashable objects,Built-in Types
+95," Common uses include membership testing, removing duplicates from a sequence, and computing mathematical operations such as intersection, union, difference, and symmetric difference",Built-in Types
+96," (For other containers see the built-in dict, list, and tuple classes, and the collections module",Built-in Types
+97,") Like other collections, sets support x in set, len(set), and for x in set",Built-in Types
+98,"  Being an unordered collection, sets do not record element position or order of insertion",Built-in Types
+99,"  Accordingly, sets do not support indexing, slicing, or other sequence-like behavior",Built-in Types
+100," There are currently two built-in set types, set and frozenset",Built-in Types
+101, The set type is mutable — the contents can be changed using methods like add() and remove(),Built-in Types
+102,"  Since it is mutable, it has no hash value and cannot be used as either a dictionary key or as an element of another set",Built-in Types
+103,  The frozenset type is immutable and hashable — its contents cannot be altered after it is created; it can therefore be used as a dictionary key or as an element of another set,Built-in Types
+104," Non-empty sets (not frozensets) can be created by placing a comma-separated list of elements within braces, for example: {'jack', 'sjoerd'}, in addition to the set constructor",Built-in Types
+105, The constructors for both classes work the same:,Built-in Types
+106, A mapping object maps hashable values to arbitrary objects,Built-in Types
+107, Mappings are mutable objects,Built-in Types
+108,"  There is currently only one standard mapping type, the dictionary",Built-in Types
+109,"  (For other containers see the built-in list, set, and tuple classes, and the collections module",Built-in Types
+110,) A dictionary’s keys are almost arbitrary values,Built-in Types
+111,"  Values that are not hashable, that is, values containing lists, dictionaries or other mutable types (that are compared by value rather than by object identity) may not be used as keys",Built-in Types
+112," Values that compare equal (such as 1, 1",Built-in Types
+113,"0, and True) can be used interchangeably to index the same dictionary entry",Built-in Types
+114,,Built-in Types
+115, Python’s with statement supports the concept of a runtime context defined by a context manager,Built-in Types
+116,"  This is implemented using a pair of methods that allow user-defined classes to define a runtime context that is entered before the statement body is executed and exited when the statement ends: Python defines several context managers to support easy thread synchronisation, prompt closure of files or other objects, and simpler manipulation of the active decimal arithmetic context",Built-in Types
+117, The specific types are not treated specially beyond their implementation of the context management protocol,Built-in Types
+118, See the contextlib module for some examples,Built-in Types
+119, Python’s generators and the contextlib,Built-in Types
+120,contextmanager decorator provide a convenient way to implement these protocols,Built-in Types
+121,  If a generator function is decorated with the contextlib,Built-in Types
+122,"contextmanager decorator, it will return a context manager implementing the necessary __enter__() and __exit__() methods, rather than the iterator produced by an undecorated generator function",Built-in Types
+123, Note that there is no specific slot for any of these methods in the type structure for Python objects in the Python/C API,Built-in Types
+124, Extension types wanting to define these methods must provide them as a normal Python accessible method,Built-in Types
+125," Compared to the overhead of setting up the runtime context, the overhead of a single class dictionary lookup is negligible",Built-in Types
+126,,Built-in Types
+127, The core built-in types for type annotations are Generic Alias and Union,Built-in Types
+128,,Built-in Types
+129, The interpreter supports several other kinds of objects,Built-in Types
+130, Most of these support only one or two operations,Built-in Types
+131,,Built-in Types
+132," The implementation adds a few special read-only attributes to several object types, where they are relevant",Built-in Types
+133,  Some of these are not reported by the dir() built-in function,Built-in Types
+134,,Built-in Types
+135, CPython has a global limit for converting between int and str to mitigate denial of service attacks,Built-in Types
+136, This limit only applies to decimal or other non-power-of-two number bases,Built-in Types
+137," Hexadecimal, octal, and binary conversions are unlimited",Built-in Types
+138, The limit can be configured,Built-in Types
+139, The int type in CPython is an abitrary length number stored in binary form (commonly known as a “bignum”),Built-in Types
+140," There exists no algorithm that can convert a string to a binary integer or a binary integer to a string in linear time, unless the base is a power of 2",Built-in Types
+141, Even the best known algorithms for base 10 have sub-quadratic complexity,Built-in Types
+142, Converting a large value such as int('1' * 500_000) can take over a second on a fast CPU,Built-in Types
+143, Limiting conversion size offers a practical way to avoid CVE-2020-10735,Built-in Types
+144, The limit is applied to the number of digit characters in the input or output string when a non-linear conversion algorithm would be involved,Built-in Types
+145,  Underscores and the sign are not counted towards the limit,Built-in Types
+146," When an operation would exceed the limit, a ValueError is raised: The default limit is 4300 digits as provided in sys",Built-in Types
+147,int_info,Built-in Types
+148,default_max_str_digits,Built-in Types
+149, The lowest limit that can be configured is 640 digits as provided in sys,Built-in Types
+150,int_info,Built-in Types
+151,str_digits_check_threshold,Built-in Types
+152, Verification:,Built-in Types
