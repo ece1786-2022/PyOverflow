@@ -1,0 +1,7 @@
+Id,PostTypeId,AcceptedAnswerId,ParentId,CreationDate,DeletionDate,Score,ViewCount,Body,OwnerUserId,OwnerDisplayName,LastEditorUserId,LastEditorDisplayName,LastEditDate,LastActivityDate,Title,Tags,AnswerCount,CommentCount,FavoriteCount,ClosedDate,CommunityOwnedDate,ContentLicense
+"2052390","1","24065533","","2010-01-12 21:07:40","","3002","2659297","<p>How do I raise an exception in Python so that it can later be caught via an <code>except</code> block?</p>
+","179736","","365102","","2022-06-13 00:11:23","2022-06-13 00:11:23","Manually raising (throwing) an exception in Python","<python><exception>","11","0","0","","","CC BY-SA 4.0"
+"13267912","1","13363934","","2012-11-07 10:36:32","","2","310","<p>Where does boost python register from python converters for builtin types such as from <code>PyLong_Type</code> to <code>double</code>?</p>
+
+<p>I want to define a converter that can take a <code>numpy.float128</code> from python and returns a <code>long double</code> for functions in C++. I already did it the other way round, the to_python converter. For that I tweaked <code>builtin_converters.hpp</code> but I didn't find how boost python does the from python conversion.</p>
+","941506","","941506","","2012-11-07 10:53:01","2017-02-22 09:36:50","From python converter for builtin types","<c++><python><boost-python>","2","0","","","","CC BY-SA 3.0"
