@@ -1,0 +1,1042 @@
+[
+    {
+        "Topic": "re Regular expression operations",
+        "content": [],
+        "class": [],
+        "functions": [],
+        "code_demo": [],
+        "Subtopics": [
+            {
+                "Topic": "Regular Expression Syntax",
+                "content": [
+                    "A regular expression (or RE) specifies a set of strings that matches it; the\nfunctions in this module let you check if a particular string matches a given\nregular expression (or if a given regular expression matches a particular\nstring, which comes down to the same thing).",
+                    "Regular expressions can be concatenated to form new regular expressions; if A\nand B are both regular expressions, then AB is also a regular expression.\nIn general, if a string p matches A and another string q matches B, the\nstring pq will match AB.  This holds unless A or B contain low precedence\noperations; boundary conditions between A and B; or have numbered group\nreferences.  Thus, complex expressions can easily be constructed from simpler\nprimitive expressions like the ones described here.  For details of the theory\nand implementation of regular expressions, consult the Friedl book [Frie09],\nor almost any textbook about compiler construction.",
+                    "A brief explanation of the format of regular expressions follows.  For further\ninformation and a gentler presentation, consult the Regular Expression HOWTO.",
+                    "Regular expressions can contain both special and ordinary characters. Most\nordinary characters, like 'A', 'a', or '0', are the simplest regular\nexpressions; they simply match themselves.  You can concatenate ordinary\ncharacters, so last matches the string 'last'.  (In the rest of this\nsection, well write REs in this special style, usually without quotes, and\nstrings to be matched 'in single quotes'.)",
+                    "Some characters, like '|' or '(', are special. Special\ncharacters either stand for classes of ordinary characters, or affect\nhow the regular expressions around them are interpreted.",
+                    "Repetition operators or quantifiers (*, +, ?, {m,n}, etc) cannot be\ndirectly nested. This avoids ambiguity with the non-greedy modifier suffix\n?, and with other modifiers in other implementations. To apply a second\nrepetition to an inner repetition, parentheses may be used. For example,\nthe expression (?:a{6})* matches any multiple of six 'a' characters.",
+                    "The special characters are:",
+                    "The special sequences consist of '\\' and a character from the list below.\nIf the ordinary character is not an ASCII digit or an ASCII letter, then the\nresulting RE will match the second character.  For example, \\$ matches the\ncharacter '$'.",
+                    "Most of the standard escapes supported by Python string literals are also\naccepted by the regular expression parser:",
+                    "(Note that \\b is used to represent word boundaries, and means backspace\nonly inside character classes.)",
+                    "'\\u', '\\U', and '\\N' escape sequences are only recognized in Unicode\npatterns.  In bytes patterns they are errors.  Unknown escapes of ASCII\nletters are reserved for future use and treated as errors.",
+                    "Octal escapes are included in a limited form.  If the first digit is a 0, or if\nthere are three octal digits, it is considered an octal escape. Otherwise, it is\na group reference.  As for string literals, octal escapes are always at most\nthree digits in length."
+                ],
+                "class": [],
+                "functions": [
+                    {
+                        "name": ".",
+                        "content": [
+                            "(Dot.)  In the default mode, this matches any character except a newline.  If\nthe DOTALL flag has been specified, this matches any character\nincluding a newline."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "^",
+                        "content": [
+                            "(Caret.)  Matches the start of the string, and in MULTILINE mode also\nmatches immediately after each newline."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "$",
+                        "content": [
+                            "Matches the end of the string or just before the newline at the end of the\nstring, and in MULTILINE mode also matches before a newline.  foo\nmatches both foo and foobar, while the regular expression foo$ matches\nonly foo.  More interestingly, searching for foo.$ in 'foo1\\nfoo2\\n'\nmatches foo2 normally, but foo1 in MULTILINE mode; searching for\na single $ in 'foo\\n' will find two (empty) matches: one just before\nthe newline, and one at the end of the string."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "*",
+                        "content": [
+                            "Causes the resulting RE to match 0 or more repetitions of the preceding RE, as\nmany repetitions as are possible.  ab* will match a, ab, or a followed\nby any number of bs."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "+",
+                        "content": [
+                            "Causes the resulting RE to match 1 or more repetitions of the preceding RE.\nab+ will match a followed by any non-zero number of bs; it will not\nmatch just a."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "?",
+                        "content": [
+                            "Causes the resulting RE to match 0 or 1 repetitions of the preceding RE.\nab? will match either a or ab."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "*?, +?, ??",
+                        "content": [
+                            "The '*', '+', and '?' quantifiers are all greedy; they match\nas much text as possible.  Sometimes this behaviour isnt desired; if the RE\n<.*> is matched against '<a> b <c>', it will match the entire\nstring, and not just '<a>'.  Adding ? after the quantifier makes it\nperform the match in non-greedy or minimal fashion; as few\ncharacters as possible will be matched.  Using the RE <.*?> will match\nonly '<a>'."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "*+, ++, ?+",
+                        "content": [
+                            "Like the '*', '+', and '?' quantifiers, those where '+' is\nappended also match as many times as possible.\nHowever, unlike the true greedy quantifiers, these do not allow\nback-tracking when the expression following it fails to match.\nThese are known as possessive quantifiers.\nFor example, a*a will match 'aaaa' because the a* will match\nall 4 'a's, but, when the final 'a' is encountered, the\nexpression is backtracked so that in the end the a* ends up matching\n3 'a's total, and the fourth 'a' is matched by the final 'a'.\nHowever, when a*+a is used to match 'aaaa', the a*+ will\nmatch all 4 'a', but when the final 'a' fails to find any more\ncharacters to match, the expression cannot be backtracked and will thus\nfail to match.\nx*+, x++ and x?+ are equivalent to (?>x*), (?>x+)\nand (?>x?) correspondingly."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "{m}",
+                        "content": [
+                            "Specifies that exactly m copies of the previous RE should be matched; fewer\nmatches cause the entire RE not to match.  For example, a{6} will match\nexactly six 'a' characters, but not five."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "{m,n}",
+                        "content": [
+                            "Causes the resulting RE to match from m to n repetitions of the preceding\nRE, attempting to match as many repetitions as possible.  For example,\na{3,5} will match from 3 to 5 'a' characters.  Omitting m specifies a\nlower bound of zero,  and omitting n specifies an infinite upper bound.  As an\nexample, a{4,}b will match 'aaaab' or a thousand 'a' characters\nfollowed by a 'b', but not 'aaab'. The comma may not be omitted or the\nmodifier would be confused with the previously described form."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "{m,n}?",
+                        "content": [
+                            "Causes the resulting RE to match from m to n repetitions of the preceding\nRE, attempting to match as few repetitions as possible.  This is the\nnon-greedy version of the previous quantifier.  For example, on the\n6-character string 'aaaaaa', a{3,5} will match 5 'a' characters,\nwhile a{3,5}? will only match 3 characters."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "{m,n}+",
+                        "content": [
+                            "Causes the resulting RE to match from m to n repetitions of the\npreceding RE, attempting to match as many repetitions as possible\nwithout establishing any backtracking points.\nThis is the possessive version of the quantifier above.\nFor example, on the 6-character string 'aaaaaa', a{3,5}+aa\nattempt to match 5 'a' characters, then, requiring 2 more 'a's,\nwill need more characters than available and thus fail, while\na{3,5}aa will match with a{3,5} capturing 5, then 4 'a's\nby backtracking and then the final 2 'a's are matched by the final\naa in the pattern.\nx{m,n}+ is equivalent to (?>x{m,n})."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\",
+                        "content": [
+                            "Either escapes special characters (permitting you to match characters like\n'*', '?', and so forth), or signals a special sequence; special\nsequences are discussed below.",
+                            "If youre not using a raw string to express the pattern, remember that Python\nalso uses the backslash as an escape sequence in string literals; if the escape\nsequence isnt recognized by Pythons parser, the backslash and subsequent\ncharacter are included in the resulting string.  However, if Python would\nrecognize the resulting sequence, the backslash should be repeated twice.  This\nis complicated and hard to understand, so its highly recommended that you use\nraw strings for all but the simplest expressions."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "[]",
+                        "content": [
+                            "Used to indicate a set of characters.  In a set:"
+                        ],
+                        "code_demo": [
+                            "\nChanged in version 3.7: FutureWarning is raised if a character set contains constructs\nthat will change semantically in the future.\n"
+                        ]
+                    },
+                    {
+                        "name": "|",
+                        "content": [
+                            "A|B, where A and B can be arbitrary REs, creates a regular expression that\nwill match either A or B.  An arbitrary number of REs can be separated by the\n'|' in this way.  This can be used inside groups (see below) as well.  As\nthe target string is scanned, REs separated by '|' are tried from left to\nright. When one pattern completely matches, that branch is accepted. This means\nthat once A matches, B will not be tested further, even if it would\nproduce a longer overall match.  In other words, the '|' operator is never\ngreedy.  To match a literal '|', use \\|, or enclose it inside a\ncharacter class, as in [|]."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(...)",
+                        "content": [
+                            "Matches whatever regular expression is inside the parentheses, and indicates the\nstart and end of a group; the contents of a group can be retrieved after a match\nhas been performed, and can be matched later in the string with the \\number\nspecial sequence, described below.  To match the literals '(' or ')',\nuse \\( or \\), or enclose them inside a character class: [(], [)]."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(?...)",
+                        "content": [
+                            "This is an extension notation (a '?' following a '(' is not meaningful\notherwise).  The first character after the '?' determines what the meaning\nand further syntax of the construct is. Extensions usually do not create a new\ngroup; (?P<name>...) is the only exception to this rule. Following are the\ncurrently supported extensions."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(?aiLmsux)",
+                        "content": [
+                            "(One or more letters from the set 'a', 'i', 'L', 'm',\n's', 'u', 'x'.)  The group matches the empty string; the\nletters set the corresponding flags: re.A (ASCII-only matching),\nre.I (ignore case), re.L (locale dependent),\nre.M (multi-line), re.S (dot matches all),\nre.U (Unicode matching), and re.X (verbose),\nfor the entire regular expression.\n(The flags are described in Module Contents.)\nThis is useful if you wish to include the flags as part of the\nregular expression, instead of passing a flag argument to the\nre.compile() function.  Flags should be used first in the\nexpression string."
+                        ],
+                        "code_demo": [
+                            "\nChanged in version 3.11: This construction can only be used at the start of the expression.\n"
+                        ]
+                    },
+                    {
+                        "name": "(?:...)",
+                        "content": [
+                            "A non-capturing version of regular parentheses.  Matches whatever regular\nexpression is inside the parentheses, but the substring matched by the group\ncannot be retrieved after performing a match or referenced later in the\npattern."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(?aiLmsux-imsx:...)",
+                        "content": [
+                            "(Zero or more letters from the set 'a', 'i', 'L', 'm',\n's', 'u', 'x', optionally followed by '-' followed by\none or more letters from the 'i', 'm', 's', 'x'.)\nThe letters set or remove the corresponding flags:\nre.A (ASCII-only matching), re.I (ignore case),\nre.L (locale dependent), re.M (multi-line),\nre.S (dot matches all), re.U (Unicode matching),\nand re.X (verbose), for the part of the expression.\n(The flags are described in Module Contents.)",
+                            "The letters 'a', 'L' and 'u' are mutually exclusive when used\nas inline flags, so they cant be combined or follow '-'.  Instead,\nwhen one of them appears in an inline group, it overrides the matching mode\nin the enclosing group.  In Unicode patterns (?a:...) switches to\nASCII-only matching, and (?u:...) switches to Unicode matching\n(default).  In byte pattern (?L:...) switches to locale depending\nmatching, and (?a:...) switches to ASCII-only matching (default).\nThis override is only in effect for the narrow inline group, and the\noriginal matching mode is restored outside of the group."
+                        ],
+                        "code_demo": [
+                            "\nNew in version 3.6.\n",
+                            "\nChanged in version 3.7: The letters 'a', 'L' and 'u' also can be used in a group.\n"
+                        ]
+                    },
+                    {
+                        "name": "(?>...)",
+                        "content": [
+                            "Attempts to match ... as if it was a separate regular expression, and\nif successful, continues to match the rest of the pattern following it.\nIf the subsequent pattern fails to match, the stack can only be unwound\nto a point before the (?>...) because once exited, the expression,\nknown as an atomic group, has thrown away all stack points within\nitself.\nThus, (?>.*). would never match anything because first the .*\nwould match all characters possible, then, having nothing left to match,\nthe final . would fail to match.\nSince there are no stack points saved in the Atomic Group, and there is\nno stack point before it, the entire expression would thus fail to match."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(?P<name>...)",
+                        "content": [
+                            "Similar to regular parentheses, but the substring matched by the group is\naccessible via the symbolic group name name.  Group names must be valid\nPython identifiers, and each group name must be defined only once within a\nregular expression.  A symbolic group is also a numbered group, just as if\nthe group were not named.",
+                            "Named groups can be referenced in three contexts.  If the pattern is\n(?P<quote>['\"]).*?(?P=quote) (i.e. matching a string quoted with either\nsingle or double quotes):"
+                        ],
+                        "code_demo": [
+                            "\nDeprecated since version 3.11: Group names containing non-ASCII characters in bytes patterns.\n"
+                        ]
+                    },
+                    {
+                        "name": "(?P=name)",
+                        "content": [
+                            "A backreference to a named group; it matches whatever text was matched by the\nearlier group named name."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(?#...)",
+                        "content": [
+                            "A comment; the contents of the parentheses are simply ignored."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(?=...)",
+                        "content": [
+                            "Matches if ... matches next, but doesnt consume any of the string.  This is\ncalled a lookahead assertion.  For example, Isaac (?=Asimov) will match\n'Isaac ' only if its followed by 'Asimov'."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(?!...)",
+                        "content": [
+                            "Matches if ... doesnt match next.  This is a negative lookahead assertion.\nFor example, Isaac (?!Asimov) will match 'Isaac ' only if its not\nfollowed by 'Asimov'."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(?<=...)",
+                        "content": [
+                            "Matches if the current position in the string is preceded by a match for ...\nthat ends at the current position.  This is called a positive lookbehind\nassertion. (?<=abc)def will find a match in 'abcdef', since the\nlookbehind will back up 3 characters and check if the contained pattern matches.\nThe contained pattern must only match strings of some fixed length, meaning that\nabc or a|b are allowed, but a* and a{3,4} are not.  Note that\npatterns which start with positive lookbehind assertions will not match at the\nbeginning of the string being searched; you will most likely want to use the\nsearch() function rather than the match() function:",
+                            "This example looks for a word following a hyphen:"
+                        ],
+                        "code_demo": [
+                            ">>> import re\n>>> m = re.search('(?<=abc)def', 'abcdef')\n>>> m.group(0)\n'def'\n\n",
+                            ">>> m = re.search(r'(?<=-)\\w+', 'spam-egg')\n>>> m.group(0)\n'egg'\n\n",
+                            "\nChanged in version 3.5: Added support for group references of fixed length.\n"
+                        ]
+                    },
+                    {
+                        "name": "(?<!...)",
+                        "content": [
+                            "Matches if the current position in the string is not preceded by a match for\n....  This is called a negative lookbehind assertion.  Similar to\npositive lookbehind assertions, the contained pattern must only match strings of\nsome fixed length.  Patterns which start with negative lookbehind assertions may\nmatch at the beginning of the string being searched."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "(?(id/name)yes-pattern|no-pattern)",
+                        "content": [
+                            "Will try to match with yes-pattern if the group with given id or\nname exists, and with no-pattern if it doesnt. no-pattern is\noptional and can be omitted. For example,\n(<)?(\\w+@\\w+(?:\\.\\w+)+)(?(1)>|$) is a poor email matching pattern, which\nwill match with '<user@host.com>' as well as 'user@host.com', but\nnot with '<user@host.com' nor 'user@host.com>'."
+                        ],
+                        "code_demo": [
+                            "\nDeprecated since version 3.11: Group id containing anything except ASCII digits.\n"
+                        ]
+                    },
+                    {
+                        "name": "\\number",
+                        "content": [
+                            "Matches the contents of the group of the same number.  Groups are numbered\nstarting from 1.  For example, (.+) \\1 matches 'the the' or '55 55',\nbut not 'thethe' (note the space after the group).  This special sequence\ncan only be used to match one of the first 99 groups.  If the first digit of\nnumber is 0, or number is 3 octal digits long, it will not be interpreted as\na group match, but as the character with octal value number. Inside the\n'[' and ']' of a character class, all numeric escapes are treated as\ncharacters."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\A",
+                        "content": [
+                            "Matches only at the start of the string."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\b",
+                        "content": [
+                            "Matches the empty string, but only at the beginning or end of a word.\nA word is defined as a sequence of word characters.  Note that formally,\n\\b is defined as the boundary between a \\w and a \\W character\n(or vice versa), or between \\w and the beginning/end of the string.\nThis means that r'\\bfoo\\b' matches 'foo', 'foo.', '(foo)',\n'bar foo baz' but not 'foobar' or 'foo3'.",
+                            "By default Unicode alphanumerics are the ones used in Unicode patterns, but\nthis can be changed by using the ASCII flag.  Word boundaries are\ndetermined by the current locale if the LOCALE flag is used.\nInside a character range, \\b represents the backspace character, for\ncompatibility with Pythons string literals."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\B",
+                        "content": [
+                            "Matches the empty string, but only when it is not at the beginning or end\nof a word.  This means that r'py\\B' matches 'python', 'py3',\n'py2', but not 'py', 'py.', or 'py!'.\n\\B is just the opposite of \\b, so word characters in Unicode\npatterns are Unicode alphanumerics or the underscore, although this can\nbe changed by using the ASCII flag.  Word boundaries are\ndetermined by the current locale if the LOCALE flag is used."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\d",
+                        "content": [],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "For Unicode (str) patterns:",
+                        "content": [
+                            "Matches any Unicode decimal digit (that is, any character in\nUnicode character category [Nd]).  This includes [0-9], and\nalso many other digit characters.  If the ASCII flag is\nused only [0-9] is matched."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "For 8-bit (bytes) patterns:",
+                        "content": [
+                            "Matches any decimal digit; this is equivalent to [0-9]."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\D",
+                        "content": [
+                            "Matches any character which is not a decimal digit. This is\nthe opposite of \\d. If the ASCII flag is used this\nbecomes the equivalent of [^0-9]."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\s",
+                        "content": [],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "For Unicode (str) patterns:",
+                        "content": [
+                            "Matches Unicode whitespace characters (which includes\n[ \\t\\n\\r\\f\\v], and also many other characters, for example the\nnon-breaking spaces mandated by typography rules in many\nlanguages). If the ASCII flag is used, only\n[ \\t\\n\\r\\f\\v] is matched."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "For 8-bit (bytes) patterns:",
+                        "content": [
+                            "Matches characters considered whitespace in the ASCII character set;\nthis is equivalent to [ \\t\\n\\r\\f\\v]."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\S",
+                        "content": [
+                            "Matches any character which is not a whitespace character. This is\nthe opposite of \\s. If the ASCII flag is used this\nbecomes the equivalent of [^ \\t\\n\\r\\f\\v]."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\w",
+                        "content": [],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "For Unicode (str) patterns:",
+                        "content": [
+                            "Matches Unicode word characters; this includes most characters\nthat can be part of a word in any language, as well as numbers and\nthe underscore. If the ASCII flag is used, only\n[a-zA-Z0-9_] is matched."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "For 8-bit (bytes) patterns:",
+                        "content": [
+                            "Matches characters considered alphanumeric in the ASCII character set;\nthis is equivalent to [a-zA-Z0-9_].  If the LOCALE flag is\nused, matches characters considered alphanumeric in the current locale\nand the underscore."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\W",
+                        "content": [
+                            "Matches any character which is not a word character. This is\nthe opposite of \\w. If the ASCII flag is used this\nbecomes the equivalent of [^a-zA-Z0-9_].  If the LOCALE flag is\nused, matches characters which are neither alphanumeric in the current locale\nnor the underscore."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\\Z",
+                        "content": [
+                            "Matches only at the end of the string."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [
+                    "\\a      \\b      \\f      \\n\n\\N      \\r      \\t      \\u\n\\U      \\v      \\x      \\\\\n\n",
+                    "\nChanged in version 3.3: The '\\u' and '\\U' escape sequences have been added.\n",
+                    "\nChanged in version 3.6: Unknown escapes consisting of '\\' and an ASCII letter now are errors.\n",
+                    "\nChanged in version 3.8: The '\\N{name}' escape sequence has been added. As in string literals,\nit expands to the named Unicode character (e.g. '\\N{EM DASH}').\n"
+                ],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Module Contents",
+                "content": [
+                    "The module defines several functions, constants, and an exception. Some of the\nfunctions are simplified versions of the full featured methods for compiled\nregular expressions.  Most non-trivial applications always use the compiled\nform."
+                ],
+                "class": [],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": [
+                    {
+                        "Topic": "Flags",
+                        "content": [],
+                        "class": [
+                            {
+                                "name": "class re.RegexFlag",
+                                "content": [
+                                    "An enum.IntFlag class containing the regex options listed below."
+                                ],
+                                "code_demo": [],
+                                "methods": []
+                            }
+                        ],
+                        "functions": [
+                            {
+                                "name": "\nclass re.RegexFlag",
+                                "content": [
+                                    "An enum.IntFlag class containing the regex options listed below."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nre.A",
+                                "content": [
+                                    "Make \\w, \\W, \\b, \\B, \\d, \\D, \\s and \\S\nperform ASCII-only matching instead of full Unicode matching.  This is only\nmeaningful for Unicode patterns, and is ignored for byte patterns.\nCorresponds to the inline flag (?a).",
+                                    "Note that for backward compatibility, the re.U flag still\nexists (as well as its synonym re.UNICODE and its embedded\ncounterpart (?u)), but these are redundant in Python 3 since\nmatches are Unicode by default for strings (and Unicode matching\nisnt allowed for bytes)."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nre.DEBUG",
+                                "content": [
+                                    "Display debug information about compiled expression.\nNo corresponding inline flag."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nre.I",
+                                "content": [
+                                    "Perform case-insensitive matching; expressions like [A-Z] will also\nmatch lowercase letters.  Full Unicode matching (such as  matching\n) also works unless the re.ASCII flag is used to disable\nnon-ASCII matches.  The current locale does not change the effect of this\nflag unless the re.LOCALE flag is also used.\nCorresponds to the inline flag (?i).",
+                                    "Note that when the Unicode patterns [a-z] or [A-Z] are used in\ncombination with the IGNORECASE flag, they will match the 52 ASCII\nletters and 4 additional non-ASCII letters:  (U+0130, Latin capital\nletter I with dot above),  (U+0131, Latin small letter dotless i),\n (U+017F, Latin small letter long s) and  (U+212A, Kelvin sign).\nIf the ASCII flag is used, only letters a to z\nand A to Z are matched."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nre.L",
+                                "content": [
+                                    "Make \\w, \\W, \\b, \\B and case-insensitive matching\ndependent on the current locale.  This flag can be used only with bytes\npatterns.  The use of this flag is discouraged as the locale mechanism\nis very unreliable, it only handles one culture at a time, and it only\nworks with 8-bit locales.  Unicode matching is already enabled by default\nin Python 3 for Unicode (str) patterns, and it is able to handle different\nlocales/languages.\nCorresponds to the inline flag (?L)."
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.6: re.LOCALE can be used only with bytes patterns and is\nnot compatible with re.ASCII.\n",
+                                    "\nChanged in version 3.7: Compiled regular expression objects with the re.LOCALE flag no\nlonger depend on the locale at compile time.  Only the locale at\nmatching time affects the result of matching.\n"
+                                ]
+                            },
+                            {
+                                "name": "\nre.M",
+                                "content": [
+                                    "When specified, the pattern character '^' matches at the beginning of the\nstring and at the beginning of each line (immediately following each newline);\nand the pattern character '$' matches at the end of the string and at the\nend of each line (immediately preceding each newline).  By default, '^'\nmatches only at the beginning of the string, and '$' only at the end of the\nstring and immediately before the newline (if any) at the end of the string.\nCorresponds to the inline flag (?m)."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nre.NOFLAG",
+                                "content": [
+                                    "Indicates no flag being applied, the value is 0.  This flag may be used\nas a default value for a function keyword argument or as a base value that\nwill be conditionally ORed with other flags.  Example of use as a default\nvalue:"
+                                ],
+                                "code_demo": [
+                                    "def myfunc(text, flag=re.NOFLAG):\n    return re.match(text, flag)\n\n"
+                                ]
+                            },
+                            {
+                                "name": "\nre.S",
+                                "content": [
+                                    "Make the '.' special character match any character at all, including a\nnewline; without this flag, '.' will match anything except a newline.\nCorresponds to the inline flag (?s)."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nre.X",
+                                "content": [
+                                    "This flag allows you to write regular expressions that look nicer and are\nmore readable by allowing you to visually separate logical sections of the\npattern and add comments. Whitespace within the pattern is ignored, except\nwhen in a character class, or when preceded by an unescaped backslash,\nor within tokens like *?, (?: or (?P<...>. For example, (? :\nand * ? are not allowed.\nWhen a line contains a # that is not in a character class and is not\npreceded by an unescaped backslash, all characters from the leftmost such\n# through the end of the line are ignored.",
+                                    "This means that the two following regular expression objects that match a\ndecimal number are functionally equal:",
+                                    "Corresponds to the inline flag (?x)."
+                                ],
+                                "code_demo": [
+                                    "a = re.compile(r\"\"\"\\d +  # the integral part\n                   \\.    # the decimal point\n                   \\d *  # some fractional digits\"\"\", re.X)\nb = re.compile(r\"\\d+\\.\\d*\")\n\n"
+                                ]
+                            }
+                        ],
+                        "code_demo": [
+                            "\nChanged in version 3.6: Flag constants are now instances of RegexFlag, which is a subclass of\nenum.IntFlag.\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Functions",
+                        "content": [],
+                        "class": [],
+                        "functions": [
+                            {
+                                "name": "\nre.compile(pattern, flags=0)",
+                                "content": [
+                                    "Compile a regular expression pattern into a regular expression object, which can be used for matching using its\nmatch(), search() and other methods, described\nbelow.",
+                                    "The expressions behaviour can be modified by specifying a flags value.\nValues can be any of the following variables, combined using bitwise OR (the\n| operator).",
+                                    "The sequence",
+                                    "is equivalent to",
+                                    "but using re.compile() and saving the resulting regular expression\nobject for reuse is more efficient when the expression will be used several\ntimes in a single program."
+                                ],
+                                "code_demo": [
+                                    "prog = re.compile(pattern)\nresult = prog.match(string)\n\n",
+                                    "result = re.match(pattern, string)\n\n",
+                                    "\nNote\nThe compiled versions of the most recent patterns passed to\nre.compile() and the module-level matching functions are cached, so\nprograms that use only a few regular expressions at a time neednt worry\nabout compiling regular expressions.\n"
+                                ]
+                            },
+                            {
+                                "name": "\nre.search(pattern, string, flags=0)",
+                                "content": [
+                                    "Scan through string looking for the first location where the regular expression\npattern produces a match, and return a corresponding match object.  Return None if no position in the string matches the\npattern; note that this is different from finding a zero-length match at some\npoint in the string."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nre.match(pattern, string, flags=0)",
+                                "content": [
+                                    "If zero or more characters at the beginning of string match the regular\nexpression pattern, return a corresponding match object.  Return None if the string does not match the pattern;\nnote that this is different from a zero-length match.",
+                                    "Note that even in MULTILINE mode, re.match() will only match\nat the beginning of the string and not at the beginning of each line.",
+                                    "If you want to locate a match anywhere in string, use search()\ninstead (see also search() vs. match())."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nre.fullmatch(pattern, string, flags=0)",
+                                "content": [
+                                    "If the whole string matches the regular expression pattern, return a\ncorresponding match object.  Return None if the\nstring does not match the pattern; note that this is different from a\nzero-length match."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nre.split(pattern, string, maxsplit=0, flags=0)",
+                                "content": [
+                                    "Split string by the occurrences of pattern.  If capturing parentheses are\nused in pattern, then the text of all groups in the pattern are also returned\nas part of the resulting list. If maxsplit is nonzero, at most maxsplit\nsplits occur, and the remainder of the string is returned as the final element\nof the list.",
+                                    "If there are capturing groups in the separator and it matches at the start of\nthe string, the result will start with an empty string.  The same holds for\nthe end of the string:",
+                                    "That way, separator components are always found at the same relative\nindices within the result list.",
+                                    "Empty matches for the pattern split the string only when not adjacent\nto a previous empty match."
+                                ],
+                                "code_demo": [
+                                    ">>> re.split(r'\\W+', 'Words, words, words.')\n['Words', 'words', 'words', '']\n>>> re.split(r'(\\W+)', 'Words, words, words.')\n['Words', ', ', 'words', ', ', 'words', '.', '']\n>>> re.split(r'\\W+', 'Words, words, words.', 1)\n['Words', 'words, words.']\n>>> re.split('[a-f]+', '0a3B9', flags=re.IGNORECASE)\n['0', '3', '9']\n\n",
+                                    ">>> re.split(r'(\\W+)', '...words, words...')\n['', '...', 'words', ', ', 'words', '...', '']\n\n",
+                                    ">>> re.split(r'\\b', 'Words, words, words.')\n['', 'Words', ', ', 'words', ', ', 'words', '.']\n>>> re.split(r'\\W*', '...words...')\n['', '', 'w', 'o', 'r', 'd', 's', '', '']\n>>> re.split(r'(\\W*)', '...words...')\n['', '...', '', '', 'w', '', 'o', '', 'r', '', 'd', '', 's', '...', '', '', '']\n\n",
+                                    "\nChanged in version 3.1: Added the optional flags argument.\n",
+                                    "\nChanged in version 3.7: Added support of splitting on a pattern that could match an empty string.\n"
+                                ]
+                            },
+                            {
+                                "name": "\nre.findall(pattern, string, flags=0)",
+                                "content": [
+                                    "Return all non-overlapping matches of pattern in string, as a list of\nstrings or tuples.  The string is scanned left-to-right, and matches\nare returned in the order found.  Empty matches are included in the result.",
+                                    "The result depends on the number of capturing groups in the pattern.\nIf there are no groups, return a list of strings matching the whole\npattern.  If there is exactly one group, return a list of strings\nmatching that group.  If multiple groups are present, return a list\nof tuples of strings matching the groups.  Non-capturing groups do not\naffect the form of the result."
+                                ],
+                                "code_demo": [
+                                    ">>> re.findall(r'\\bf[a-z]*', 'which foot or hand fell fastest')\n['foot', 'fell', 'fastest']\n>>> re.findall(r'(\\w+)=(\\d+)', 'set width=20 and height=10')\n[('width', '20'), ('height', '10')]\n\n",
+                                    "\nChanged in version 3.7: Non-empty matches can now start just after a previous empty match.\n"
+                                ]
+                            },
+                            {
+                                "name": "\nre.finditer(pattern, string, flags=0)",
+                                "content": [
+                                    "Return an iterator yielding match objects over\nall non-overlapping matches for the RE pattern in string.  The string\nis scanned left-to-right, and matches are returned in the order found.  Empty\nmatches are included in the result."
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.7: Non-empty matches can now start just after a previous empty match.\n"
+                                ]
+                            },
+                            {
+                                "name": "\nre.sub(pattern, repl, string, count=0, flags=0)",
+                                "content": [
+                                    "Return the string obtained by replacing the leftmost non-overlapping occurrences\nof pattern in string by the replacement repl.  If the pattern isnt found,\nstring is returned unchanged.  repl can be a string or a function; if it is\na string, any backslash escapes in it are processed.  That is, \\n is\nconverted to a single newline character, \\r is converted to a carriage return, and\nso forth.  Unknown escapes of ASCII letters are reserved for future use and\ntreated as errors.  Other unknown escapes such as \\& are left alone.\nBackreferences, such\nas \\6, are replaced with the substring matched by group 6 in the pattern.\nFor example:",
+                                    "If repl is a function, it is called for every non-overlapping occurrence of\npattern.  The function takes a single match object\nargument, and returns the replacement string.  For example:",
+                                    "The pattern may be a string or a pattern object.",
+                                    "The optional argument count is the maximum number of pattern occurrences to be\nreplaced; count must be a non-negative integer.  If omitted or zero, all\noccurrences will be replaced. Empty matches for the pattern are replaced only\nwhen not adjacent to a previous empty match, so sub('x*', '-', 'abxd') returns\n'-a-b--d-'.",
+                                    "In string-type repl arguments, in addition to the character escapes and\nbackreferences described above,\n\\g<name> will use the substring matched by the group named name, as\ndefined by the (?P<name>...) syntax. \\g<number> uses the corresponding\ngroup number; \\g<2> is therefore equivalent to \\2, but isnt ambiguous\nin a replacement such as \\g<2>0.  \\20 would be interpreted as a\nreference to group 20, not a reference to group 2 followed by the literal\ncharacter '0'.  The backreference \\g<0> substitutes in the entire\nsubstring matched by the RE."
+                                ],
+                                "code_demo": [
+                                    ">>> re.sub(r'def\\s+([a-zA-Z_][a-zA-Z_0-9]*)\\s*\\(\\s*\\):',\n...        r'static PyObject*\\npy_\\1(void)\\n{',\n...        'def myfunc():')\n'static PyObject*\\npy_myfunc(void)\\n{'\n\n",
+                                    ">>> def dashrepl(matchobj):\n...     if matchobj.group(0) == '-': return ' '\n...     else: return '-'\n>>> re.sub('-{1,2}', dashrepl, 'pro----gram-files')\n'pro--gram files'\n>>> re.sub(r'\\sAND\\s', ' & ', 'Baked Beans And Spam', flags=re.IGNORECASE)\n'Baked Beans & Spam'\n\n",
+                                    "\nChanged in version 3.1: Added the optional flags argument.\n",
+                                    "\nChanged in version 3.5: Unmatched groups are replaced with an empty string.\n",
+                                    "\nChanged in version 3.6: Unknown escapes in pattern consisting of '\\' and an ASCII letter\nnow are errors.\n",
+                                    "\nChanged in version 3.7: Unknown escapes in repl consisting of '\\' and an ASCII letter\nnow are errors.\n",
+                                    "\nChanged in version 3.7: Empty matches for the pattern are replaced when adjacent to a previous\nnon-empty match.\n",
+                                    "\nDeprecated since version 3.11: Group id containing anything except ASCII digits.\nGroup names containing non-ASCII characters in bytes replacement strings.\n"
+                                ]
+                            },
+                            {
+                                "name": "\nre.subn(pattern, repl, string, count=0, flags=0)",
+                                "content": [
+                                    "Perform the same operation as sub(), but return a tuple (new_string,\nnumber_of_subs_made)."
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.1: Added the optional flags argument.\n",
+                                    "\nChanged in version 3.5: Unmatched groups are replaced with an empty string.\n"
+                                ]
+                            },
+                            {
+                                "name": "\nre.escape(pattern)",
+                                "content": [
+                                    "Escape special characters in pattern.\nThis is useful if you want to match an arbitrary literal string that may\nhave regular expression metacharacters in it.  For example:",
+                                    "This function must not be used for the replacement string in sub()\nand subn(), only backslashes should be escaped.  For example:"
+                                ],
+                                "code_demo": [
+                                    ">>> print(re.escape('https://www.python.org'))\nhttps://www\\.python\\.org\n\n>>> legal_chars = string.ascii_lowercase + string.digits + \"!#$%&'*+-.^_`|~:\"\n>>> print('[%s]+' % re.escape(legal_chars))\n[abcdefghijklmnopqrstuvwxyz0123456789!\\#\\$%\\&'\\*\\+\\-\\.\\^_`\\|\\~:]+\n\n>>> operators = ['+', '-', '*', '/', '**']\n>>> print('|'.join(map(re.escape, sorted(operators, reverse=True))))\n/|\\-|\\+|\\*\\*|\\*\n\n",
+                                    ">>> digits_re = r'\\d+'\n>>> sample = '/usr/sbin/sendmail - 0 errors, 12 warnings'\n>>> print(re.sub(digits_re, digits_re.replace('\\\\', r'\\\\'), sample))\n/usr/sbin/sendmail - \\d+ errors, \\d+ warnings\n\n",
+                                    "\nChanged in version 3.3: The '_' character is no longer escaped.\n",
+                                    "\nChanged in version 3.7: Only characters that can have special meaning in a regular expression\nare escaped. As a result, '!', '\"', '%', \"'\", ',',\n'/', ':', ';', '<', '=', '>', '@', and\n\"`\" are no longer escaped.\n"
+                                ]
+                            },
+                            {
+                                "name": "\nre.purge()",
+                                "content": [
+                                    "Clear the regular expression cache."
+                                ],
+                                "code_demo": []
+                            }
+                        ],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Exceptions",
+                        "content": [],
+                        "class": [],
+                        "functions": [
+                            {
+                                "name": "\nexception re.error(msg, pattern=None, pos=None)",
+                                "content": [
+                                    "Exception raised when a string passed to one of the functions here is not a\nvalid regular expression (for example, it might contain unmatched parentheses)\nor when some other error occurs during compilation or matching.  It is never an\nerror if a string contains no match for a pattern.  The error instance has\nthe following additional attributes:"
+                                ],
+                                "code_demo": [
+                                    "\nChanged in version 3.5: Added additional attributes.\n"
+                                ]
+                            },
+                            {
+                                "name": "\nmsg",
+                                "content": [
+                                    "The unformatted error message."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\npattern",
+                                "content": [
+                                    "The regular expression pattern."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\npos",
+                                "content": [
+                                    "The index in pattern where compilation failed (may be None)."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\nlineno",
+                                "content": [
+                                    "The line corresponding to pos (may be None)."
+                                ],
+                                "code_demo": []
+                            },
+                            {
+                                "name": "\ncolno",
+                                "content": [
+                                    "The column corresponding to pos (may be None)."
+                                ],
+                                "code_demo": []
+                            }
+                        ],
+                        "code_demo": [],
+                        "Subtopics": []
+                    }
+                ]
+            },
+            {
+                "Topic": "Regular Expression Objects",
+                "content": [
+                    "Compiled regular expression objects support the following methods and\nattributes:"
+                ],
+                "class": [],
+                "functions": [
+                    {
+                        "name": "\nPattern.search(string[, pos[, endpos]])",
+                        "content": [
+                            "Scan through string looking for the first location where this regular\nexpression produces a match, and return a corresponding match object.  Return None if no position in the string matches the\npattern; note that this is different from finding a zero-length match at some\npoint in the string.",
+                            "The optional second parameter pos gives an index in the string where the\nsearch is to start; it defaults to 0.  This is not completely equivalent to\nslicing the string; the '^' pattern character matches at the real beginning\nof the string and at positions just after a newline, but not necessarily at the\nindex where the search is to start.",
+                            "The optional parameter endpos limits how far the string will be searched; it\nwill be as if the string is endpos characters long, so only the characters\nfrom pos to endpos - 1 will be searched for a match.  If endpos is less\nthan pos, no match will be found; otherwise, if rx is a compiled regular\nexpression object, rx.search(string, 0, 50) is equivalent to\nrx.search(string[:50], 0)."
+                        ],
+                        "code_demo": [
+                            ">>> pattern = re.compile(\"d\")\n>>> pattern.search(\"dog\")     # Match at index 0\n<re.Match object; span=(0, 1), match='d'>\n>>> pattern.search(\"dog\", 1)  # No match; search doesn't include the \"d\"\n\n"
+                        ]
+                    },
+                    {
+                        "name": "\nPattern.match(string[, pos[, endpos]])",
+                        "content": [
+                            "If zero or more characters at the beginning of string match this regular\nexpression, return a corresponding match object.\nReturn None if the string does not match the pattern; note that this is\ndifferent from a zero-length match.",
+                            "The optional pos and endpos parameters have the same meaning as for the\nsearch() method.",
+                            "If you want to locate a match anywhere in string, use\nsearch() instead (see also search() vs. match())."
+                        ],
+                        "code_demo": [
+                            ">>> pattern = re.compile(\"o\")\n>>> pattern.match(\"dog\")      # No match as \"o\" is not at the start of \"dog\".\n>>> pattern.match(\"dog\", 1)   # Match as \"o\" is the 2nd character of \"dog\".\n<re.Match object; span=(1, 2), match='o'>\n\n"
+                        ]
+                    },
+                    {
+                        "name": "\nPattern.fullmatch(string[, pos[, endpos]])",
+                        "content": [
+                            "If the whole string matches this regular expression, return a corresponding\nmatch object.  Return None if the string does not\nmatch the pattern; note that this is different from a zero-length match.",
+                            "The optional pos and endpos parameters have the same meaning as for the\nsearch() method."
+                        ],
+                        "code_demo": [
+                            ">>> pattern = re.compile(\"o[gh]\")\n>>> pattern.fullmatch(\"dog\")      # No match as \"o\" is not at the start of \"dog\".\n>>> pattern.fullmatch(\"ogre\")     # No match as not the full string matches.\n>>> pattern.fullmatch(\"doggie\", 1, 3)   # Matches within given limits.\n<re.Match object; span=(1, 3), match='og'>\n\n"
+                        ]
+                    },
+                    {
+                        "name": "\nPattern.split(string, maxsplit=0)",
+                        "content": [
+                            "Identical to the split() function, using the compiled pattern."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nPattern.findall(string[, pos[, endpos]])",
+                        "content": [
+                            "Similar to the findall() function, using the compiled pattern, but\nalso accepts optional pos and endpos parameters that limit the search\nregion like for search()."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nPattern.finditer(string[, pos[, endpos]])",
+                        "content": [
+                            "Similar to the finditer() function, using the compiled pattern, but\nalso accepts optional pos and endpos parameters that limit the search\nregion like for search()."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nPattern.sub(repl, string, count=0)",
+                        "content": [
+                            "Identical to the sub() function, using the compiled pattern."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nPattern.subn(repl, string, count=0)",
+                        "content": [
+                            "Identical to the subn() function, using the compiled pattern."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nPattern.flags",
+                        "content": [
+                            "The regex matching flags.  This is a combination of the flags given to\ncompile(), any (?...) inline flags in the pattern, and implicit\nflags such as UNICODE if the pattern is a Unicode string."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nPattern.groups",
+                        "content": [
+                            "The number of capturing groups in the pattern."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nPattern.groupindex",
+                        "content": [
+                            "A dictionary mapping any symbolic group names defined by (?P<id>) to group\nnumbers.  The dictionary is empty if no symbolic groups were used in the\npattern."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nPattern.pattern",
+                        "content": [
+                            "The pattern string from which the pattern object was compiled."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [
+                    "\nChanged in version 3.7: Added support of copy.copy() and copy.deepcopy().  Compiled\nregular expression objects are considered atomic.\n"
+                ],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Match Objects",
+                "content": [
+                    "Match objects always have a boolean value of True.\nSince match() and search() return None\nwhen there is no match, you can test whether there was a match with a simple\nif statement:",
+                    "Match objects support the following methods and attributes:"
+                ],
+                "class": [],
+                "functions": [
+                    {
+                        "name": "\nMatch.expand(template)",
+                        "content": [
+                            "Return the string obtained by doing backslash substitution on the template\nstring template, as done by the sub() method.\nEscapes such as \\n are converted to the appropriate characters,\nand numeric backreferences (\\1, \\2) and named backreferences\n(\\g<1>, \\g<name>) are replaced by the contents of the\ncorresponding group."
+                        ],
+                        "code_demo": [
+                            "\nChanged in version 3.5: Unmatched groups are replaced with an empty string.\n"
+                        ]
+                    },
+                    {
+                        "name": "\nMatch.group([group1, ...])",
+                        "content": [
+                            "Returns one or more subgroups of the match.  If there is a single argument, the\nresult is a single string; if there are multiple arguments, the result is a\ntuple with one item per argument. Without arguments, group1 defaults to zero\n(the whole match is returned). If a groupN argument is zero, the corresponding\nreturn value is the entire matching string; if it is in the inclusive range\n[1..99], it is the string matching the corresponding parenthesized group.  If a\ngroup number is negative or larger than the number of groups defined in the\npattern, an IndexError exception is raised. If a group is contained in a\npart of the pattern that did not match, the corresponding result is None.\nIf a group is contained in a part of the pattern that matched multiple times,\nthe last match is returned.",
+                            "If the regular expression uses the (?P<name>...) syntax, the groupN\narguments may also be strings identifying groups by their group name.  If a\nstring argument is not used as a group name in the pattern, an IndexError\nexception is raised.",
+                            "A moderately complicated example:",
+                            "Named groups can also be referred to by their index:",
+                            "If a group matches multiple times, only the last match is accessible:"
+                        ],
+                        "code_demo": [
+                            ">>> m = re.match(r\"(\\w+) (\\w+)\", \"Isaac Newton, physicist\")\n>>> m.group(0)       # The entire match\n'Isaac Newton'\n>>> m.group(1)       # The first parenthesized subgroup.\n'Isaac'\n>>> m.group(2)       # The second parenthesized subgroup.\n'Newton'\n>>> m.group(1, 2)    # Multiple arguments give us a tuple.\n('Isaac', 'Newton')\n\n",
+                            ">>> m = re.match(r\"(?P<first_name>\\w+) (?P<last_name>\\w+)\", \"Malcolm Reynolds\")\n>>> m.group('first_name')\n'Malcolm'\n>>> m.group('last_name')\n'Reynolds'\n\n",
+                            ">>> m.group(1)\n'Malcolm'\n>>> m.group(2)\n'Reynolds'\n\n",
+                            ">>> m = re.match(r\"(..)+\", \"a1b2c3\")  # Matches 3 times.\n>>> m.group(1)                        # Returns only the last match.\n'c3'\n\n"
+                        ]
+                    },
+                    {
+                        "name": "\nMatch.__getitem__(g)",
+                        "content": [
+                            "This is identical to m.group(g).  This allows easier access to\nan individual group from a match:",
+                            "Named groups are supported as well:"
+                        ],
+                        "code_demo": [
+                            ">>> m = re.match(r\"(\\w+) (\\w+)\", \"Isaac Newton, physicist\")\n>>> m[0]       # The entire match\n'Isaac Newton'\n>>> m[1]       # The first parenthesized subgroup.\n'Isaac'\n>>> m[2]       # The second parenthesized subgroup.\n'Newton'\n\n",
+                            ">>> m = re.match(r\"(?P<first_name>\\w+) (?P<last_name>\\w+)\", \"Isaac Newton\")\n>>> m['first_name']\n'Isaac'\n>>> m['last_name']\n'Newton'\n\n"
+                        ]
+                    },
+                    {
+                        "name": "\nMatch.groups(default=None)",
+                        "content": [
+                            "Return a tuple containing all the subgroups of the match, from 1 up to however\nmany groups are in the pattern.  The default argument is used for groups that\ndid not participate in the match; it defaults to None.",
+                            "For example:",
+                            "If we make the decimal place and everything after it optional, not all groups\nmight participate in the match.  These groups will default to None unless\nthe default argument is given:"
+                        ],
+                        "code_demo": [
+                            ">>> m = re.match(r\"(\\d+)\\.(\\d+)\", \"24.1632\")\n>>> m.groups()\n('24', '1632')\n\n",
+                            ">>> m = re.match(r\"(\\d+)\\.?(\\d+)?\", \"24\")\n>>> m.groups()      # Second group defaults to None.\n('24', None)\n>>> m.groups('0')   # Now, the second group defaults to '0'.\n('24', '0')\n\n"
+                        ]
+                    },
+                    {
+                        "name": "\nMatch.groupdict(default=None)",
+                        "content": [
+                            "Return a dictionary containing all the named subgroups of the match, keyed by\nthe subgroup name.  The default argument is used for groups that did not\nparticipate in the match; it defaults to None.  For example:"
+                        ],
+                        "code_demo": [
+                            ">>> m = re.match(r\"(?P<first_name>\\w+) (?P<last_name>\\w+)\", \"Malcolm Reynolds\")\n>>> m.groupdict()\n{'first_name': 'Malcolm', 'last_name': 'Reynolds'}\n\n"
+                        ]
+                    },
+                    {
+                        "name": "\nMatch.start([group])",
+                        "content": [
+                            "Return the indices of the start and end of the substring matched by group;\ngroup defaults to zero (meaning the whole matched substring). Return -1 if\ngroup exists but did not contribute to the match.  For a match object m, and\na group g that did contribute to the match, the substring matched by group g\n(equivalent to m.group(g)) is",
+                            "Note that m.start(group) will equal m.end(group) if group matched a\nnull string.  For example, after m = re.search('b(c?)', 'cba'),\nm.start(0) is 1, m.end(0) is 2, m.start(1) and m.end(1) are both\n2, and m.start(2) raises an IndexError exception.",
+                            "An example that will remove remove_this from email addresses:"
+                        ],
+                        "code_demo": [
+                            "m.string[m.start(g):m.end(g)]\n\n",
+                            ">>> email = \"tony@tiremove_thisger.net\"\n>>> m = re.search(\"remove_this\", email)\n>>> email[:m.start()] + email[m.end():]\n'tony@tiger.net'\n\n"
+                        ]
+                    },
+                    {
+                        "name": "\nMatch.span([group])",
+                        "content": [
+                            "For a match m, return the 2-tuple (m.start(group), m.end(group)). Note\nthat if group did not contribute to the match, this is (-1, -1).\ngroup defaults to zero, the entire match."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nMatch.pos",
+                        "content": [
+                            "The value of pos which was passed to the search() or\nmatch() method of a regex object.  This is\nthe index into the string at which the RE engine started looking for a match."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nMatch.endpos",
+                        "content": [
+                            "The value of endpos which was passed to the search() or\nmatch() method of a regex object.  This is\nthe index into the string beyond which the RE engine will not go."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nMatch.lastindex",
+                        "content": [
+                            "The integer index of the last matched capturing group, or None if no group\nwas matched at all. For example, the expressions (a)b, ((a)(b)), and\n((ab)) will have lastindex == 1 if applied to the string 'ab', while\nthe expression (a)(b) will have lastindex == 2, if applied to the same\nstring."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nMatch.lastgroup",
+                        "content": [
+                            "The name of the last matched capturing group, or None if the group didnt\nhave a name, or if no group was matched at all."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nMatch.re",
+                        "content": [
+                            "The regular expression object whose match() or\nsearch() method produced this match instance."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "\nMatch.string",
+                        "content": [
+                            "The string passed to match() or search()."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [
+                    "match = re.search(pattern, string)\nif match:\n    process(match)\n\n",
+                    "\nChanged in version 3.7: Added support of copy.copy() and copy.deepcopy().  Match objects\nare considered atomic.\n"
+                ],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Regular Expression Examples",
+                "content": [],
+                "class": [],
+                "functions": [],
+                "code_demo": [],
+                "Subtopics": [
+                    {
+                        "Topic": "Checking for a Pair",
+                        "content": [
+                            "In this example, well use the following helper function to display match\nobjects a little more gracefully:",
+                            "Suppose you are writing a poker program where a players hand is represented as\na 5-character string with each character representing a card, a for ace, k\nfor king, q for queen, j for jack, t for 10, and 2 through 9\nrepresenting the card with that value.",
+                            "To see if a given string is a valid hand, one could do the following:",
+                            "That last hand, \"727ak\", contained a pair, or two of the same valued cards.\nTo match this with a regular expression, one could use backreferences as such:",
+                            "To find out what card the pair consists of, one could use the\ngroup() method of the match object in the following manner:"
+                        ],
+                        "class": [],
+                        "functions": [],
+                        "code_demo": [
+                            "def displaymatch(match):\n    if match is None:\n        return None\n    return '<Match: %r, groups=%r>' % (match.group(), match.groups())\n\n",
+                            ">>> valid = re.compile(r\"^[a2-9tjqk]{5}$\")\n>>> displaymatch(valid.match(\"akt5q\"))  # Valid.\n\"<Match: 'akt5q', groups=()>\"\n>>> displaymatch(valid.match(\"akt5e\"))  # Invalid.\n>>> displaymatch(valid.match(\"akt\"))    # Invalid.\n>>> displaymatch(valid.match(\"727ak\"))  # Valid.\n\"<Match: '727ak', groups=()>\"\n\n",
+                            ">>> pair = re.compile(r\".*(.).*\\1\")\n>>> displaymatch(pair.match(\"717ak\"))     # Pair of 7s.\n\"<Match: '717', groups=('7',)>\"\n>>> displaymatch(pair.match(\"718ak\"))     # No pairs.\n>>> displaymatch(pair.match(\"354aa\"))     # Pair of aces.\n\"<Match: '354aa', groups=('a',)>\"\n\n",
+                            ">>> pair = re.compile(r\".*(.).*\\1\")\n>>> pair.match(\"717ak\").group(1)\n'7'\n\n# Error because re.match() returns None, which doesn't have a group() method:\n>>> pair.match(\"718ak\").group(1)\nTraceback (most recent call last):\n  File \"<pyshell#23>\", line 1, in <module>\n    re.match(r\".*(.).*\\1\", \"718ak\").group(1)\nAttributeError: 'NoneType' object has no attribute 'group'\n\n>>> pair.match(\"354aa\").group(1)\n'a'\n\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Simulating scanf()",
+                        "content": [],
+                        "class": [],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "search() vs. match()",
+                        "content": [],
+                        "class": [],
+                        "functions": [],
+                        "code_demo": [],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Making a Phonebook",
+                        "content": [
+                            "split() splits a string into a list delimited by the passed pattern.  The\nmethod is invaluable for converting textual data into data structures that can be\neasily read and modified by Python as demonstrated in the following example that\ncreates a phonebook.",
+                            "First, here is the input.  Normally it may come from a file, here we are using\ntriple-quoted string syntax",
+                            "The entries are separated by one or more newlines. Now we convert the string\ninto a list with each nonempty line having its own entry:",
+                            "Finally, split each entry into a list with first name, last name, telephone\nnumber, and address.  We use the maxsplit parameter of split()\nbecause the address has spaces, our splitting pattern, in it:",
+                            "The :? pattern matches the colon after the last name, so that it does not\noccur in the result list.  With a maxsplit of 4, we could separate the\nhouse number from the street name:"
+                        ],
+                        "class": [],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> text = \"\"\"Ross McFluff: 834.345.1254 155 Elm Street\n...\n... Ronald Heathmore: 892.345.3428 436 Finley Avenue\n... Frank Burger: 925.541.7625 662 South Dogwood Way\n...\n...\n... Heather Albrecht: 548.326.4584 919 Park Place\"\"\"\n\n",
+                            ">>> entries = re.split(\"\\n+\", text)\n>>> entries\n['Ross McFluff: 834.345.1254 155 Elm Street',\n'Ronald Heathmore: 892.345.3428 436 Finley Avenue',\n'Frank Burger: 925.541.7625 662 South Dogwood Way',\n'Heather Albrecht: 548.326.4584 919 Park Place']\n\n",
+                            ">>> [re.split(\":? \", entry, 3) for entry in entries]\n[['Ross', 'McFluff', '834.345.1254', '155 Elm Street'],\n['Ronald', 'Heathmore', '892.345.3428', '436 Finley Avenue'],\n['Frank', 'Burger', '925.541.7625', '662 South Dogwood Way'],\n['Heather', 'Albrecht', '548.326.4584', '919 Park Place']]\n\n",
+                            ">>> [re.split(\":? \", entry, 4) for entry in entries]\n[['Ross', 'McFluff', '834.345.1254', '155', 'Elm Street'],\n['Ronald', 'Heathmore', '892.345.3428', '436', 'Finley Avenue'],\n['Frank', 'Burger', '925.541.7625', '662', 'South Dogwood Way'],\n['Heather', 'Albrecht', '548.326.4584', '919', 'Park Place']]\n\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Text Munging",
+                        "content": [
+                            "sub() replaces every occurrence of a pattern with a string or the\nresult of a function.  This example demonstrates using sub() with\na function to munge text, or randomize the order of all the characters\nin each word of a sentence except for the first and last characters:"
+                        ],
+                        "class": [],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> def repl(m):\n...     inner_word = list(m.group(2))\n...     random.shuffle(inner_word)\n...     return m.group(1) + \"\".join(inner_word) + m.group(3)\n>>> text = \"Professor Abdolmalek, please report your absences promptly.\"\n>>> re.sub(r\"(\\w)(\\w+)(\\w)\", repl, text)\n'Poefsrosr Aealmlobdk, pslaee reorpt your abnseces plmrptoy.'\n>>> re.sub(r\"(\\w)(\\w+)(\\w)\", repl, text)\n'Pofsroser Aodlambelk, plasee reoprt yuor asnebces potlmrpy.'\n\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Finding all Adverbs",
+                        "content": [
+                            "findall() matches all occurrences of a pattern, not just the first\none as search() does.  For example, if a writer wanted to\nfind all of the adverbs in some text, they might use findall() in\nthe following manner:"
+                        ],
+                        "class": [],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> text = \"He was carefully disguised but captured quickly by police.\"\n>>> re.findall(r\"\\w+ly\\b\", text)\n['carefully', 'quickly']\n\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Finding all Adverbs and their Positions",
+                        "content": [
+                            "If one wants more information about all matches of a pattern than the matched\ntext, finditer() is useful as it provides match objects instead of strings.  Continuing with the previous example, if\na writer wanted to find all of the adverbs and their positions in\nsome text, they would use finditer() in the following manner:"
+                        ],
+                        "class": [],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> text = \"He was carefully disguised but captured quickly by police.\"\n>>> for m in re.finditer(r\"\\w+ly\\b\", text):\n...     print('%02d-%02d: %s' % (m.start(), m.end(), m.group(0)))\n07-16: carefully\n40-47: quickly\n\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Raw String Notation",
+                        "content": [
+                            "Raw string notation (r\"text\") keeps regular expressions sane.  Without it,\nevery backslash ('\\') in a regular expression would have to be prefixed with\nanother one to escape it.  For example, the two following lines of code are\nfunctionally identical:",
+                            "When one wants to match a literal backslash, it must be escaped in the regular\nexpression.  With raw string notation, this means r\"\\\\\".  Without raw string\nnotation, one must use \"\\\\\\\\\", making the following lines of code\nfunctionally identical:"
+                        ],
+                        "class": [],
+                        "functions": [],
+                        "code_demo": [
+                            ">>> re.match(r\"\\W(.)\\1\\W\", \" ff \")\n<re.Match object; span=(0, 4), match=' ff '>\n>>> re.match(\"\\\\W(.)\\\\1\\\\W\", \" ff \")\n<re.Match object; span=(0, 4), match=' ff '>\n\n",
+                            ">>> re.match(r\"\\\\\", r\"\\\\\")\n<re.Match object; span=(0, 1), match='\\\\'>\n>>> re.match(\"\\\\\\\\\", r\"\\\\\")\n<re.Match object; span=(0, 1), match='\\\\'>\n\n"
+                        ],
+                        "Subtopics": []
+                    },
+                    {
+                        "Topic": "Writing a Tokenizer",
+                        "content": [
+                            "A tokenizer or scanner\nanalyzes a string to categorize groups of characters.  This is a useful first\nstep in writing a compiler or interpreter.",
+                            "The text categories are specified with regular expressions.  The technique is\nto combine those into a single master regular expression and to loop over\nsuccessive matches:",
+                            "The tokenizer produces the following output:"
+                        ],
+                        "class": [],
+                        "functions": [
+                            {
+                                "name": "Frie09",
+                                "content": [
+                                    "Friedl, Jeffrey. Mastering Regular Expressions. 3rd ed., OReilly\nMedia, 2009. The third edition of the book no longer covers Python at all,\nbut the first edition covered writing good regular expression patterns in\ngreat detail."
+                                ],
+                                "code_demo": []
+                            }
+                        ],
+                        "code_demo": [
+                            "from typing import NamedTuple\nimport re\n\nclass Token(NamedTuple):\n    type: str\n    value: str\n    line: int\n    column: int\n\ndef tokenize(code):\n    keywords = {'IF', 'THEN', 'ENDIF', 'FOR', 'NEXT', 'GOSUB', 'RETURN'}\n    token_specification = [\n        ('NUMBER',   r'\\d+(\\.\\d*)?'),  # Integer or decimal number\n        ('ASSIGN',   r':='),           # Assignment operator\n        ('END',      r';'),            # Statement terminator\n        ('ID',       r'[A-Za-z]+'),    # Identifiers\n        ('OP',       r'[+\\-*/]'),      # Arithmetic operators\n        ('NEWLINE',  r'\\n'),           # Line endings\n        ('SKIP',     r'[ \\t]+'),       # Skip over spaces and tabs\n        ('MISMATCH', r'.'),            # Any other character\n    ]\n    tok_regex = '|'.join('(?P<%s>%s)' % pair for pair in token_specification)\n    line_num = 1\n    line_start = 0\n    for mo in re.finditer(tok_regex, code):\n        kind = mo.lastgroup\n        value = mo.group()\n        column = mo.start() - line_start\n        if kind == 'NUMBER':\n            value = float(value) if '.' in value else int(value)\n        elif kind == 'ID' and value in keywords:\n            kind = value\n        elif kind == 'NEWLINE':\n            line_start = mo.end()\n            line_num += 1\n            continue\n        elif kind == 'SKIP':\n            continue\n        elif kind == 'MISMATCH':\n            raise RuntimeError(f'{value!r} unexpected on line {line_num}')\n        yield Token(kind, value, line_num, column)\n\nstatements = '''\n    IF quantity THEN\n        total := total + price * quantity;\n        tax := price * 0.05;\n    ENDIF;\n'''\n\nfor token in tokenize(statements):\n    print(token)\n\n",
+                            "Token(type='IF', value='IF', line=2, column=4)\nToken(type='ID', value='quantity', line=2, column=7)\nToken(type='THEN', value='THEN', line=2, column=16)\nToken(type='ID', value='total', line=3, column=8)\nToken(type='ASSIGN', value=':=', line=3, column=14)\nToken(type='ID', value='total', line=3, column=17)\nToken(type='OP', value='+', line=3, column=23)\nToken(type='ID', value='price', line=3, column=25)\nToken(type='OP', value='*', line=3, column=31)\nToken(type='ID', value='quantity', line=3, column=33)\nToken(type='END', value=';', line=3, column=41)\nToken(type='ID', value='tax', line=4, column=8)\nToken(type='ASSIGN', value=':=', line=4, column=12)\nToken(type='ID', value='price', line=4, column=15)\nToken(type='OP', value='*', line=4, column=21)\nToken(type='NUMBER', value=0.05, line=4, column=23)\nToken(type='END', value=';', line=4, column=27)\nToken(type='ENDIF', value='ENDIF', line=5, column=4)\nToken(type='END', value=';', line=5, column=9)\n\n"
+                        ],
+                        "Subtopics": []
+                    }
+                ]
+            }
+        ]
+    }
+]

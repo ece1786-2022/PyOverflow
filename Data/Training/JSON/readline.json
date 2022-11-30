@@ -1,0 +1,264 @@
+[
+    {
+        "Topic": "readline GNU readline interface",
+        "content": [],
+        "class": [],
+        "functions": [],
+        "code_demo": [],
+        "Subtopics": [
+            {
+                "Topic": "Init file",
+                "content": [
+                    "The following functions relate to the init file and user configuration:"
+                ],
+                "class": [],
+                "functions": [
+                    {
+                        "name": "readline.parse_and_bind(string)",
+                        "content": [
+                            "Execute the init line provided in the string argument. This calls\nrl_parse_and_bind() in the underlying library."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.read_init_file([filename])",
+                        "content": [
+                            "Execute a readline initialization file. The default filename is the last filename\nused. This calls rl_read_init_file() in the underlying library."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Line buffer",
+                "content": [
+                    "The following functions operate on the line buffer:"
+                ],
+                "class": [],
+                "functions": [
+                    {
+                        "name": "readline.get_line_buffer()",
+                        "content": [
+                            "Return the current contents of the line buffer (rl_line_buffer\nin the underlying library)."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.insert_text(string)",
+                        "content": [
+                            "Insert text into the line buffer at the cursor position.  This calls\nrl_insert_text() in the underlying library, but ignores\nthe return value."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.redisplay()",
+                        "content": [
+                            "Change whats displayed on the screen to reflect the current contents of the\nline buffer.  This calls rl_redisplay() in the underlying library."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "History file",
+                "content": [
+                    "The following functions operate on a history file:"
+                ],
+                "class": [],
+                "functions": [
+                    {
+                        "name": "readline.read_history_file([filename])",
+                        "content": [
+                            "Load a readline history file, and append it to the history list.\nThe default filename is ~/.history.  This calls\nread_history() in the underlying library."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.write_history_file([filename])",
+                        "content": [
+                            "Save the history list to a readline history file, overwriting any\nexisting file.  The default filename is ~/.history.  This calls\nwrite_history() in the underlying library."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.append_history_file(nelements[, filename])",
+                        "content": [
+                            "Append the last nelements items of history to a file.  The default filename is\n~/.history.  The file must already exist.  This calls\nappend_history() in the underlying library.  This function\nonly exists if Python was compiled for a version of the library\nthat supports it."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.get_history_length()",
+                        "content": [
+                            "Set or return the desired number of lines to save in the history file.\nThe write_history_file() function uses this value to truncate\nthe history file, by calling history_truncate_file() in\nthe underlying library.  Negative values imply\nunlimited history file size."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "History list",
+                "content": [
+                    "The following functions operate on a global history list:"
+                ],
+                "class": [],
+                "functions": [
+                    {
+                        "name": "readline.clear_history()",
+                        "content": [
+                            "Clear the current history.  This calls clear_history() in the\nunderlying library.  The Python function only exists if Python was\ncompiled for a version of the library that supports it."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.get_current_history_length()",
+                        "content": [
+                            "Return the number of items currently in the history.  (This is different from\nget_history_length(), which returns the maximum number of lines that will\nbe written to a history file.)"
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.get_history_item(index)",
+                        "content": [
+                            "Return the current contents of history item at index.  The item index\nis one-based.  This calls history_get() in the underlying library."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.remove_history_item(pos)",
+                        "content": [
+                            "Remove history item specified by its position from the history.\nThe position is zero-based.  This calls remove_history() in\nthe underlying library."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.replace_history_item(pos, line)",
+                        "content": [
+                            "Replace history item specified by its position with line.\nThe position is zero-based.  This calls replace_history_entry()\nin the underlying library."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.add_history(line)",
+                        "content": [
+                            "Append line to the history buffer, as if it was the last line typed.\nThis calls add_history() in the underlying library."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.set_auto_history(enabled)",
+                        "content": [
+                            "Enable or disable automatic calls to add_history() when reading\ninput via readline.  The enabled argument should be a Boolean value\nthat when true, enables auto history, and that when false, disables\nauto history."
+                        ],
+                        "code_demo": [
+                            "\nNew in version 3.6.\n",
+                            "\nCPython implementation detail: Auto history is enabled by default, and changes to this do not persist\nacross multiple sessions.\n"
+                        ]
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Startup hooks",
+                "content": [],
+                "class": [],
+                "functions": [
+                    {
+                        "name": "readline.set_startup_hook([function])",
+                        "content": [
+                            "Set or remove the function invoked by the rl_startup_hook\ncallback of the underlying library.  If function is specified, it will\nbe used as the new hook function; if omitted or None, any function\nalready installed is removed.  The hook is called with no\narguments just before readline prints the first prompt."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.set_pre_input_hook([function])",
+                        "content": [
+                            "Set or remove the function invoked by the rl_pre_input_hook\ncallback of the underlying library.  If function is specified, it will\nbe used as the new hook function; if omitted or None, any\nfunction already installed is removed.  The hook is called\nwith no arguments after the first prompt has been printed and just before\nreadline starts reading input characters.  This function only exists\nif Python was compiled for a version of the library that supports it."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Completion",
+                "content": [
+                    "The following functions relate to implementing a custom word completion\nfunction.  This is typically operated by the Tab key, and can suggest and\nautomatically complete a word being typed.  By default, Readline is set up\nto be used by rlcompleter to complete Python identifiers for\nthe interactive interpreter.  If the readline module is to be used\nwith a custom completer, a different set of word delimiters should be set."
+                ],
+                "class": [],
+                "functions": [
+                    {
+                        "name": "readline.set_completer([function])",
+                        "content": [
+                            "Set or remove the completer function.  If function is specified, it will be\nused as the new completer function; if omitted or None, any completer\nfunction already installed is removed.  The completer function is called as\nfunction(text, state), for state in 0, 1, 2, , until it\nreturns a non-string value.  It should return the next possible completion\nstarting with text.",
+                            "The installed completer function is invoked by the entry_func callback\npassed to rl_completion_matches() in the underlying library.\nThe text string comes from the first parameter to the\nrl_attempted_completion_function callback of the\nunderlying library."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.get_completer()",
+                        "content": [
+                            "Get the completer function, or None if no completer function has been set."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.get_completion_type()",
+                        "content": [
+                            "Get the type of completion being attempted.  This returns the\nrl_completion_type variable in the underlying library as\nan integer."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.get_begidx()",
+                        "content": [
+                            "Get the beginning or ending index of the completion scope.\nThese indexes are the start and end arguments passed to the\nrl_attempted_completion_function callback of the\nunderlying library.  The values may be different in the same\ninput editing scenario based on the underlying C readline implementation.\nEx: libedit is known to behave differently than libreadline."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.set_completer_delims(string)",
+                        "content": [
+                            "Set or get the word delimiters for completion.  These determine the\nstart of the word to be considered for completion (the completion scope).\nThese functions access the rl_completer_word_break_characters\nvariable in the underlying library."
+                        ],
+                        "code_demo": []
+                    },
+                    {
+                        "name": "readline.set_completion_display_matches_hook([function])",
+                        "content": [
+                            "Set or remove the completion display function.  If function is\nspecified, it will be used as the new completion display function;\nif omitted or None, any completion display function already\ninstalled is removed.  This sets or clears the\nrl_completion_display_matches_hook callback in the\nunderlying library.  The completion display function is called as\nfunction(substitution, [matches], longest_match_length) once\neach time matches need to be displayed."
+                        ],
+                        "code_demo": []
+                    }
+                ],
+                "code_demo": [],
+                "Subtopics": []
+            },
+            {
+                "Topic": "Example",
+                "content": [
+                    "The following example demonstrates how to use the readline modules\nhistory reading and writing functions to automatically load and save a history\nfile named .python_history from the users home directory.  The code\nbelow would normally be executed automatically during interactive sessions\nfrom the users PYTHONSTARTUP file.",
+                    "This code is actually automatically run when Python is run in\ninteractive mode (see Readline configuration).",
+                    "The following example achieves the same goal but supports concurrent interactive\nsessions, by only appending the new history.",
+                    "The following example extends the code.InteractiveConsole class to\nsupport history save/restore."
+                ],
+                "class": [],
+                "functions": [],
+                "code_demo": [
+                    "import atexit\nimport os\nimport readline\n\nhistfile = os.path.join(os.path.expanduser(\"~\"), \".python_history\")\ntry:\n    readline.read_history_file(histfile)\n    # default history len is -1 (infinite), which may grow unruly\n    readline.set_history_length(1000)\nexcept FileNotFoundError:\n    pass\n\natexit.register(readline.write_history_file, histfile)\n\n",
+                    "import atexit\nimport os\nimport readline\nhistfile = os.path.join(os.path.expanduser(\"~\"), \".python_history\")\n\ntry:\n    readline.read_history_file(histfile)\n    h_len = readline.get_current_history_length()\nexcept FileNotFoundError:\n    open(histfile, 'wb').close()\n    h_len = 0\n\ndef save(prev_h_len, histfile):\n    new_h_len = readline.get_current_history_length()\n    readline.set_history_length(1000)\n    readline.append_history_file(new_h_len - prev_h_len, histfile)\natexit.register(save, h_len, histfile)\n\n",
+                    "import atexit\nimport code\nimport os\nimport readline\n\nclass HistoryConsole(code.InteractiveConsole):\n    def __init__(self, locals=None, filename=\"<console>\",\n                 histfile=os.path.expanduser(\"~/.console-history\")):\n        code.InteractiveConsole.__init__(self, locals, filename)\n        self.init_history(histfile)\n\n    def init_history(self, histfile):\n        readline.parse_and_bind(\"tab: complete\")\n        if hasattr(readline, \"read_history_file\"):\n            try:\n                readline.read_history_file(histfile)\n            except FileNotFoundError:\n                pass\n            atexit.register(self.save_history, histfile)\n\n    def save_history(self, histfile):\n        readline.set_history_length(1000)\n        readline.write_history_file(histfile)\n\n"
+                ],
+                "Subtopics": []
+            }
+        ]
+    }
+]
