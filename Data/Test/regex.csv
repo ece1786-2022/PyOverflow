@@ -1,0 +1,2500 @@
+Id,PostTypeId,AcceptedAnswerId,ParentId,CreationDate,DeletionDate,Score,ViewCount,Body,OwnerUserId,OwnerDisplayName,LastEditorUserId,LastEditorDisplayName,LastEditDate,LastActivityDate,Title,Tags,AnswerCount,CommentCount,FavoriteCount,ClosedDate,CommunityOwnedDate,ContentLicense
+"2718196","1","2718268","","2010-04-27 01:34:29","","25","48966","<p>I needed to strip the Chinese out of a bunch of strings today and was looking for a simple Python regex.  Any suggestions?</p>
+","27462","","1079354","","2012-05-05 03:01:20","2019-07-29 16:47:32","Find all Chinese text in a string using Python and Regex","<python><regex><cjk>","2","2","0","","2010-04-27 01:34:29","CC BY-SA 3.0"
+"2723485","1","","","2010-04-27 17:30:05","","1","110","<p>I made a program in Python and now I whant to transfert it to vb.net. But I have some difficulties with the vb.net regular expression.... Someone can help me please?</p>
+
+<p>There are my Python regex:</p>
+
+<pre><code>id = re.search('(?&lt;=watch\?v\=)[\w|-]+|(?&lt;=/v/)[\w|-]+', src)
+id = id.group(0)
+
+t = re.search('(?&lt;=\&amp;t\=)[\w|-]+', src)
+t = t.group()
+</code></pre>
+
+<p>It's supposed to fin the value of ?v=Value&amp;SomeOtherContent and &amp;t=Value&amp;SomeOtherContent </p>
+
+<p>Thank you</p>
+","316758","","","","","2010-04-27 17:42:39","Python Regex To VB.net","<python><vb.net><regex>","1","0","","","","CC BY-SA 2.5"
+"5088821","1","5089070","","2011-02-23 09:03:43","","1","3720","<p>I have a string (with multiple lines) which contains the following:</p>
+
+<pre><code>""Name=My name
+Address=......
+\##### To extract from here ####
+line 1
+line 2
+line 3
+\##### To extract till here ####
+close""
+</code></pre>
+
+<p>How do I extract the lines between <code>""##### To extract *""</code> string including the pattern as well?</p>
+
+<p>Output should be the following:</p>
+
+<pre><code>\##### To extract from here ####
+line 1
+line 2
+line 3
+</code></pre>
+","602691","","377270","","2011-02-23 09:06:47","2011-02-23 10:16:35","how to match lines between pattern using re module in python","<python><regex>","4","0","","","","CC BY-SA 2.5"
+"8121789","1","8121808","","2011-11-14 12:45:31","","0","632","<p>In my python code i want to pattern match a string for atleast two consecutive alphabets anywhere in the string.</p>
+
+<p>I used, <code>re.match(r'([a-zA-Z][a-zA-Z])+',str)</code></p>
+
+<p>This matches a string for example <strong>'abc'</strong>, but does not match <strong>'1abc'</strong>. What is the mistake in my regex ?</p>
+
+<p>Please Help
+Thank You</p>
+","1044140","","","","","2011-11-14 13:03:24","Pattern Match a string for atleast two consecutive alphabets anywhere in the string","<python><regex>","3","3","","","","CC BY-SA 3.0"
+"9815095","1","9815129","","2012-03-22 01:05:04","","4","18824","<p>I use the regex [,;\s]+ to split a comma, space, or semicolon separated string. This works fine if the string doesn't have a comma at the end:</p>
+
+<pre><code>&gt;&gt;&gt; p=re.compile('[,;\s]+')
+&gt;&gt;&gt; mystring='a,,b,c'
+&gt;&gt;&gt; p.split(mystring)
+['a', 'b', 'c']
+</code></pre>
+
+<p>When the string has a comma at the end:</p>
+
+<pre><code>&gt;&gt;&gt; mystring='a,,b,c,'
+&gt;&gt;&gt; p.split(mystring)
+['a', 'b', 'c', '']
+</code></pre>
+
+<p>I want the output in this case to be ['a', 'b', 'c'].</p>
+
+<p>Any suggestions on the regex? </p>
+","433352","","433352","","2012-03-22 01:10:50","2012-03-22 01:26:16","split a comma, space, or semicolon separated string using regex","<python><regex>","3","0","","","","CC BY-SA 3.0"
+"10380065","1","10380165","","2012-04-30 07:36:06","","3","1870","<p>I have a set of names where the surname is in capital and first and middle names are normal, e.g.</p>
+
+<pre><code>OBAMA Barack
+DEL MONTE Alfredo
+</code></pre>
+
+<p>I want to split these in</p>
+
+<pre><code>""OBAMA"", ""Barack""
+""DEL MONTE"", ""Alfredo""
+</code></pre>
+
+<p>What is the pythonic way to achieve this?</p>
+","302369","","302369","","2012-04-30 07:54:24","2012-04-30 09:04:52","Split a string of words by uppercase words","<python><regex><string>","4","2","0","","","CC BY-SA 3.0"
+"11663995","1","11664124","","2012-07-26 06:56:40","","0","745","<p>I am trying to write a regex to catch email Ids . Testing since quite a few hours using regexpal.com . On the site, its able to catch all the email Ids. WHen I am substituting the same regex in Python and doing re.findall(pattern,line), it is not able to catch it.</p>
+
+<p>Regex : </p>
+
+<pre><code>[a-zA-Z0-9-_]+[(.)?a-zA-Z0-9-_]*\s*(@|at)\s*[a-zA-Z0-9-_]+\s*(.|dot)\s*[a-zA-Z0-9-_]*\s*(.|dot)\s*e(\-)?d(\-)?u(\-)?(.,)?
+</code></pre>
+
+<p>Example : </p>
+
+<pre><code>Line =    &lt;TR&gt; &lt;TD&gt;&lt;B&gt;E-Mail: &lt;/B&gt; &lt;TD&gt;&lt;A HREF=MailTo:*example.young@stackoverflow.edu*\&gt;*example.young@stackoverflow.edu*&lt;/A&gt;
+</code></pre>
+
+<p>(Highlighted correctly on regexpal.com).</p>
+
+<p>With Python : </p>
+
+<pre><code> for line in f:
+    print 'Line = ',line
+        matches = re.findall(my_first_pat,line)
+    print 'Matches = ',matches
+</code></pre>
+
+<p>Gives output:</p>
+
+<pre><code>Line =    &lt;TR&gt; &lt;TD&gt;&lt;B&gt;E-Mail: &lt;/B&gt; &lt;TD&gt;&lt;A HREF=MailTo:example.young@stackoverflow.edu&gt;example.young@stackoverflow.edu&lt;/A&gt;
+
+Matches =  [('@', 'd', '.', '', '', '', ''), ('@', 'd', '.', '', '', '', '')]
+</code></pre>
+
+<p>What is the issue ? </p>
+","443380","","","","","2012-07-26 09:13:25","Regex working on regexpal but not with Python","<python><regex>","2","0","","","","CC BY-SA 3.0"
+"12610830","1","12611801","","2012-09-26 21:36:41","","5","3148","<p>I am trying to seek to a token ':path,' in a file, then read all the following (arbitrary digit count) numbers as a number (so for ':path,123' I seek to the , in file then read the integer 123).  Then read the chars between the current seek position and pos+123 (store them in a list or whatever).  Then seek until the next match for ':path,' and repeat the process.</p>
+
+<p>I would like a function a bit like:</p>
+
+<pre>
+def fregseek(FILE, current_seek, /regex/):
+
+.
+.
+  value_found = ?  # result of reading next N chars after :path,[0-9]+
+.
+.
+  return next_start_seek, value_found
+</pre>
+
+<p>There may be any number of matches for ':path,' in a line, and that string may occur within the number of chars specified after ','.  I have written a messy bunch of rubbish which reads in each line, then for each line chomps of the first N chars indicated by the match, then continues processing the string until it is all eaten up. Then reads the next string and so on.</p>
+
+<p>This is horrible, I do not want to have to slurp off all the lines from a potentially huge file when all I really need to do is seek (especially since a newline is irrelevant, so having an extra processing step just because lines are easy to pull from files is ridiculous).</p>
+
+<p>So, there it is, that is my problem that I would like to solve.  I need to seek to a match, read a value, continue from the end of that value looking for the next match and so on until the file is exhausted.</p>
+
+<p>If anybody can help me with this I will be happy to hear from them :)</p>
+
+<p>I would like to avoid non-standard libraries if possible, I would also like the shortest code but this is the least of my concerns (speed and memory consumption are the important factors, but I don't want 50 loc extra just to bootstrap some library with a small funciton in it I could just rip out if only I knew what it was).</p>
+
+<p>I would prefer python code, however, if perl beats python in this regard I will use perl instead, I am also open to clever sed/awk/bash scripts etc as long as they are not horribly slower.</p>
+
+<p>Thanks very much in advance.</p>
+","160659","","","","","2021-11-11 21:19:18","seek to regex in a large file using python","<python><regex><perl><seek>","2","6","0","","","CC BY-SA 3.0"
+"13327771","1","","","2012-11-11 01:20:26","","0","2064","<p>I am working on a web-based log management system that will be built on the Grails framework and I am going to use one of the text processing languages like Python or Perl. I have created Python and Perl scripts that load log files and parse each line to save them to a MySQL database (the file contains about 40,000 lines, about 7MB). It took <strong>1 min 2 secs using Perl</strong> and only <strong>17 secs using Python</strong>. I had supposed that Perl would be faster than Python, as Perl is the original text processing language (my suspicions also coming from different blogs where I was reading about Perl text processing performance). Also I was not expecting a 47 second difference between Perl and Python. Why is Perl taking more time than Python to process my log file? Is it because I am using some wrong db module or my code and regular expression for Perl can be improved?</p>
+
+<p><strong>Note:</strong> I am a Java and Groovy developer and I have no experience with Perl (I am using Strawberry Perl v5.16). Also I have made this test with Java (1 min 5 secs) and Groovy (1 min 7 secs) but more than 1 min to process the log file is too much, so both languages are out and now I want to choose between Perl and Python.</p>
+
+<p><strong>PERL Code</strong></p>
+
+<pre><code>use DBI;
+use DBD::mysql;
+# make connection to database
+$connection = DBI-&gt;connect(""dbi:mysql:logs:localhost:3306"",""root"","""") || die      ""Cannot connect: $DBI::errstr"";
+
+# set the value of your SQL query
+$query = ""insert into logs (line_number, dated, time_stamp, thread, level, logger, user, message)
+        values (?, ?, ?, ?, ?, ?, ?, ?) "";
+
+# prepare your statement for connecting to the database
+$statement = $connection-&gt;prepare($query); 
+
+$runningTime = time;
+
+# open text file
+open (LOG,'catalina2.txt') || die ""Cannot read logfile!\n"";;
+
+while (&lt;LOG&gt;) {
+    my ($date, $time, $thread, $level, $logger, $user, $message) = /^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2},\d{3}) (\[.*\]) (.*) (\S*) (\(.*\)) - (.*)$/;
+
+    $statement-&gt;execute(1, $date, $time, $thread, $level, $logger, $user, $message);
+}  
+
+# close the open text file
+close(LOG);
+
+# close database connection
+$connection-&gt;disconnect;
+
+$runningTime = time - $runningTime;
+printf(""\n\nTotal running time: %02d:%02d:%02d\n\n"", int($runningTime / 3600),   int(($runningTime % 3600) / 60), int($runningTime % 60));
+
+# exit the script
+exit;
+</code></pre>
+
+<p><strong>PYTHON Code</strong></p>
+
+<pre><code>import re
+import mysql.connector
+import time
+
+file = open(""D:\catalina2.txt"",""r"")
+rexp = re.compile('^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2},\d{3}) (\[.*\]) (.*) (\S*) (\(.*\)) - (.*)$')
+conn = mysql.connector.connect(user='root',host='localhost',database='logs')
+cursor = conn.cursor()
+
+tic = time.clock()
+
+increment  = 1
+for text in file.readlines():
+    match = rexp.match(text)
+    increment +=  1
+cursor.execute('insert into logs (line_number,dated, time_stamp, thread,level,logger,user,message ) values (%s,%s,%s,%s,%s,%s,%s,%s)', (increment, match.group(1), match.group(2),match.group(3),match.group(4),match.group(5),match.group(6),match.group(7)))
+
+conn.commit()
+cursor.close()
+conn.close()
+
+toc = time.clock()
+print ""Total time: %s"" % (toc - tic)
+</code></pre>
+","1815335","","1136195","","2012-11-11 01:40:39","2012-11-11 01:40:39","Perl vs Python log processing performance","<python><regex><performance><perl><text-processing>","1","4","0","2012-11-11 08:58:05","","CC BY-SA 3.0"
+"14308618","1","14308868","","2013-01-13 21:52:03","","1","2616","<p>I have the following two lists:</p>
+
+<p><code>input = ['MAPLEWOOD AVE', 'LYNNDALE ', 'SUGAR DR']</code></p>
+
+<p><code>ref = ['LYNNDALE (?:RD)?', 'HOMAN (?:AVE)?', 'MAPLEWOOD (?:AVE)?', 'LYNNDALE (?:LN)?']</code></p>
+
+<p>I would like to look for all matches for each element within <code>input</code> with <code>ref</code>. The output would be a dictionary with each key being an <code>input</code> element, and each value being a <code>ref</code> element matched to the corresponding <code>input</code> element, like the following:</p>
+
+<p><code>{'MAPLEWOOD AVE' : 'MAPLEWOOD AVE', 'LYNNDALE ' : 'LYNNDALE RD', 'LYNNDALE LN', 'SUGAR DR':}</code></p>
+
+<p>The following allows me to iterate over <code>input</code> in search of a <code>findall</code> match within <code>ref</code> (which contains embedded regex groupings). However, I cannot retrieve the corresponding match element(s) from <code>ref</code> as values alongside each input element:</p>
+
+<pre><code>combined = ""("" + "")|("".join(ref) + "")""
+
+l = []
+
+for i in input:
+    if re.findall(combined,i):
+         l.append(i)
+...
+MAPLEWOOD AVE
+LYNNDALE
+</code></pre>
+","1185790","","","","","2013-01-13 22:21:32","Match two Python lists with regular expressions, and create dictionary output","<python><regex><dictionary>","2","0","","","","CC BY-SA 3.0"
+"14581449","1","14581633","","2013-01-29 11:06:10","","1","1602","<p>I tried to google some but it's too specific and i'm totally new to regular expression of python. May i know how can i remove the entire string after symbol @ until it next space? while this is what i do but no luck</p>
+
+<pre><code>s = re.sub('@[^\s]+', '',s)
+</code></pre>
+","235119","","","","","2013-01-29 11:43:31","Python regular syntax remove @ string until space","<python><regex>","4","6","","","","CC BY-SA 3.0"
+"15245752","1","15246115","","2013-03-06 11:10:09","","0","6374","<p>My problem is that Python, using regex and re.search() doesn't recognize accents even though I use utf-8. Here is my string of code;</p>
+
+<pre><code>#! /usr/bin/python
+-*- coding: utf-8 -*-
+import re
+
+htmlString = '&lt;/dd&gt;&lt;dt&gt; Fine, thank you.&amp;#160;&lt;/dt&gt;&lt;dd&gt; Molt bé, gràcies.'
+
+SearchStr = '(\&lt;\/dd\&gt;\&lt;dt\&gt;)+ ([\w+\,\.\s]+)([\&amp;\#\d\;]+)(\&lt;\/dt\&gt;\&lt;dd\&gt;)+ (\w+) (\w+)'
+
+Result = re.search(SearchStr, htmlString)
+
+if Result:
+print Result.groups()
+
+passavol23:jO$ catalanword.py
+('&lt;/dd&gt;&lt;dt&gt;', 'Fine, thank you.', '&amp;#160;', '&lt;/dt&gt;&lt;dd&gt;', 'Molt', 'b')
+</code></pre>
+
+<p>So the problem is that it doesn't recognizes the é and thus stops. Any help would be appreciated. Im a Python beginner.</p>
+","1734415","","100297","","2013-03-06 11:24:04","2015-09-04 19:11:12","Python + Regex + UTF-8 doesn't recognize accents","<python><regex><utf-8>","1","4","0","","","CC BY-SA 3.0"
+"16217910","1","16217967","","2013-04-25 14:45:59","","7","226","<p>I have a regex match object in Python. I want to get the text it matched. Say if the pattern is <code>'1.3'</code>, and the search string is <code>'abc123xyz'</code>, I want to get <code>'123'</code>. How can I do that?</p>
+
+<p>I know I can use <code>match.string[match.start():match.end()]</code>, but I find that to be quite cumbersome (and in some cases wasteful) for such a basic query.</p>
+
+<p>Is there a simpler way?</p>
+","76701","","","","","2013-04-25 15:42:55","Python: Getting text of a Regex match","<python><regex>","2","3","0","","","CC BY-SA 3.0"
+"19763664","1","","","2013-11-04 07:58:56","","2","148","<p>I have the following problem in python, which I hope you can assist with.</p>
+
+<p>The input is 2 regular expressions, and I have to check if their concatenation can have values.
+For example if one says take strings with length greater than 10 and the other says at most 5, than 
+no value can ever pass both expressions.</p>
+
+<p>Is there something in python to solve this issue?</p>
+
+<p>Thanks,
+Max.</p>
+","1805657","","20938","","2013-11-04 08:59:23","2013-11-04 08:59:23","Check logical concatenation of regular expressions","<python><regex>","3","1","","","","CC BY-SA 3.0"
+"21360099","1","","","2014-01-26 05:30:12","","0","45","<p>I have the following string, <code>Hello, season 2 (VSF)</code> and I need to parse ""2"" out of it. Here is what I'm trying:</p>
+
+<pre><code>s = 'Hello, season 2 (VSF)'
+re.findall('Season|Saison|Staffel[\s]+\d',s)
+&gt;&gt;&gt; [""Season""]
+</code></pre>
+
+<p>How would I get ""Season 2"" here?</p>
+","651174","","","","","2014-01-26 05:44:24","Regex find a digit","<python><regex>","1","0","","","","CC BY-SA 3.0"
+"21888750","1","","","2014-02-19 18:06:47","","-3","612","<p>How do I convert a batch extension files from .csv file to a .txt<br>
+I have much files with .csv and i need change all them to .txt.</p>
+","2658187","","1505120","","2014-09-24 17:41:53","2014-09-24 17:41:53","How do I convert a batch extension files from .csv file to a .txt","<python><regex><windows>","3","2","","2014-02-19 18:15:17","","CC BY-SA 3.0"
+"22229255","1","22229642","","2014-03-06 15:45:16","","16","605","<p>I'm confused with the following three patterns, would someone explain it in more detail?</p>
+
+<pre><code>## IPython with Python 2.7.3
+In [62]: re.findall(r'[a-z]*',""f233op"")
+Out[62]: ['f', '', '', '', 'op', '']  ## why does the last '' come out?
+
+In [63]: re.findall(r'([a-z])*',""f233op"")
+Out[63]: ['f', '', '', '', 'p', '']  ## why does the character 'o' get lost?
+
+In [64]: re.findall(r'([a-z]*)',""f233op"")
+Out[64]: ['f', '', '', '', 'op', '']  ## what's the different than line 63 above?
+</code></pre>
+","1047592","","1879133","","2015-03-17 14:51:42","2015-03-17 14:51:42","Confusing with the usage of regex in Python","<python><regex>","4","3","0","","","CC BY-SA 3.0"
+"22806766","1","","","2014-04-02 09:17:24","","2","13143","<p>I have an section id <code>A00-A09</code>. Anything like <code>A01</code>, <code>A01.01</code>, <code>A02</code> till <code>A09.09</code> should be
+classified under this section id. How can i do this in Python?  At the moment I can only match string with exact character.</p>
+","3446735","","","user1907906","2014-04-02 09:19:02","2014-04-02 09:35:10","Partial string matching in python","<python><regex><string>","4","2","","","","CC BY-SA 3.0"
+"24015369","1","24016032","","2014-06-03 12:37:40","","-1","47","<p><strong>views.py</strong></p>
+
+<pre><code>combineKeyword =""""myKeyword"", ""Auto"", ""st3-throttling-cdb"", ""functional""""
+template_desc2 = ""@Test(groups = { ""Code-planned"", ""Code-not automated"", ""Code-st3reporter"" }
+import re
+re.sub(r' @Test\(groups\s*=\s*\{([^\}]+)',combineKeyword,template_desc2)
+</code></pre>
+
+<p>Here i want to replace ""Code-planned"", ""Code-not automated"", ""Code-st3reporter"" these keyword and put <code>combineKeyword</code> at there</p>
+","3647087","","704848","","2014-06-03 12:38:39","2014-06-03 13:38:49","How to Replace specific part using regex python","<python><regex>","1","3","","","","CC BY-SA 3.0"
+"24665610","1","24665653","","2014-07-10 00:10:24","","1","91","<p>I'm trying to parse/print some data from twitter.  I have a code that prints tweets but when I try to apply the same code to the usernames it does not seem to work.  I'm wanting to do this without having to use the twitter API.</p>
+
+<p>Here is what I have that prints the tweets</p>
+
+<pre><code>def main():
+    try:
+        sourceCode = opener.open('https://twitter.com/search?f=realtime&amp;q='\
+                                 +keyWord+'&amp;src=hash').read()
+        splitSource = re.findall(r'&lt;p class=""js-tweet-text tweet-text""&gt;(.*?)&lt;/p&gt;', sourceCode)
+        print len(splitSource)
+        print splitSource
+        for item in splitSource:
+            print '\n _____________________\n'
+            print re.sub(r'&lt;.*?&gt;','',item)
+
+
+
+    except Exception, e:
+        print str(e)
+        print 'error in main try'
+        time.sleep(555)
+
+main()
+</code></pre>
+
+<p>Now to print the Username info I changed the ""opener"" to ""browser"" but it will still find and open the page so that's not the issue.  I don't think anyway.</p>
+
+<pre><code>def main():
+    try:
+        pageSource = browser.open('https://twitter.com/search?q='\
+                                 +firstName+'%20'+lastName+'&amp;src=hash&amp;mode=users').read()
+        splitSource = re.findall(r'&lt;p class=""bio ""&gt;(.*?)&lt;/p&gt;', pageSource)
+        for item in splitSource:
+            print '\n'
+            print re.sub(r'&lt;.*?&gt;','',item)
+    except Exception, e:
+        print str(e)
+        print 'error in main try'
+
+
+main()
+</code></pre>
+
+<p>It will print the sourceCode all right.  The issue seems to be with the:</p>
+
+<pre><code>splitSource = re.findall(r'&lt;p class=""bio ""&gt;(.*?)&lt;/p&gt;', pageSource)
+</code></pre>
+
+<p>This doesn't seem to find anything at all.  Here is a copy of the source I am trying to pull the info from.</p>
+
+<pre><code>  &lt;div class=""content""&gt;
+    &lt;div class=""stream-item-header""&gt;
+      &lt;a class=""account-group js-user-profile-link"" href=""/BarackObama"" &gt;
+        &lt;img class=""avatar js-action-profile-avatar "" src=""https://pbs.twimg.com/profile_images/451007105391022080/iu1f7brY_normal.png"" alt="""" data-user-id=""813286""/&gt;
+        &lt;strong class=""fullname js-action-profile-name""&gt;Barack Obama&lt;/strong&gt;&lt;span class=""Icon Icon--verified Icon--small""&gt;&lt;span class=""u-isHiddenVisually""&gt;Verified account&lt;/span&gt;&lt;/span&gt;
+          &lt;span class=""username js-action-profile-name""&gt;@BarackObama&lt;/span&gt;
+
+
+      &lt;/a&gt;
+    &lt;/div&gt;
+      &lt;p class=""bio ""&gt;
+          This account is run by Organizing for Action staff. Tweets from the President are signed -bo.
+      &lt;/p&gt;
+
+
+
+
+
+
+
+  &lt;/div&gt;
+</code></pre>
+
+<p>I feel like there is something going on in this source that is preventing me from getting the bio info.  The spacing maybe?  I duno.</p>
+","2736661","","","","","2014-07-10 01:04:38","Why is this RegEx not finding any data?","<python><regex><parsing>","2","8","","","","CC BY-SA 3.0"
+"28776796","1","","","2015-02-28 00:53:02","","0","821","<p>I need a regex in python that will return and double characters within a word if they are consonants. I tried <code>((\w)\2)+|([^aeiou\s])</code>, however it will also grab <code>['o','o']</code> in the word <code>'flood'</code>. For example, I want to return <code>['p','p']</code> from the word <code>'happy'</code> but not <code>['o','o']</code> from <code>'food'</code></p>
+","2101353","","","","","2015-02-28 15:54:21","Python regular expression regex that will find double consonants within a word","<python><regex>","3","0","","","","CC BY-SA 3.0"
+"29837065","1","29859093","","2015-04-24 01:17:32","","-1","61","<p>I have a very large string <code>s</code>, the <code>s</code> string is conformed by <code>word_1</code> followed by <code>word_2</code> an <code>id</code> and a <code>number</code>:</p>
+
+<pre><code>word_1 word_2 id number
+</code></pre>
+
+<p>I would like to create a regex that catch in a list all the occurrences of the words that has as an id <code>RN_ _ _</code>  followed by the id <code>VA_ _ _ _</code> and the id <code>VM_ _ _ _</code>. <strong>The constrait</strong> to extract the <code>RN_ _ _ _ _</code>,<code>VA_ _ _ _ _ _</code> and <code>VM _ _ _ _</code> pattern is that the occurrences <strong>must appear one after another</strong>, where <code>_</code> are free characters of the <code>id</code> string this free characters can be more than 3 e.g. :</p>
+
+<pre><code>casa casa NCFS000 0.979058
+mejor mejor AQ0CS0 0.873665
+que que PR0CN000 0.562517
+mejor mejor AQ0CS0 0.873665
+no no RN
+esta estar VASI1S0
+lavando lavar VMP00SM
+. . Fp 1
+</code></pre>
+
+<p>This is the pattern I would like to extract since they are placed one after another. And this will be the desired output in a list:</p>
+
+<pre><code> [('no RN', 'estar VASI1S0', 'lavar VMP00SM')]
+</code></pre>
+
+<p><strong>For example this will be wrong</strong>, since they are not one after another:</p>
+
+<pre><code>error error RN
+error error VASI1S0
+pues pues CS 0.998047
+error error VMP00SM
+</code></pre>
+
+<p>So for the <code>s</code> string:</p>
+
+<pre><code>s = '''
+    No no RN 0.998045
+    sabía saber VMII3S0 0.592869
+    como como CS 0.999289
+    se se P00CN000 0.465639
+    ponía poner VMII3S0 0.65
+    una uno DI0FS0 0.951575
+    error error RN
+    actuar accion VMP00SM
+    lavadora lavadora NCFS000 0.414738
+    hasta hasta SPS00 0.957698
+    error error VMP00SM
+    que que PR0CN000 0.562517
+    conocí conocer VMIS1S0 1
+    esta este DD0FS0 0.986779
+    error error VA00SM
+    y y CC 0.999962
+    es ser VSIP3S0 1
+    que que CS 0.437483
+    es ser VSIP3S0 1
+    muy muy RG 1
+    sencilla sencillo AQ0FS0 1
+    de de SPS00 0.999984
+    utilizar utilizar VMN0000 1
+    ! ! Fat 1
+
+    Todo todo DI0MS0 0.560961
+    un uno DI0MS0 0.987295
+    gustazo gustazo NCMS000 1
+    error error VA00SM
+    cuando cuando CS 0.985595
+    estamos estar VAIP1P0 1
+    error error VMP00RM
+    aprendiendo aprender VMG0000 1
+    para para SPS00 0.999103
+    emancipar emancipar VMN0000 1
+    nos nos PP1CP000 1
+    , , Fc 1
+    que que CS 0.437483
+    si si CS 0.99954
+    error error RN
+    nos nos PP1CP000 0.935743
+    ponen poner VMIP3P0 1
+    facilidad facilidad NCFS000 1
+    con con SPS00 1
+    las el DA0FP0 0.970954
+    error error VMP00RM
+    tareas tarea NCFP000 1
+    de de SPS00 0.999984
+    no no RN 0.998134
+    estás estar VAIP2S0 1
+    condicionado condicionar VMP00SM 0.491858
+    alla alla VASI1S0
+    la el DA0FS0 0.972269
+    casa casa NCFS000 0.979058
+    error error RN
+    error error VASI1S0
+    pues pues CS 0.998047
+    error error VMP00SM
+    mejor mejor AQ0CS0 0.873665
+    que que PR0CN000 0.562517
+    mejor mejor AQ0CS0 0.873665
+    no no RN 1
+    esta estar VASI1S0 0.908900
+    lavando lavar VMP00SM 0.9080972
+    . . Fp 1
+    '''
+</code></pre>
+
+<p><strong>this is what I tried</strong>:</p>
+
+<pre><code>import re
+weird_triple = re.findall(r'(?s)(\w+\s+RN)(?:(?!\s(?:RN|VA|VM)).)*?(\w+\s+VA\w+)(?:(?!\s(?:RN|VA|VM)).)*?(\w+\s+VM\w+)', s)
+
+print ""\n This is the weird triple\n""
+print weird_triple
+</code></pre>
+
+<p>The problem with this aproach is that returns a list of the pattern <code>RN_ _ _ _</code>, <code>VA_ _ _ _</code>, <code>VM_ _ _</code>, but without the one after another order(some ids and words between this pattern are being matched). Any idea of how to fix this in order to obtain:</p>
+
+<pre><code>[('no RN', 'estar VASI1S0', 'lavar VMP00SM'),('estar VAIP2S0','condicionar VMP00SM', 'alla VASI1S0')]
+</code></pre>
+
+<p><strong>Thanks in advance guys!</strong></p>
+
+<p><strong>UPDATE</strong>
+I tried the aproaches that other uses recommend me but the problem is that if I add another one after another pattern like:</p>
+
+<pre><code>no no RN 0.998134
+estás estar VAIP2S0 1
+condicionado condicionar VMP00SM 0.491858
+</code></pre>
+
+<p>To the <code>s</code> string the recommended regex of this question doesnt work. They only catch:</p>
+
+<pre><code>[('no RN', 'estar VASI1S0', 'lavar VMP00SM')]
+</code></pre>
+
+<p>Instead of:</p>
+
+<pre><code>[('no RN', 'estar VASI1S0', 'lavar VMP00SM'),('estar VAIP2S0','condicionar VMP00SM', 'alla VASI1S0')]
+</code></pre>
+
+<p>Which is right. Any idea of how to reach the one after another pattern output:</p>
+
+<pre><code>[('no RN', 'estar VASI1S0', 'lavar VMP00SM'),('estar VAIP2S0','condicionar VMP00SM', 'alla VASI1S0')]
+</code></pre>
+","4114372","","3374591","","2016-03-14 14:00:06","2016-03-14 14:00:06","Problems preserving the occurrence in a regex?","<python><regex>","3","6","","","","CC BY-SA 3.0"
+"30966820","1","30966848","","2015-06-21 16:34:00","","3","57","<p>I am trying to develop a program on Python that would get the name of the artists from a twit from Pandora. Like for example if I have this twitter:</p>
+
+<blockquote>
+  <p>I'm listening to ""I Can Make It Better"" by Luther Vandross on Pandora #pandora <a href=""http://t.co/ieDbLC393F"">http://t.co/ieDbLC393F</a>. </p>
+</blockquote>
+
+<p>I would like to get only the name Luther Vandross back. I do not know much about regex, so I tried to do the following code: </p>
+
+<pre><code>print  re.findall('"".+?"" by [\w+]+',  text)    
+</code></pre>
+
+<p>But the result was ""I can Make it Better"" by Luther</p>
+
+<p>Do you have any idea on how I would be able to develop a regular expression on python to get it?</p>
+","4804741","","4370109","","2015-06-21 16:42:36","2015-06-21 16:52:38","Regex expression after quotation on python","<python><regex>","5","0","","","","CC BY-SA 3.0"
+"32462512","1","32462608","","2015-09-08 16:09:20","","6","1234","<p>I'm trying to create a simple markdown to latex converter, just to learn python and basic regex, but I'm stuck trying to figure out why the below code doesn't work:</p>
+<pre><code>re.sub (r'\[\*\](.*?)\[\*\]: ?(.*?)$',  r'\\footnote{\2}\1', s, flags=re.MULTILINE|re.DOTALL)
+</code></pre>
+<p>I want to convert something like:</p>
+<pre><code>s = &quot;&quot;&quot;This is a note[*] and this is another[*]
+[*]: some text
+[*]: other text&quot;&quot;&quot;
+</code></pre>
+<p>to:</p>
+<pre><code>This is a note\footnote{some text} and this is another\footnote{other text}
+</code></pre>
+<p>this is what I got (from using my regex above):</p>
+<pre><code>This is a note\footnote{some text} and this is another[*]
+
+[*]: note 2
+</code></pre>
+<p>Why is the pattern only been matched once?</p>
+<h2>EDIT:</h2>
+<p>I tried the following lookahead assertion:</p>
+<pre><code>re.sub(r'\[\*\](?!:)(?=.+?\[\*\]: ?(.+?)$',r'\\footnote{\1}',flags=re.DOTALL|re.MULTILINE)
+#(?!:) is to prevent [*]: to be matched
+</code></pre>
+<p>now it matches all the footnotes, however they're not matched correctly.</p>
+<pre><code>s = &quot;&quot;&quot;This is a note[*] and this is another[*]
+[*]: some text
+[*]: other text&quot;&quot;&quot;
+</code></pre>
+<p>is giving me</p>
+<pre><code>This is a note\footnote{some text} and this is another\footnote{some text}
+[*]: note 1
+[*]: note 2
+</code></pre>
+<p>Any thoughts about it?</p>
+","4699624","","-1","","2020-06-20 09:12:55","2015-09-08 17:32:21","Python Regular expression only matches once","<python><regex>","2","0","0","","","CC BY-SA 3.0"
+"33063542","1","","","2015-10-11 09:38:42","","2","1081","<p>I'm using a dict file and Regular Expressions to change some words in a script but have now come across this error</p>
+
+<blockquote>
+  <p>Exception caught in plugin &lt; class 'pagerprinter.plugins.tts.TTS' ><br>
+      regular expression code size limit exceeded</p>
+</blockquote>
+
+<p>my dict has some 5300 entries long set out as:</p>
+
+<pre><code>'SE': 'South East',
+'NE': 'North East',
+</code></pre>
+
+<p>You get the idea changing abbreviations to full words. on average 6 - 8 abbreviations are changed.</p>
+
+<p>for this I'm using</p>
+
+<pre><code>from abbreviations import abbreviations #mydict
+pattern = re.compile(r'\b(' + '|'.join(abbreviations.keys()) + r')\b')
+    msg = pattern.sub(lambda x: abbreviations[x.group()], msg)
+</code></pre>
+
+<p>but I also use a further 4 more regexes for other tasks like removing words and numbers from the a number of strings.</p>
+
+<p>What is the cause of the error I get? if I remove my dict it works if I have 300 entries it works.</p>
+
+<p>looking into it from Google most people say that there are no limits on dict sizes. </p>
+","4986121","","4519059","","2015-10-11 11:22:08","2015-10-11 12:12:03","regular expression code size limit exceeded python","<python><regex><dictionary>","1","16","0","","","CC BY-SA 3.0"
+"33803471","1","33803785","","2015-11-19 09:30:28","","1","366","<p>I am trying to match port numbers in <code>&lt;span&gt;</code> tags from an html page:</p>
+
+<pre><code>&lt;span class=""tbBottomLine"" style=""width:50px;""&gt;
+                8080
+        &lt;/span&gt;
+&lt;span class = ""tbBottomLine"" style = ""width: 50px;""&gt;
+            80
+    &lt;/ span&gt;
+&lt;span class = ""tbBottomLine"" style = ""width: 50px;""&gt;
+            3124
+    &lt;/ span&gt;
+&lt;span class = ""tbBottomLine"" style = ""width: 50px;""&gt;
+            1142
+    &lt;/ span&gt;
+</code></pre>
+
+<p>Script:</p>
+
+<pre><code>import urllib2
+import re
+
+h = urllib2.urlopen('http://www.proxy360.cn/Region/Brazil')
+
+html = h.read()
+
+parser_port = '&lt;span.*&gt;\s*([0-9]){2,}\s*&lt;/span&gt;'
+
+p = re.compile(parser_port)
+
+list_port = p.findall(html)
+
+print list_port
+</code></pre>
+
+<p>But I'm getting this output:</p>
+
+<pre><code>['8', '8', '0', '0', '0', '8', '8', '0', '0', '8', '8', '8', '8', '8', '8', '8', '8', '0']
+</code></pre>
+
+<p>And I need it to match <code>8080</code> for example.</p>
+","5489091","Vân Anh","5290909","","2015-11-19 12:39:03","2015-11-19 12:48:51","Match port number","<python><regex>","2","11","","","","CC BY-SA 3.0"
+"38958212","1","","","2016-08-15 15:35:15","","1","29","<pre><code>import re
+data = """"""
+Views 2.x-dev
+Viewfield 6.x-2.x, xxxx-xx-xx
+Version 6.x-2.3
+ctools 7.x-1.x-dev
+XML sitemap 6.x-1, 2009-08-24
+6.x-1.6
+""""""
+print data
+</code></pre>
+
+<hr>
+
+<p>How to get <code>2.x-dev, 6.x-2.x, 6.x-2.3, 7.x-1.x-dev, 6.x-1 6.x-1.6</code>.
+Thanks</p>
+","6648083","","3649063","","2016-08-15 17:09:04","2016-08-17 19:44:01","Python 2.7 regex gets version from drupal plugins?","<regex><python-2.7>","2","3","","","","CC BY-SA 3.0"
+"39668156","1","","","2016-09-23 19:23:22","","0","113","<p>I am trying to extract a file name using regex. File names are in the list <code>files</code> , the pattern to be matched is <code>songTitle</code>. </p>
+
+<pre><code> files = listdir(curdir)
+        print(""Pattern : %s"" % songTitle)
+        for songs in files:
+            print(songs)
+            re_found = re.match(re.escape(songTitle) + r'.*\.mp3$', songs)
+            if re_found:
+                FileName = re_found.group()
+                print(FileName)
+                break
+</code></pre>
+
+<p>In this example </p>
+
+<p><code>files</code> contains :</p>
+
+<pre><code>['.DS_Store', '__init__.py', 'command_line.py', ""Skrillex &amp; Diplo - 'Mind' feat. Kai (Official Video)-fDrTbLXHKu8.mp3""]
+</code></pre>
+
+<p><code>songTitle</code> (Pattern to be matched) : <code>Skrillex &amp; Diplo - 'Mind' feat. Kai (Official Video)</code></p>
+
+<p>Output : </p>
+
+<pre><code>Pattern : Jack Ü - Take Ü There feat. Kiesza [OFFICIAL VIDEO]
+.DS_Store
+__init__.py
+command_line.py
+Jack Ü - Take Ü There feat. Kiesza [OFFICIAL VIDEO]-C9slkeFXogU.mp3
+Skrillex &amp; Diplo - 'Mind' feat. Kai (Official Video)-fDrTbLXHKu8.mp3
+</code></pre>
+
+<p><strong>EDIT:</strong></p>
+
+<p>I ran some tests and realised that the problem occurs due to non ascii characters. Such as the 'Ü' in this case.</p>
+","4967943","","4967943","","2016-09-23 20:09:11","2016-09-23 20:09:11","Python regex not matching","<python><regex>","2","8","","","","CC BY-SA 3.0"
+"41071346","1","41071399","","2016-12-10 01:46:40","","-2","26","<p>I want to write a regular expression to match the given pattern</p>
+<h1><em><strong>anyname/anyname2/anydate/string</strong></em></h1>
+<p><strong>anyname</strong>: It must accept valid names including underscore (_)</p>
+<p><strong>anyname2</strong>: It must accept valid names including underscore(_) or hiffen (-)</p>
+<p><strong>anydate</strong>: The date must be in the format like 'yyyy-mm-dd'. Ex: 2016-12-10</p>
+<p><strong>string</strong>: This string contains predefined strings. it needs to match only the required characters like, [computer],[desktop],[laptop]. Other than these 3, it should not match any other.</p>
+<p><strong>Note</strong>: The expression must also match '/' as in the above mentioned pattern</p>
+","4745480","","-1","","2020-06-20 09:12:55","2016-12-10 01:57:27","RegExp to match anyname/anynamewithid/date/string","<python><regex><django><pattern-matching><regexp-substr>","1","6","","","","CC BY-SA 3.0"
+"41735191","1","41735491","","2017-01-19 06:30:12","","0","193","<p>I have been working on a chat bot. I have used <code>nltk.chat</code> quite extensively for my bot. But I want to add more features to the pairs other than the default one. when i try to add new pair i'm, getting a error.</p>
+
+<pre><code>alex=Chat(pair,reflections)
+File ""/usr/local/lib/python2.7/dist-packages/nltk/chat/util.py"", in __init__
+self._pairs = [(re.compile(x, re.IGNORECASE),y) for (x,y) in pairs]
+ValueError: too many values to unpack
+</code></pre>
+
+<p>my code:</p>
+
+<pre><code>pair=(
+      (r'test (.*)',('a','b'))
+     )
+</code></pre>
+","7301367","","3886740","","2017-01-19 07:48:41","2017-01-19 16:48:59","Too many to unpack tuple NLTK Chat","<python><regex><tuples><nltk><chatbot>","2","2","","","","CC BY-SA 3.0"
+"42195857","1","42196309","","2017-02-13 02:41:30","","0","99","<p>I have a string that I want to split using a regular expression. </p>
+
+<p>Input: </p>
+
+<pre><code>S1:1- first split begins.s2:1- first split ends.s1:2-second split begins.S2:2-second split ends,S1:3-third split begins.S2:3-third split ends.
+</code></pre>
+
+<p>Output:should be a list containing the expression on which we split</p>
+
+<p>[S1:1-first split begins,s2:1-first split ends,S1:2-second split begins,S2:2-second split ends,S1:3-third split begins.....]</p>
+
+<p>I want to split on pattern <code>[s/S][1/2]:[0-9][0-9]</code><br>
+This is what I have, but it gives me an extra line and removes the regex on which I split.</p>
+
+<pre><code>import re
+text=""""""S1:1- first Split begins.continue the sentence
+       s2:1- first split ends
+       s1:2-second split begins
+       S2:2-second split ends
+       S1:3-third split begins
+       S2:3-third split ends """"""
+output=re.split(""[Ss][12]:[0-9]*"", text)
+</code></pre>
+","3974476","","3974476","","2017-02-13 03:31:11","2017-02-13 03:37:35","splitting on a regular expression","<python><regex><split>","2","3","","","","CC BY-SA 3.0"
+"42305950","1","42306084","","2017-02-17 19:28:43","","1","76","<p>The title of this question probably isn't sufficient to describe the problem I'm trying to solve so hopefully my example gets the point across. I am hoping a Python RegEx is the right tool for the job:</p>
+
+<p><strong>First, we're lookig for any one of these strings</strong>:</p>
+
+<ul>
+<li>CATGTG</li>
+<li>CATTTG</li>
+<li>CACGTG</li>
+</ul>
+
+<p><strong>Second, the pattern is</strong>:</p>
+
+<ul>
+<li>string</li>
+<li>6-7 letters</li>
+<li>string</li>
+</ul>
+
+<p>Example</p>
+
+<ul>
+<li>match: CATGTGXXXXXXCACGTG</li>
+<li>no match: CATGTGXXXCACGTG (because 3 letters between)</li>
+</ul>
+
+<p><strong>Third</strong>, when a match is found, begin the next search from the end of the previous match, inclusive. Report index of each match.</p>
+
+<p><strong>Example</strong>:</p>
+
+<ul>
+<li><p>input (spaces for readability): XXX CATGTG XXXXXX CATTTG XXXXXXX CACGTG XXX</p></li>
+<li><p>workflow (spaces for readability):</p>
+
+<ul>
+<li>found match: CATGTG XXXXXX CATTTG</li>
+<li><p>it starts at 3</p></li>
+<li><p>resuming search at C in CATTTG</p></li>
+<li><p>found match: CATTTG XXXXXXX CACGTG</p></li>
+<li>it starts at 15</li>
+</ul></li>
+</ul>
+
+<p>and so on...</p>
+
+<p>After a few hours of tinkering, my sorry attempt did not yield what I expected:</p>
+
+<pre><code>regex = re.compile(""CATGTG|CATTTG|CACGTG(?=.{6,7})CATGTG|CATTTG|CACGTG"")
+for m in regex.finditer('ATTCATGTG123456CATTTGCCG'):
+   print(m.start(), m.group())
+
+3 CATGTG
+15 CATTTG (incorrect)
+</code></pre>
+
+<p>You're a genius if you can figure this out with a RegEx. Thanks :D</p>
+","2228353","","2228353","","2017-02-17 19:38:38","2017-02-17 19:46:30","Python RegEx Overlapping","<python><regex>","2","1","","","","CC BY-SA 3.0"
+"44702118","1","44704130","","2017-06-22 14:20:33","","-1","46","<p>I'm trying to do some string operations in Python 3, and am struggling with a complicated issue which may be solvable in regex. I've tried to implement this myself but with no luck whatsoever.</p>
+<p>I think I require a split() operation of some description, with a regular expression inside catching strings contains '===SOMETEXT==='.</p>
+<p>The string type contains a series of headings, with paragraphs of content below. <strong>I want to somehow be able to extract the content between headings.</strong></p>
+<p>Example input:</p>
+<blockquote>
+<p>===Camcorders===<br />
+{{main|Camcorders}}<br />
+A camcorder is an electronic device combining a video camera and a video recorder. Although
+marketing materials may use the colloquial term &quot;camcorder&quot;, the name
+on the package and manual is often &quot;video camera recorder&quot;. Most
+devices capable of recording video are camera phones and digital
+cameras primarily intended for still pictures; the term &quot;camcorder&quot; is
+used to describe a portable, self-contained device, with video capture
+and recording its primary function.</p>
+<p>===Professional video camera===<br />
+{{main|Professional video camera}}<br />
+A professional video camera (often called a television camera even
+though the use has spread beyond [[television]]) is a high-end device
+for creating electronic moving images (as opposed to a [[movie
+camera]], that earlier recorded the images on [[filmstock|film]]).
+Originally developed for use in [[television studio]]s, they are now
+also used for [[music video]]s, [[direct-to-video]] movies, corporate
+and educational videos, marriage videos etc.</p>
+<p>These cameras earlier used [[Video camera tube|vacuum tubes]] and
+later electronic [[Image sensor|sensors]].</p>
+<p>===Television video camera===<br />
+.... etc</p>
+</blockquote>
+<p>The text between the '===' strings may vary, but always follow the pattern '===HEADING-HERE==='.</p>
+<p>Example output from query for 'Camcorders' section:</p>
+<blockquote>
+<p>A camcorder is an electronic device combining a video camera and a
+video recorder. Although marketing materials may use the colloquial
+term &quot;camcorder&quot;, the name on the package and manual is often &quot;video
+camera recorder&quot;. Most devices capable of recording video are camera
+phones and digital cameras primarily intended for still pictures; the
+term &quot;camcorder&quot; is used to describe a portable, self-contained
+device, with video capture and recording its primary function.</p>
+</blockquote>
+","2881903","","-1","","2020-06-20 09:12:55","2017-06-22 15:59:33","Getting contents of string, between two given sub-strings, using regex","<regex><python-3.x><split>","1","1","","","","CC BY-SA 3.0"
+"46702624","1","","","2017-10-12 06:13:48","","0","858","<p>I am working on a string where I want to remove some special characters. Also I want to remove single characters and numeric values from it but not alphanumeric values. Currently I have to use <code>re.sub()</code> multiple times to perform that operation. Can I use multiple conditions in a single <code>re.sub()</code>?</p>
+
+<pre><code>sample = ""[ This - is a 26 sample s string with ? special . characters' s26]""
+sample = re.sub(r'[^a-zA-Z0-9._ ""]',"" "",sample)
+sample = re.sub(r'\b[0-9 .]+\b',"""",sample)
+sample = re.sub(r'\b[a b c d e f g ..... z]+\b',"""",sample)
+</code></pre>
+
+<p>Expected output:</p>
+
+<pre><code>sample = ""This is sample string with special characters s26""
+</code></pre>
+","2613005","","2613005","","2017-10-12 06:22:17","2017-10-12 06:28:34","Applying multiple conditions in re.sub()","<regex><python-3.x>","0","11","","2017-10-12 07:06:16","","CC BY-SA 3.0"
+"47413572","1","47415034","","2017-11-21 12:50:44","","4","4374","<p>I have the following paragraphs :</p>
+
+<pre><code>This is paragraph #1
+New-York, London, Paris, Berlin
+Some other text
+End of paragraph
+
+This is paragraph #2
+London, Paris
+End of paragraph
+
+This is paragraph #3
+New-York, Paris, Berlin
+Some other text
+End of paragraph
+
+This is paragraph #4
+End of paragraph
+
+This is paragraph #5
+Paris, Berlin
+Some other text
+End of paragraph
+</code></pre>
+
+<p>How can I, with a regex, match the paragraphs containing e.g. New-York (#1 and #3) or London (#1, #2) ? or even New-York AND Berlin (#1, #3) ?</p>
+
+<p>I have found an answer in S.O. </p>
+
+<p><a href=""https://stackoverflow.com/questions/18568105/how-match-a-paragraph-using-regex"">How match a paragraph using regex</a></p>
+
+<p>which allows me to match the paragraphs (all the text between two blank lines).</p>
+
+<p>But I cannot figure (my regex skills are… limited) how to match the paragraphs containing a specific pattern, and only those paragraphs.</p>
+
+<p>Thanks in advance for your help</p>
+
+<p>NB : the idea is to use the answer in the Editorial IOS app to fold the answers NOT containing the pattern.</p>
+","413016","","3832970","","2017-11-21 13:33:16","2017-11-21 15:06:31","How to match paragraphs containing a specific pattern with regex?","<python><regex>","2","7","0","","","CC BY-SA 3.0"
+"48272315","1","","","2018-01-15 23:54:21","","0","3975","<p>So I have a weird link like: </p>
+
+<pre><code>https\/\/blahblah.com\/path\/example
+</code></pre>
+
+<p>What I want to do is replace every <code>""\/""</code> with just a <code>""/""</code>.</p>
+
+<p>When I try</p>
+
+<pre><code>re.sub(""\/"", ""/"", soup)
+</code></pre>
+
+<p>It doesn't change anything. Any help is appreciated, thank you.</p>
+","9199718","","953482","","2018-01-15 23:55:09","2018-01-16 00:15:06","How to replace all instances of ""\/"" with ""/"" in a string?","<python><regex><string><python-3.x><replace>","4","7","","","","CC BY-SA 3.0"
+"48797409","1","48797473","","2018-02-14 22:39:49","","1","1313","<p>When I tried to transform the string into a dict-like form, I met this problem</p>
+
+<pre><code>s = '&amp;a: 12, &amp;b:13, &amp;c:14, &amp;d: 15' # the string I want to convert
+</code></pre>
+
+<p>Before converting it, I tried to find all the matched results at first so I used </p>
+
+<pre><code>dict_form = re.compile(r'(&amp;[a-zA-Z]*:)(.*),')
+result = dict_form.findall(s)
+print(result) # [('&amp;a:', ' 12, &amp;b:13, &amp;c:14')]
+</code></pre>
+
+<p>It's quite unexpected, and a little bit messy</p>
+
+<p>But when I tried another way to match the string:</p>
+
+<pre><code>dict_form1 = re.compile(r'(&amp;[a-zA-Z]*:)([^,]*)')
+result = dict_form1.findall(s)
+print(result) # [('&amp;a:', ' 12'), ('&amp;b:', '13'), ('&amp;c:', '14'), ('&amp;d:', ' 15')]
+</code></pre>
+
+<p>This time, I get a better one with key and item separately stored in a tuple.</p>
+
+<p>The only difference I made was (.<em>), into [^,]</em></p>
+
+<p>The first one I thought was to find anything until it matches a comma
+The second one I thought was to find anything but comma</p>
+
+<p>What's the difference?</p>
+","8143506","","","","","2018-02-14 22:56:12","The difference between ( [^,]*) and (.*,) in regular expression? Using python","<python><regex>","2","1","0","","","CC BY-SA 3.0"
+"48859725","1","48859738","","2018-02-19 04:56:07","","2","2063","<p>Here is what I have so far:</p>
+
+<pre><code>import re
+text = ""If you want to call me, my old number was 905-343-2112 and it has 
+been changed to 289-544-2345""
+phone = re.findall(r'((\d{3})-(\d{3})-(\d{4}))', text)
+for call in phone:
+    print (call[0])
+</code></pre>
+
+<p>I am guessing my regular expression for finding the phone number isnt great because if I take out the square brackets when printing call, it seems to give me the whole number and then it breaks down each set of numbers.  How could I polish this code</p>
+","6346253","","","","","2018-02-19 05:01:36","How to look for phone numbers in a string of text","<python><regex><expression>","2","2","","","","CC BY-SA 3.0"
+"49190411","1","49190438","","2018-03-09 09:21:45","","0","43","<p>I have DataFrame having column with Chat Transcript.</p>
+
+<pre><code>ID  Chat
+1   P1: Please call me soon P2 - will call you
+2   P2: Please call me soon P1 - will call you
+</code></pre>
+
+<p>I want to create a new column with yes/No or 1/0 if chat has pattern ""call me soon"" only between P1 &amp; P2 But not between P2 &amp; P1.</p>
+
+<p>Out put will be like </p>
+
+<pre><code>ID  Chat                                          Call me soon
+1   P1: Please call me soon P2 - will call you        Yes
+2   P2: Please call me soon P1 - will call you         No
+</code></pre>
+
+<p>I need to do it in python. Please suggest a appropriate method.</p>
+","9466657","","3832970","","2018-03-09 21:30:24","2018-03-09 21:30:24","Find a Text Pattern in python Data Frame","<python><regex><pandas><dataframe>","1","0","","","","CC BY-SA 3.0"
+"49660637","1","","","2018-04-04 21:19:39","","0","70","<p>I'm doing the cipher for python. I'm confused on how to use Regular Expression to find a paired word in a text dictionary. </p>
+
+<p>For example, there is dictionary.txt with many English words in it. I need to find word paired with ""th"" at the beginning. Like they, them, the, their .....</p>
+
+<p>What kind of Regular Expression should I use to find ""th"" at the beginning?</p>
+
+<p>Thank you!</p>
+","8781930","","1222951","","2018-04-04 21:23:26","2018-04-04 21:51:21","Regular Expression in python how to find paired words","<python><regex>","3","2","","","","CC BY-SA 3.0"
+"49997050","1","","","2018-04-24 08:39:36","","1","377","<p>Hey I'm looking for a <code>regex</code> pattern to search through a string example:</p>
+
+<p><code>++t+==+z++==</code> and return <strong>true</strong> if a letter is surrounded by a <code>+</code> on both sides. Otherwise its <strong>false</strong></p>
+
+<ul>
+<li><p><code>++t++z==</code> will return <strong>false</strong>.</p></li>
+<li><p><code>++z+p++</code>  will return <strong>true</strong>.</p></li>
+<li><p><code>t++z+</code>    will return <strong>false</strong>.</p></li>
+</ul>
+
+<p>A code sample of the function in js</p>
+
+<pre><code>function check_str_pos(str){
+///(\+|=|[a-zA-Z])|(\+[a-zA-Z]\+)|(\+|=|[a-zA-Z])$/
+
+   if(/^(\+[a-zA-Z]\+)$/.test(str))
+   {
+
+  return true;
+}
+
+ else{
+
+   return false;
+  }
+   }
+</code></pre>
+","6423730","","6423730","","2018-04-24 10:14:15","2018-04-24 11:43:25","Regex pattern to find plus and equal sign","<javascript><python><regex>","2","4","","","","CC BY-SA 3.0"
+"50145945","1","50146044","","2018-05-03 02:10:35","","1","95","<p>Hello I want to use python and extract text that is either a numeric value or a number spelled out plus the first word before and after the found value.</p>
+
+<p>Example text:</p>
+
+<blockquote>
+  <p>I have 2 brothers and they bought one car each. My oldest
+  brother invested 1,000 dollars.</p>
+</blockquote>
+
+<p>Expected Output: </p>
+
+<p><code>'have 2 brothers', 'bought one car', 'invested 1,000 dollars'</code></p>
+
+<p>I have tried this ></p>
+
+<pre><code>&gt;&gt;&gt; import re
+&gt;&gt;&gt; str = ""I have 2 brothers and they bought one car each. My oldest brother invested 1,000 dollars.""
+&gt;&gt;&gt; print re.findall(""\d+"", s)
+['2']
+</code></pre>
+
+<p>however this only worked for finding a value not the spelled out term <code>one</code>. I also do not know what to use to get the word before and after the found word.</p>
+","3861726","","","","","2018-05-03 02:32:27","Python extract quantifiable text (numbers)","<python><regex><nlp>","2","4","","","","CC BY-SA 4.0"
+"50410283","1","50410353","","2018-05-18 11:25:43","","-2","47","<p>I have a text like this - </p>
+
+<pre><code>EventTimestamp        H 9EventType 8document 2ID  2b837c02-40c9-4d33-b81b-d489a06fa302-DCUP  LogToAuditTrail  SourceAppCD 5DOCSV  SourceAppUID  2b837c02-40c9-4d33-b81b-d489a06fa302 6UserID  5a8ce656-1a31-456b-b3dd-5ec0859c9f3e1
+</code></pre>
+
+<p>I want to fetch the document-id which is present in the above string as </p>
+
+<pre><code>2b837c02-40c9-4d33-b81b-d489a06fa302
+</code></pre>
+
+<p>The Id has a specific pattern - </p>
+
+<pre><code>&lt;8characters(alpha numeric)&gt; - &lt;4characters(alpha numeric)&gt; - &lt;4characters(alpha numeric)&gt; - &lt;4characters(alpha numeric)&gt; - &lt;12characters(alpha numeric)&gt;
+</code></pre>
+
+<p>The above string has other similar ids, but I am interested in getting the pattern after the substring  <code>document 2ID</code>. Again this string is not fixed any kind of number, string or white space can come between <code>document</code> &amp; <code>ID</code></p>
+","1364646","","","","","2018-05-18 11:54:16","Fetch string matching a pattern","<python><regex><python-3.x>","3","2","","","","CC BY-SA 4.0"
+"50454441","1","","","2018-05-21 18:11:47","","0","36","<p>I have a text as given:</p>
+
+<pre class=""lang-none prettyprint-override""><code>(3) Reflects the adoption of SFAS No. 128, EARNINGS PER SHARE.
+
+&lt;PAGE&gt;
+
+ITEM 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS
+        OF OPERATION
+
+
+YEAR ENDED DECEMBER 28, 1997 COMPARED TO THE YEAR ENDED DECEMBER 29, 1996
+
+
+In November 1996, the Company initiated a major restructuring and growth
+plan designed to substantially reduce its cost structure and grow the business
+in order to restore higher levels of profitability for the Company. By July
+1997, the Company completed the major phases of the restructuring plan. The
+$225.0 million of annualized cost savings anticipated from the restructuring
+results primarily from the consolidation of administrative functions within 
+</code></pre>
+
+<p>Here, I want to extract <code>""MANAGEMENT'S DISCUSSION AND ANALYSIS""</code> which occurs after <code>&lt;PAGE&gt;</code>. There are many other <code>""MANAGEMENT'S DISCUSSION AND ANALYSIS""</code> in the document ( I have not copied the document as it is 1000+ pages long). </p>
+
+<p>I used the following Regex expression: </p>
+
+<pre class=""lang-python prettyprint-override""><code>pattern = ('?&lt;=&lt;PAGE&gt;')('.*')('?=Management\'s Discussion')
+</code></pre>
+
+<p>but it is giving this error </p>
+
+<pre><code>TypeError: 'str' object is not callable
+</code></pre>
+
+<p>What's wrong, where and how to rectify it?</p>
+","","user9824386","8472976","","2018-05-21 19:20:56","2018-05-21 19:20:56","Correct regex for finding string with two or three words in it","<regex><python-3.x><python-2.7><regex-lookarounds><lookbehind>","0","13","0","","","CC BY-SA 4.0"
+"51648244","1","51648337","","2018-08-02 07:47:28","","1","421","<p>I am trying to wrap all individual values which are inside curly braces <code>{}</code> using single quotes <code>' '</code>.</p>
+
+<p>example:</p>
+
+<pre><code>some test {Value1,Value2} more text {Value3} more text {Value4, Value1, Value5, Value9, Value11, Value21}
+
+Above should convert as below:
+some test {'Value1','Value2'} more text {'Value3'} more text {'Value4', 'Value1', 'Value5', 'Value9', 'Value11', 'Value21'}
+</code></pre>
+
+<p>I am able to figure out the pattern but not sure how to replace them in file.</p>
+
+<p>Source file content:</p>
+
+<pre><code>2321232~CD IN ('JSS12QQ','OQJS','QE9QAA','HAHSS31A','KAA43A','QA00A')~CD IN 
+(JSS12QQ','OQJS','ULOE9Q','HAHSS31A','KAA43A','QA00A','QM34AA','WS2A','JS3QQ')~US~
+{QA00A,WS2A,JS3QQ,OQJS,KAA43A,ULOE9Q,QM34AA,HAHSS31A,JSS12QQ}~{KAA43A,QA00A,QM34AA,WS2A,JS3QQ}
+~CD IN ('2AA2Q')~CD IN ('2AA2Q')~US~{2AA2Q}~{2AA2Q}~{QM34AA,JSS12QQ}
+</code></pre>
+
+<p>Target files content:</p>
+
+<pre><code>2321232~CD IN ('JSS12QQ','OQJS','QE9QAA','HAHSS31A','KAA43A','QA00A')~CD IN 
+(JSS12QQ','OQJS','ULOE9Q','HAHSS31A','KAA43A','QA00A','QM34AA','WS2A','JS3QQ')~US~
+{'QA00A','WS2A','JS3QQ','OQJS','KAA43A','ULOE9Q','QM34AA','HAHSS31A','JSS12QQ'}~{'KAA43A','QA00A','QM34AA','WS2A','JS3QQ'}
+~CD IN ('2AA2Q')~CD IN ('2AA2Q')~US~{'2AA2Q'}~{'2AA2Q'}~{'QM34AA,JSS12QQ'}
+</code></pre>
+
+<p>Code to fetch the pattern:</p>
+
+<pre><code>import re
+
+def parse(file_name):
+        file = open(file_name)
+        file_contents =file.read()
+        f = file_contents
+        rec=re.findall(r""{.*?}"",f)
+        print (rec)
+
+parse(""rule_engine_temp.csv"")
+</code></pre>
+
+<p>Please help with explanation so that i can understand and handle its variations.</p>
+","5051196","","","","","2018-08-03 07:27:44","Wrap string inside single quotes","<python><regex>","2","0","","","","CC BY-SA 4.0"
+"52638228","1","52638449","","2018-10-04 02:45:03","","2","1546","<p>What can I do to only get the zipcode, and not the whole address? right now it shows a whole address which contains a zipcode, is there a way of extracting the zipcode? </p>
+
+<pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as py
+from tabulate import tabulate
+from geopy.geocoders import Nominatim
+geolocator = Nominatim()
+
+my_data = pd.read_csv('dt/TrafficCounts_OpenData_wm.csv')
+
+
+geolocator = Nominatim(user_agent=""my_application"")
+sub_set = my_data[[""POINT_Y"",""POINT_X""]]
+count = 0
+for y in sub_set.itertuples() :
+    mypoint = str(y[1]) + ' ,' + str(y[2])
+    print(mypoint)
+    location = geolocator.reverse(mypoint)
+    print(location)
+    if count == 5 : break
+    count +=1
+</code></pre>
+","10454284","","6890912","","2018-10-04 03:11:00","2018-10-04 04:05:26","I need to get the extract the zip code from the result of this loop.","<python><regex><python-3.x>","2","3","","","","CC BY-SA 4.0"
+"53291719","1","53291942","","2018-11-14 01:03:09","","3","39","<p>Struggling to automate a text file cleanup for some subsequent data analysis. I have a text to tab file where I need to remove instances of \t"" text (remove the "" but keep the tab).</p>
+
+<p>I then want to remove instances of \n where the character <em>before</em> is nor \r. i.e. \r\n is OK x\n is not. I have the first part working but not the second part any help appreciated. I appreciate there are probably way better ways to do this given I'm writing then opening in a byte format simply because I can't seem to detect /r in 'r' mode.</p>
+
+<pre><code>import re
+import sys
+import time
+
+originalFile = '14-09 - Copy.txt'
+amendedFile = '14-09 - amended.txt'
+
+with open(originalFile, 'r') as content_file:
+    content = content_file.read()
+
+content = content.replace('\t\""','\t')
+
+with open(amendedFile,'w') as f:
+    f.write(content)
+
+with open(amendedFile, 'rb') as content_file:
+    content = content_file.read()
+content = re.sub(b""(?&lt;!\r)\n"","""", content)
+
+with open(amendedFile,'wb') as f:
+    f.write(content)
+
+print(""Done"")
+</code></pre>
+
+<p>For clarity or completion, the python 2 code below identifies the positions that I'm interested in (I'm just looking to automate their removal now). i.e.</p>
+
+<p>\r\nText should equal \r\nText</p>
+
+<p>\t\nText should equal \tText</p>
+
+<p>Text\nText should equal TextText</p>
+
+<pre><code>import re
+import sys
+import time
+with open('14-09 - Copy.txt', 'rb') as content_file:
+    content = content_file.read()
+
+newLinePos = [m.start() for m in re.finditer('\n', content)]
+
+for line in newLinePos:
+    if (content[line-1]) != '\r':
+        print (repr(content[line-20:line]))
+</code></pre>
+
+<p>Thanks as always!</p>
+","9975834","","","","","2018-11-14 01:35:10","Python - Substituting regex matches in byte file","<python><regex><python-3.x>","1","0","","","","CC BY-SA 4.0"
+"53371359","1","","","2018-11-19 09:09:33","","0","58","<p>The source data looks like below. One of the field from 4th record has multiline string.</p>
+
+<pre><code>i1|j1|k1|l1|m1
+i2|j2|k2|l2|m2
+i3|j3|k3|l3|m3
+i4|j4|k4|""l4 is
+multiline data
+multiline data""|m4
+i5|j5|k5|l5|m5
+</code></pre>
+
+<p>I am reading this file through <code>sc.wholeTextFiles</code></p>
+
+<pre><code>rdd= sc.wholeTextFiles(""file.csv"").flatMap(lambda x: x[1].split(""\n""))
+print rdd.take(100)
+print rdd.count()
+</code></pre>
+
+<p>Output of <code>rdd.take(100)</code>:</p>
+
+<pre><code>[u'i1|j1|k1|l1|m1', u'i2|j2|k2|l2|m2', u'i3|j3|k3|l3|m3', u'i4|j4|k4|""l4 is', u'multiline data', u'multiline data""|m4', u'i5|j5|k5|l5|m5', u'']
+</code></pre>
+
+<p>Output of <code>rdd.count()</code></p>
+
+<pre><code>8
+</code></pre>
+
+<p>The issue here is the <code>multiline</code> data is treated as a new record. Due to which the count is also increased. How can I treat that <code>multiline</code> data as one string value of the column(which is starting with <code>l4</code>) ?</p>
+","6658698","","1231450","","2018-11-19 10:03:57","2018-11-19 10:03:57","How to parse CSV data that contains newlines in field using pyspark","<python><regex><apache-spark><pyspark>","1","0","","","","CC BY-SA 4.0"
+"53580076","1","53580552","","2018-12-02 12:07:51","","0","78","<p>So I have this HTML: </p>
+
+<p><code>div class=""price"" itemprop=""offers"" itemscope itemtype=""http://schema.org Offer""</code></p>
+
+<p>And I'm trying to split it in a list something like this:</p>
+
+<pre><code>[class=""price"", itemprop=""offers"", itemscope, itemtype=""http://schema.org Offer""]
+</code></pre>
+
+<p>But I'm nost sure how to split the part of <code>itemscope</code>.</p>
+
+<p>My current regex it looks like this <code>(\s.*?\""\s*.*?\s*\"")</code>, but the problem with this one is that when I will split it into a list, the <strong>itemscope</strong> and <strong>itemtype=""http://schema.org Offer""</strong> will be just one element, so my list will be something like this:</p>
+
+<p><code>[class=""price"", itemprop=""offers"", itemscope itemtype=""http://schema.org Offer""]</code></p>
+
+<p>Any idea how can I fix this?</p>
+","9370135","","","","","2018-12-02 13:19:47","Split HTML by Regex","<python><html><regex>","2","4","","","","CC BY-SA 4.0"
+"55044503","1","55044580","","2019-03-07 13:05:05","","1","28","<p>my question is how do I scan ""my_list"" for ""comp"" and change the associated time value from 200 to ""t"" only if 200 is less than t?</p>
+
+<pre><code>t = 3000
+comp = 'C1'
+my_list = [[200, 'C1'],[4000, 'C2']] 
+</code></pre>
+
+<p>Output:</p>
+
+<pre><code>my_list = [[3000, 'C1'],[4000, 'C2']] 
+</code></pre>
+
+<p>The opposite could be done with this scenario as the list shouldn't change as ""t"" is less than ""5000"": </p>
+
+<pre><code>t = 3000
+comp = 'C1'
+my_list = [[5000, 'C1'],[4000, 'C2']] 
+</code></pre>
+","11106699","","","","","2019-03-07 13:18:12","How to replace part of an array based on another part of the array?","<python><regex><list>","2","2","","","","CC BY-SA 4.0"
+"55103414","1","55106108","","2019-03-11 13:55:03","","0","180","<p>im working on a project where i have to use speech to text as an input to determine who to call, however using the speech to text can give some unexpected results so i wanted to have a little dynamic matching of the strings, i'm starting small and try to match 1 single name, my name is Nick Vaes, and i try to match my name to the spoken text, but i also want it to match when for example some text would be Nik or something, idealy i would like to have something that would match everything if only 1 letter is wrong so </p>
+
+<p>Nick
+ick
+nik
+nic
+nck</p>
+
+<p>would all match my name, the current simple code i have is:</p>
+
+<pre><code>  def user_to_call(s):
+  if ""NICK"" or ""NIK"" in s.upper(): redirect = ""Nick""
+  if redirect: return redirect
+</code></pre>
+
+<p>for a 4 letter name its possible to put all possibilities in the filter, but for names with 12 letters it is a little bit of overkill since i'm pretty sure it can be done way more efficient.</p>
+","8939674","","100297","","2019-03-11 15:56:15","2019-03-11 16:14:27","python how to dynamically find a persons name in a string","<python><regex>","3","2","","","","CC BY-SA 4.0"
+"55297495","1","55297694","","2019-03-22 10:22:04","","1","76","<p>I have the below code to take input with minimum 3 chars, it should contain only <strong>[a-zA-Z0-9]</strong> ,<strong>_</strong>,<strong>-</strong>,<strong>.(dot)</strong>
+But the pattern should not match only <strong>.</strong></p>
+
+<p>Like input can be <strong>--__abc</strong> and <strong>----</strong>, <em>____</em> but can't be *...**</p>
+
+<p>I have the below pattern, but not working properly.
+Can someone help me</p>
+
+<pre><code>     n = input()
+     pattern = ""^[A-Za-z0-9_-]+[.]*$""
+     if match:
+         print('input accepted') # exp : ----,____,aaa,000, __ahs-- 
+                                    -,_.as
+     else:
+         print('input not accepted') # exp : .... (not accepted as  
+                                       contains only dot(.) 
+</code></pre>
+","7164714","","","","","2019-03-22 10:32:38","Match only particular special chars using regular expression","<python><regex>","1","3","0","","","CC BY-SA 4.0"
+"55956384","1","55960721","","2019-05-02 16:09:11","","0","123","<p>I'm searching for a regex solution to replace a substring given a dynamic pattern. The issue is that the substring might contain a known token and we don't know at which position this token occurs.
+I can formulate the problem as: Replace (a given) pattern in string even if (known) token would conflict.</p>
+
+<p>Let's assume we have <em>my_string</em>: </p>
+
+<blockquote>
+  <p>I like green and <strong>PLUS</strong> blue beans!</p>
+</blockquote>
+
+<p><strong>PLUS</strong> represents the known token we want to ignore in case it is hindering a match.</p>
+
+<p>We also have a variable pattern called <em>my_pattern</em> which can be any part of <em>my_string</em> except <strong>PLUS</strong> such as:</p>
+
+<blockquote>
+  <p>1) green and blue</p>
+  
+  <p>2) green and blue beans</p>
+  
+  <p>3) I like green</p>
+</blockquote>
+
+<p>We know <strong>PLUS</strong> may occur somewhere in <em>my_string</em> and we don't know the position. Theoretically, <em>my_string</em> could also be: </p>
+
+<blockquote>
+  <p>I <strong>PLUS</strong> like green and blue beans!</p>
+</blockquote>
+
+<p>Since <em>my_pattern</em> can occur in form 1), 2), or 3), we also can't hardcode the solution using ORs. </p>
+
+<p>The sought solution is something like: 
+<em>my_string</em>.replace(<em>my_pattern</em>, ""red"") with the output for my_pattern:</p>
+
+<blockquote>
+  <p>1) I like red beans!</p>
+  
+  <p>2) I like red!</p>
+  
+  <p>3) red and <strong>PLUS</strong> blue beans!</p>
+</blockquote>
+
+<p><em>my_pattern</em> shall match although the <strong>PLUS</strong> occurs in <em>my_string</em> (which might conflict with my_pattern). 
+It is something like: match <em>my_pattern</em> and ignore <strong>PLUS</strong> in case it is hindering a match.</p>
+","5898318","","6553328","","2019-05-02 18:29:22","2019-05-02 21:58:56","Regex for matching a string with substrings","<python><regex>","2","2","","","","CC BY-SA 4.0"
+"56064228","1","","","2019-05-09 16:56:49","","1","53","<p>I'm trying to replace some placeholder text within a file with the contents of a list I've built. I step through the list, counting as I go, and do a search which changes depending on the count. The count is an integer that is a part of the search term I use in every loop.</p>
+
+<p>I cannot for the life of me work out what's going on. I've printed everything I can think of and it looks like the search term matches. I've tried multiple methods of replace, but have stuck with the simple replace example to show. </p>
+
+<p>Sample text from the file, get's loaded into variable 'filedata':</p>
+
+<p><code>&lt;core:para&gt;ANSWER_1&lt;/core:para&gt;&lt;core:para&gt;2. Bilateral investment treaties&lt;/core:para&gt;&lt;core:para&gt;ANSWER_2&lt;/core:para&gt;&lt;core:para&gt;3. Domestic arbitration law&lt;/core:para&gt;&lt;p&gt;ANSWER_3&lt;/p&gt;&lt;core:para&gt;4. Domestic arbitration and UNCITRAL&lt;/core:para&gt;&lt;core:para&gt;ANSWER_4&lt;/core:para&gt;&lt;core:para&gt;5. Mandatory provisions&lt;/core:para&gt;&lt;core:para&gt;ANSWER_5&lt;/core:para&gt;&lt;core:para&gt;6. Substantive law&lt;/core:para&gt;&lt;core:para&gt;ANSWER_6&lt;/core:para&gt;&lt;core:para&gt;7. Arbitral institutions&lt;/core:para&gt;&lt;core:para&gt;ANSWER_7&lt;/core:para&gt;&lt;core:para&gt;8. Arbitrability&lt;/core:para&gt;&lt;core:para&gt;ANSWER_8&lt;/core:para&gt;&lt;core:para&gt;9. Requirements&lt;/core:para&gt;&lt;core:para&gt;ANSWER_9&lt;/core:para&gt;&lt;core:para&gt;10. Enforceability&lt;/core:para&gt;&lt;core:para&gt;ANSWER_10&lt;/core:para&gt;</code></p>
+
+<p>Code:</p>
+
+<pre><code>x = 1            
+answerlist = ['Oranges', 'Apples', 'Mangos', 'Cherries']
+
+for a in answerlist:
+    searchterm = '&lt;core:para&gt;ANSWER_' + str(x) +'&lt;/core:para&gt;'
+    newdata = filedata.replace(searchterm, a)
+    x=x+1
+</code></pre>
+
+<p>For the purpose of the example I've hardcoded the answerlist variable above, but this is dynamically created in a larger loop. </p>
+
+<p>The expected result is:</p>
+
+<p><code>&lt;core:para&gt;Oranges&lt;/core:para&gt;&lt;core:para&gt;2. Bilateral investment treaties&lt;/core:para&gt;&lt;core:para&gt;Apples&lt;/core:para&gt;</code>
+etc</p>
+
+<p>The actual result is:</p>
+
+<p><code>&lt;core:para&gt;ANSWER_1&lt;/core:para&gt;&lt;core:para&gt;2. Bilateral investment treaties&lt;/core:para&gt;&lt;core:para&gt;ANSWER_2&lt;/core:para&gt;</code></p>
+
+<p>I've tested the pattern either side of x and that works fine, so the problem appears to be the x, somehow not converting into the string I think it is. </p>
+
+<p>Any ideas what the problem might be?</p>
+","9120238","","9120238","","2019-05-09 20:08:29","2019-05-09 21:40:37","How to replace with integer variable as part of search pattern","<python><regex><python-3.x>","3","7","","","","CC BY-SA 4.0"
+"56302630","1","","","2019-05-25 07:14:51","","0","67","<p>I'm trying to grab paragraphs of text off a website with RegEx to put into a Python list, but for this particular website I'm having difficulty with formatting the RegEx to capture all the events. 
+Can anyone help with gathering results from all instances? 
+Or at least tell me if it's not practical and I'll find an alternate website. </p>
+
+<pre><code>from re import *
+from urllib.request import urlopen
+
+## Create Empty List
+EventInfoListBEC = []
+
+## Asign Website to a Variable
+WebsiteBEC = 'https://www.brisent.com.au/Event-Calendar'
+
+## Search for Event Info
+EventInfoBEC = findall('&lt;p class=""event-description""&gt;(.+?)&lt;/p&gt;', WebsiteBEC)
+
+## Add Event Info to Event Info List and Print Details
+print('Event Info appears', len(EventInfoBEC), 'times (BEC).')
+for EventInfo in EventInfoBEC:
+    EventInfoListBEC.append(EventInfo)
+print(EventInfoListBEC)
+</code></pre>
+
+<hr>
+
+<pre><code>## There are Three Styles of Input from the HTML File
+# One
+&lt;p class=""event-description""&gt;&lt;p&gt;This is a sport where 8 seconds can cost you everything. Welcome to the world of the PBR.&lt;/p&gt;
+
+&lt;/p&gt;
+
+# Two
+&lt;p class=""event-description""&gt;&lt;p style=""text-align: justify; color: rgb(0, 0, 0); font-family: sans-serif; font-size: 12px;""&gt;Fresh off the back of winning a Brit Award for &amp;lsquo;British Artist Video of the Year&amp;rsquo; for &amp;lsquo;Woman Like Me&amp;rsquo;, and two Global Awards for &amp;lsquo;Best Group&amp;rsquo; and &amp;lsquo;Best Song&amp;rsquo;; pop superstars Little Mix today announce that five new Australian shows have been added to &amp;#39;LM5 - The Tour&amp;#39; for 2019!&lt;/p&gt;
+
+&lt;/p&gt;
+
+#Three
+&lt;p class=""event-description""&gt;&lt;p style=""font-family: sans-serif; font-size: 12px; color: rgb(0, 0, 0); text-align: center;""&gt;&lt;strong&gt;OPENING NIGHT PERFORMANCE ADDED!&lt;/strong&gt;&lt;/p&gt;
+
+
+
+&lt;p style=""font-family: sans-serif; font-size: 12px; color: #000000; text-align: justify;""&gt;The world&amp;rsquo;s most beloved movie-musical comes to life on the arena stage&amp;nbsp;like you&amp;rsquo;ve never seen it before! From the producers of GREASE - THE ARENA EXPERIENCE comes this lavish new arena production of THE WIZARD OF OZ.&lt;/p&gt;
+</code></pre>
+","11550383","","8353711","","2019-05-25 07:19:25","2019-05-25 10:26:58","RegEx for Capturing HTML text with Python","<python><html><regex>","1","5","","","","CC BY-SA 4.0"
+"56371920","1","56371994","","2019-05-30 05:05:38","","0","42","<p>I would like to take out only the date part of my dataframe column which has data like</p>
+
+<pre><code>$83,00010/7/2016       10/7/2016  # is the date here
+$721,0002/7/2015       2/7/2015  # is the date here
+$3,00012/12/2015       12/12/2015  # is the date here
+</code></pre>
+
+<p>I tried patterns like</p>
+
+<pre><code>^(?!,\d{3}) and (\$[,\d{3}]*\,\d{3}) 
+</code></pre>
+
+<p>but I am not able to exactly pick just the date part.</p>
+","10935196","","9161389","","2019-05-30 05:15:26","2019-05-30 05:34:59","Regular expression for dataframe column","<python><regex>","2","4","0","","","CC BY-SA 4.0"
+"56400189","1","56400724","","2019-05-31 18:34:31","","1","51","<p>I'm trying to match: 0 or more numbers followed by a dot followed by ( (0 or more numbers) but not (if followed by a d,D, or _))</p>
+
+<p>Some examples and what should match/not:</p>
+
+<p>match:</p>
+
+<pre><code>['1.0','1.','0.1','.1','1.2345']
+</code></pre>
+
+<p>not match:</p>
+
+<pre><code>['1d2','1.2d3','1._dp','1.0_dp','1.123165d0','1.132_dp','1D5','1.2356D6']
+</code></pre>
+
+<p>Currently i have:</p>
+
+<pre><code>""([0-9]*\.)([0-9]*(?!(d|D|_)))""
+</code></pre>
+
+<p>Which correctly matches everything in the match list. But for those in the things it should not match it incorrectly matches on:</p>
+
+<pre><code>['1.2d3','1.0_dp','1.123165d0','1.132_dp','1.2356D6']
+</code></pre>
+
+<p>and correctly does not match on:</p>
+
+<pre><code>['1d2','1._dp','1D5']
+</code></pre>
+
+<p>So it appears i have problem with the ([0-9]*(?!(d|D|_)) part which is trying to not match if there is a d|D|_ after the dot (with zero or more numbers in-between). Any suggestions? </p>
+","2270574","","","","","2019-05-31 21:31:08","Python regex match certain floating point numbers","<regex><python-3.x>","2","4","","","","CC BY-SA 4.0"
+"56674388","1","56674487","","2019-06-19 19:10:27","","2","229","<p>I have a string : <code>'testing:  '</code> and want to replace it with <code>' ""testing:"" '</code>. 
+In other words, add quotations around the word inside the string</p>
+
+<p>I've tried using </p>
+
+<pre><code>re.sub('[a-zA-Z]+:', '""${name}""',word)
+</code></pre>
+
+<p>but this just replaces it with <code>{name}</code></p>
+","3688791","","5858851","","2019-06-19 19:15:29","2019-06-19 19:26:06","Replace captured word with captured word and quotations using regex","<python><regex>","2","3","","2019-06-19 19:37:43","","CC BY-SA 4.0"
+"57514223","1","57545776","","2019-08-15 18:12:14","","1","64","<h1>Overview</h1>
+
+<p>I am trying to take information from a file (read line by line), split the data using Regex into a dictionary of dictionaries (nested dictionaries), where the format is </p>
+
+<pre><code>{
+IP1: {
+    Message1 {count},
+    Message2 {count}, 
+    Message3 {count}, 
+    etc.
+    }, 
+IP2: {
+    Message1 {count}, 
+    Message2 {count}, 
+    Message3 {count}, 
+    etc.
+    }, 
+etc.
+}.
+</code></pre>
+
+<p>I just am stuck in taking this information, and placing it into a dictionary of dictionaries with a count per each message.</p>
+
+<p>I have a basic working prototype, where it stores {IP1: {message1}, IP2: {message2}, etc.} but it does not store additional messages if number is already in the dictionary. I am using Regex to filter out the noise, and focus only on the signal (what I need), which works without any problems. But I am tied up in the data-structure portion, and getting count for the messages.</p>
+
+<h1>What I have tried</h1>
+
+<p><a href=""https://stackoverflow.com/questions/35514214/create-nested-dictionary-on-the-fly-in-python"">Create nested dictionary on the fly in Python</a></p>
+
+<p><a href=""https://www.youtube.com/watch?v=ygRINYibL74"" rel=""nofollow noreferrer"">https://www.youtube.com/watch?v=ygRINYibL74</a></p>
+
+<p><a href=""https://stackoverflow.com/questions/16333296/how-do-you-create-nested-dict-in-python"">How do you create nested dict in Python?</a></p>
+
+<p><a href=""https://www.youtube.com/watch?v=K8L6KVGG-7o"" rel=""nofollow noreferrer"">https://www.youtube.com/watch?v=K8L6KVGG-7o</a></p>
+
+<p><a href=""https://www.youtube.com/watch?v=c9HbsUSWilw"" rel=""nofollow noreferrer"">https://www.youtube.com/watch?v=c9HbsUSWilw</a></p>
+
+<p><a href=""https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285"" rel=""nofollow noreferrer"">https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285</a></p>
+
+<p><a href=""https://docs.python.org/2/library/re.html"" rel=""nofollow noreferrer"">https://docs.python.org/2/library/re.html</a></p>
+
+<p>I tried creating a pandas array, and numpy array as well, but it still did not work out for me. I have used many other sources which I did not bookmark, in trying to help me out, but can not remember them all.</p>
+
+<h1>Sample Code</h1>
+
+<pre><code>def cleanData(rawData):
+     cleanIP = ipSubstitution(rawData)
+     cleanPacket = packetSubstitution(cleanIP)
+     cleanMessage = messageSubstitution(cleanPacket)
+     cleanRepeats = repeatedSubstition(cleanMessage)
+     cleanHexadecimal = hexadecimalSubstition(cleanRepeats)
+     cleanTime = removeTime(cleanHexadecimal)
+     return cleanTime
+
+def ipSubstitution(ip):
+     ip_exchange = re.compile(r""[a-z]{2,4}=[0-9]{0,3}.[0-9]{0,3}.[0-9]{0,3}.[0-9]{0,3}"")
+     replaceIP = ""XXX.XXX.XXX.XXX""
+     ipReturn = re.sub(ip_exchange, replaceIP, ip)
+     return ipReturn
+
+def packetSubstitution(packet):
+     packetSubstitute = re.compile(r""[a-z]{2,4}_[a-z]{2,4}_[a-z]{2,4}_[a-z]{2,4}_[a-z]{2,4}"")
+     replacePacket = ""XX_XX_XXX_XXXX_XXX""
+     packetReturn = re.sub(packetSubstitute, replacePacket, packet)
+     return packetReturn
+
+def messageSubstitution(message):
+     messageExchange = re.compile(r""[a-z]{0,5}_[a-z]{0,5}_[a-z]{0,5}_[a-z]{0,5}_[a-z]{0,5}.+"")
+     replaceMessage = ""XX_XXX_XXXXX_XXXXX_XXXXX""
+     messageReturn = re.sub(messageExchange, replaceMessage, message)
+     return messageReturn
+
+def repeatedSubstition(repeatedMessage):
+     repeatedExchange = re.compile(r""[a-z]{7}\s[a-z]{8}.+"")
+     replaceRepeated = ""XXXXXXX""
+     repeatedReturn = re.sub(repeatedExchange, replaceRepeated, repeatedMessage)
+     return repeatedReturn
+
+def hexadecimalSubstition(hexadecimalMessage):
+     hexadecimalExchange = re.compile(r""[a-z0-9]{12}\s[ok]{2}"")
+     replaceHexadecimal = ""XXXXXXXXXXXX""
+     hexadecimalReturn = re.sub(hexadecimalExchange, replaceHexadecimal, hexadecimalMessage)
+     return hexadecimalReturn
+
+def removeTime(timeRemoval):
+     timeExchange = re.compile(r""([A-Z][a-z][a-z]\s\d{2})+\s+(\d{2}\:\d{2}\:\d{2})+\s"")
+     replaceTime = """"
+     timeReturn = re.sub(timeExchange, replaceTime, timeRemoval)
+     return timeReturn
+
+def matchExpression(analysisDict,rawText):
+     d = analysisDict
+     regexMatch = re.compile(
+     r""(?P&lt;IP_Address&gt;\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\:)+\s"" +
+     ""(?P&lt;Message&gt;.+)"")
+     matchedText = re.match(regexMatch, rawText)
+     for _ in rawText:
+          count = 0
+          ip = matchedText.group(""IP_Address"")
+          message = matchedText.group(""Message"")
+          d.setdefault(ip, {})[""Message""] = message
+          d[ip][message] = count + 1
+          // wanting to add count here but given an error regarding
+          // string can not hold variable
+          for doe in d:
+               if numbers == d[doe]:
+                    for ray in d[doe]:
+                         if message == d[doe][ray]:
+                              d[doe][ray] = count + 1
+
+analysisDict = {}
+
+textFile = open('text_file', 'r')
+
+for line in textFile:
+   //cleanData is a function calling other functions to
+   //clear away unneeded text
+    cleanData(line)
+    matchExpression(analysisDict,cleanData(line))
+</code></pre>
+
+<p>I am stuck in figuring out how to get more than one message added, to each number, and adding the count to each message.</p>
+
+<p>If anyone could please help me out, I would be extremely grateful.</p>
+
+<p><strong>Update 8/18/2019</strong></p>
+
+<p><strong>Sample input</strong></p>
+
+<pre><code>Jan 29 05:23:11 11.111.11.111: devmgmt: ah_tv_alg_proc_pkt: Packet(src=10.45.27.220, dst=69.25.139.140) dropped
+Jan 29 05:23:11 11.111.11.111: devmgmt: ah_tv_alg_proc_pkt: Packet(src=10.45.27.89, dst=69.25.139.140) dropped
+Jan 29 05:23:11 22.222.22.222: system: Fetch shared memory 1000 of size 182224, address at 0xb6254000
+Jan 29 05:23:11 11.111.11.111: message repeated 8 times
+Jan 29 05:23:11 11.111.11.111: devmgmt: ah_tv_alg_proc_pkt: Packet(src=10.45.27.231, dst=69.25.139.140) dropped
+Jan 29 05:23:11 22.222.22.222: security: Admin ""&lt;admin&gt;"" successfully logged in
+Jan 29 05:23:11 11.111.11.111: message repeated 15 times
+Jan 29 05:23:11 11.111.11.111: devmgmt: ah_tv_alg_proc_pkt: Packet(src=10.45.27.220, dst=69.25.139.140) dropped
+Jan 29 05:23:11 11.111.11.111: devmgmt: ah_tv_alg_proc_pkt: Packet(src=10.45.27.231, dst=69.25.139.140) dropped
+Jan 29 05:23:11 11.111.11.111: devmgmt: ah_tv_alg_proc_pkt: Packet(src=10.45.27.217, dst=69.25.139.140) dropped
+Jan 29 05:23:11 11.111.11.111: devmgmt: ah_tv_alg_proc_pkt: Packet(src=10.45.27.231, dst=69.25.139.140) dropped
+Jan 29 05:23:11 22.222.22.222: security: admin:&lt;save config current http://11.11.130.145:0000/run-config&gt;
+</code></pre>
+
+<p><strong>After Regex</strong></p>
+
+<pre><code>""IP1: Message""
+""IP2: Message""
+""IP1: different message""
+""IP2: different message""
+etc.
+</code></pre>
+
+<h1>What I need help with</h1>
+
+<ul>
+<li><p>Storing more than one message per IP address (currently holds just one)</p>
+
+<pre><code> for _ in rawText:
+      count = 0
+      ip = matchedText.group(""IP_Address"")
+      message = matchedText.group(""Message"")
+      d.setdefault(ip, {})[""Message""] = message
+      d[ip][message] = count + 1
+      // wanting to add count here but given an error regarding
+      // string can not hold variable
+</code></pre></li>
+<li><p>Making a sub dictionary per message and storing their individual counts</p>
+
+<pre><code>      for doe in d:
+           if ip == d[doe]:
+                for ray in d[doe]:
+                     if message == d[doe][ray]:
+                          d[doe][ray] = count + 1
+</code></pre></li>
+</ul>
+
+<p><strong>Expected Output</strong></p>
+
+<pre><code>{
+Number1: {
+    message1: {count1}, 
+    message2: {count2}
+    },
+Number2: {
+    message1: {count1}, 
+    message2: {count2}
+    },
+etc.
+}
+</code></pre>
+
+<p><strong>Actual Output</strong></p>
+
+<pre><code>{'xxx.xxx.xxx.xxx:': {'Message': '...: XX_XX_XXX_XXXX_XXX: Packet(XXX.XXX.XXX.XXX, XXX.XXX.XXX.XXX) dropped'}, 'xxx.xxx.xxx.xxx:': {'Message': '...: admin:&lt;save config current http://xxx.xxx.xxx.xxx:xxxx/zzz-zzzzzz&gt;'}, 'xxx.xxx.xxx.xxx:': {'Message': '...: arbitrator ip is updated from xxx.xxx.xxx.xxx to xxx.xxx.xxx.xxx'}, 'xxx.xxx.xxx.xxx:': {'Message': '[...]: XX_XXX_XXXXX_XXXXX_XXXXX'}, 'xxx.xxx.xxx.xxx:': {'Message': 'application: get ... cancel.'}}
+</code></pre>
+
+<h1>Final Update</h1>
+
+<p>After watching some more videos, I just used the .split("":"", 1) function when appending to an array, and then created a Pandas Dataframe, adding one final column with count. From there, I did the necessary analysis for the problem I was trying to solve. Hope this helps anyone else in the future!</p>
+","11932743","","11932743","","2019-08-23 15:30:00","2019-08-23 15:30:00","Taking Information From Line Iteration Using Regex and Storing Data in Nested Dictionaries","<python><regex><string><dictionary><nested>","1","7","","","","CC BY-SA 4.0"
+"58089645","1","58089853","","2019-09-25 00:27:24","","1","83","<p>The following regex isn't replacing substrings as expected.</p>
+<p>I've tried running the code with the following modifications (one at a time, of course) all with no luck:</p>
+<ul>
+<li>Utilizing list comprehensions (current)</li>
+<li>Using a traditional for loop</li>
+<li>Adding the regex result back to the iterator itself</li>
+<li>Appending the regex result to a new list</li>
+<li>Checked the type of 'name' (it's a string)</li>
+<li>Utilized (copied) code format from another regex in my notebook that is currently working</li>
+<li>Put the regex into regex101.com to verify that it's functioning (you can see the regex and data I'm using <a href=""https://regex101.com/r/SVKyjN/4"" rel=""nofollow noreferrer"">here</a></li>
+<li>Adding/removing the raw string indicators preceding the regex and substitution patterns</li>
+</ul>
+<h1>names is a list of strings</h1>
+<pre><code>reg_pattern = r&quot;(?!\\s)(\\W[^\\W,]+)(?!,) and\\s([^ ]+ )([^ ]+)&quot;
+sub_pattern = r&quot;\\1 \\3 \\2\\3&quot;
+cleaned_names = []
+cleaned_names = [re.sub(reg_pattern, sub_pattern, name) for name in names]
+</code></pre>
+<p>The goal can be seen in the link above (particularly in the 'substitution' section at the bottom of that page), but ultimately, I need to append group3 of the regex to the end of group1.</p>
+","9297580","","-1","","2020-06-20 09:12:55","2019-09-25 01:34:46","Python regex re.sub() is not matching and replacing as expected","<regex><python-3.x>","1","0","0","","","CC BY-SA 4.0"
+"58118467","1","","","2019-09-26 13:57:27","","1","59","<p>Say that I have some expressions as the following: <code>4a1.602.9015zetjre735pA</code>.<br>
+ I want to match everything that's before the longest sequence of lowercase letters (i.e <code>4a1.602.9015</code>).  </p>
+
+<p>With some googling, I ended up to this regex: <code>re.search(r'.+?(?=[a-z]{2,})', expression)</code>.<br>
+Except that in the general situation, the longest sequence of lowercase letters has not a fix length (it can be 2, 3, or more letters). Which means it is possible to have expressions like this: <code>4afj1.602.9015zmpetjre735pA</code>. And in this case, my regex will not work (using my regex with the previous expression, the result will be just <code>4</code>).  </p>
+
+<p>I found another solution: <code>match = max(re.findall(r'[a-z]+', expression), key=len)</code> then take the part of the expression that's before it (<code>f_match = expresion[:expression.index(match)]</code>).  But it is not a pure regex.<br>
+Is there any pure regex solution?</p>
+","8128190","","8128190","","2019-09-26 14:12:18","2019-09-26 14:49:59","match everything before the longest sequence of lowercase letters","<python><regex>","0","7","0","","","CC BY-SA 4.0"
+"58480304","1","58480728","","2019-10-21 05:35:31","","-3","96","<pre><code>`string = ""LOpener - 119"",""L2 Sportime Syosset Open - 100033419"",""Sport""`
+</code></pre>
+
+<p>I have to read this string and check whether <code>L1B,L2,L1</code> is present in stringand append to a variable called level. If there is in string then it should return null</p>
+","12105353","","12105353","","2019-10-21 10:24:18","2019-10-22 07:20:18","how to read the string and split the data and append to a variable","<python><regex><split>","3","2","","","","CC BY-SA 4.0"
+"58997124","1","","","2019-11-22 15:18:00","","1","135","<p>I am trying to capture this multiline log style in python, similar to that of a log parser.
+Here is a log sample:</p>
+
+<pre><code>&gt; [2019-11-21T00:58:47.922Z] This is a single log line
+&gt; [2019-11-21T00:59:02.781Z] This is a multiline log This is a multiline
+&gt; log This is a multiline log This is a multiline log
+&gt; [2019-11-21T00:58:47.922Z] This is a single log line
+&gt; [2019-11-21T00:59:02.781Z] This is a multiline log This is a multiline
+&gt; log This is a multiline log This is a multiline log
+</code></pre>
+
+<p>Unfortunately, the newline characters are messing me up.  I've tried negative lookaheads, behinds, etc.  I can never capture more than a single log line.  When I try to include the newlines, I end up capturing the entire log.</p>
+
+<p>What python regex can I use to capture each message indiviudally?</p>
+
+<p>I've tried stuff like:</p>
+
+<pre><code>regex = re.compile(r""^\[20.*Z\][\s\S]+"", re.MULTILINE)
+</code></pre>
+
+<p>:(</p>
+","9633846","","","","","2019-11-22 15:34:57","Python Multiline Regex Parsing","<regex><python-3.x><parsing>","2","0","","","","CC BY-SA 4.0"
+"59609717","1","","","2020-01-06 09:38:23","","2","1019","<p>How can I print the inside of a lambda function?</p>
+
+<p>For example, from the following lambda expression:</p>
+
+<pre><code>lambda a, b: a / b
+</code></pre>
+
+<p>I want to receive:</p>
+
+<pre><code>a / b
+</code></pre>
+
+<p>Or from this expression:</p>
+
+<pre><code>lambda a, b: math.pow(a, b)
+</code></pre>
+
+<p>To receive:</p>
+
+<pre><code>pow(a, b)
+</code></pre>
+","5562610","","","","","2020-01-06 09:50:37","Python 3 how can I print lambda expression?","<python><regex><lambda><printing>","0","7","","2020-01-06 09:41:58","","CC BY-SA 4.0"
+"60596479","1","60597140","","2020-03-09 07:50:40","","0","69","<p>I have to process a lot of text that contains a number of YAML blocks, as follows:</p>
+
+<blockquote>
+  <p>key1:<br>
+  - value1<br>
+  - value2<br>
+  key1:<br>
+  - value1<br>
+  - value2<br>
+  - value3  </p>
+</blockquote>
+
+<p>The number of values per key can vary. I want to extract the different key-value pairs, because I have to check whether they are formatted in a certain way. My idea was to use the following regex (which I also checked with <a href=""https://regexr.com/"" rel=""nofollow noreferrer"">regexr</a>):</p>
+
+<pre><code>(.*):\n(-\ .*\n)*
+</code></pre>
+
+<p>and using it with <code>re.findall()</code> and the <code>re.VERBOSE</code> flag. However, this results in </p>
+
+<pre><code>[('key1', '- value3\n'), ('key2', '- value3\n')]
+</code></pre>
+
+<p>not, as I would expect</p>
+
+<pre><code>[('key1', '- value1\n', '- value2\n'), ('key', '- value1\n', '- value2\n', '- value3\n']`
+</code></pre>
+
+<p>What's confusing me even more is that if I use </p>
+
+<pre><code>(.*):\n(-\ .*\n)(-\ .*\n)
+</code></pre>
+
+<p>or  </p>
+
+<pre><code>(.*):\n(-\ .*\n)(-\ .*\n)(-\ .*\n)
+</code></pre>
+
+<p>so explicitly writing out the value term two or three times, it works fine. This is of course not what I want; I want to catch a variable number of values per key.</p>
+
+<p>I'm using Python 3.8 on Windows.</p>
+","5128654","","3001761","","2020-03-09 07:57:26","2020-03-09 08:46:46","re.findall not matching everything I would expect it to","<python><regex><python-3.x>","1","4","","","","CC BY-SA 4.0"
+"60624780","1","","","2020-03-10 19:37:50","","0","133","<p>I need to get the UserID from a github link</p>
+
+<p>Example:</p>
+
+<pre><code>https://github.com/myName/blabla/ or 
+https://github.com/myName/
+https://github.com/myName
+</code></pre>
+
+<p>output should be <code>myName</code>.</p>
+
+<p>My code:</p>
+
+<pre><code>(\/github.com\/)\/(.*?)(\/)?
+</code></pre>
+","8966299","","3832970","","2020-03-10 22:10:00","2020-03-10 22:10:00","Regex UserId from Github link","<python><regex>","2","1","","","","CC BY-SA 4.0"
+"60769238","1","","","2020-03-20 05:57:05","","-1","99","<p>Looking to build regex any positive/negative decimal empty string allowed.</p>
+
+<pre><code>re.match('^[0-9\+\-\.]*$', i)
+</code></pre>
+
+<p>The regex captioned above allows for <code>""+""</code> or <code>""-""</code> or <code>"".""</code> singular instance.</p>
+
+<p>at entry <code>""+""</code> or <code>""-""</code> or <code>"".""</code> not permissible.</p>
+","12632768","","12632768","","2020-03-21 00:52:45","2020-03-21 00:52:45","Python build regex for number with optional sign and decimal point","<python><regex>","1","0","","2020-03-20 08:06:04","","CC BY-SA 4.0"
+"60995587","1","60995657","","2020-04-02 15:46:32","","1","30","<p>Suppose I have the following pandas series:</p>
+
+<pre><code>x = pd.Series(['box abcd', 'abcd box abcd', 'abcd box', 'abcdboxabcd'])
+</code></pre>
+
+<p>And I want to remove all the occurrences of the word box (note that I don't want to remove all occurrences of the substring box), I have done it like this:</p>
+
+<pre><code>x.apply(lambda x: ' '.join([w for w in x.split(' ') if w != 'box']))
+</code></pre>
+
+<p>Which gives me what I expected:</p>
+
+<pre><code>0           abcd
+1      abcd abcd
+2           abcd
+3    abcdboxabcd
+dtype: object
+</code></pre>
+
+<p>I would like to know if there is a way to do this using regex, for instance:</p>
+
+<pre><code>x.str.replace(regex, '')
+</code></pre>
+
+<p>Where regex is the regex matches the word box, I have searched a lot about regex but can't seem to find an answer, is it possible? Or there isn't such regex like that?</p>
+","10260243","","","","","2020-04-02 15:50:12","Removing word from panda series of string using regex","<python><regex><string><pandas>","1","5","","","","CC BY-SA 4.0"
+"61132346","1","61132392","","2020-04-10 00:33:00","","2","68","<p>I have long string S, and I want to find value (numeric) in the following format ""Value(**)"", where ** is values I want to extract. </p>
+
+<p>For example, S is <code>""abcdef Value(34) Value(56) Value(13)""</code>, then I want to extract values 34, 56, 13 from S.</p>
+
+<p>I tried to use regex as follows.</p>
+
+<pre><code>import re
+regex = re.compile('\Value(.*'))
+re.findall(regex, S)
+</code></pre>
+
+<p>But the code yields the result I did not expect.</p>
+
+<p><strong>Edit.</strong> I edited some mistakes.</p>
+","13176896","","3832970","","2020-04-27 18:57:25","2020-04-27 18:57:25","How to find values in specific format including parenthesis using regular expression in python","<python><regex>","3","1","","2020-04-27 18:58:26","","CC BY-SA 4.0"
+"62125687","1","62128950","","2020-06-01 04:24:48","","0","953","<p>I use this code: <code>b = re.sub('[^A-Za-z]+', ' ', a)</code>. Nevertheless i need to take account of the french accents: <code>àâéèêëïîôùûç</code>. Can you please help me? :)</p>
+
+<p>Thanks.</p>
+","13656084","","13656084","","2020-06-02 00:31:11","2020-06-02 00:31:11","Regex Python french accent","<python><regex>","2","1","","","","CC BY-SA 4.0"
+"62707732","1","","","2020-07-03 02:43:24","","0","27","<p>I created define by searchbybrand. Under the products, I have android and apple. When user selects &quot;android&quot;, it will return all records of android. And I used regrex and if-else statement.</p>
+<pre class=""lang-py prettyprint-override""><code>    def searchbybrand(string):
+      if string == &quot;android&quot;:
+        return 
+(collected_data[collected_data['description'].astype(str).str.contains('[Aa]ndroid')])
+</code></pre>
+<p>However, the define function could not return the records for the elif. It only returns the result of &quot;description&quot;, but not &quot;product&quot; based on the regrex.</p>
+<pre class=""lang-py prettyprint-override""><code>      elif string == &quot;android&quot;:
+        return (collected_data[collected_data['product'].astype(str).str.contains('[Aa]ndroid|[Aa]mazon')])
+</code></pre>
+<pre><code>      else:
+        return collected_data[collected_data['product'].astype(str).str.contains('[Aa]pple|[Ii]Pad|[Rr]etina|[Aa]ir')]
+</code></pre>
+<p>Therefore, when I search by &quot;android&quot;, it returns only the result from &quot;description&quot; and not &quot;product&quot;.</p>
+<pre class=""lang-py prettyprint-override""><code>    searchbybrand('android') 
+</code></pre>
+<p>The result:</p>
+<pre><code>price   description product review
+0   $69.99  7&quot; screen, Android  Lenovo IdeaTab  7 reviews
+1   $88.99  Black, 7&quot; IPS, Quad-Core 1.2GHz, 8GB, Android 4.2   IdeaTab A3500L  7 reviews
+2   $96.99  7&quot; screen, Android, 16GB    Acer Iconia 7 reviews
+3   $97.99  7&quot;, 8GB, Wi-Fi, Android 4.2, White  Galaxy Tab 3    2 reviews
+4   $99.99  Black, 7&quot;, 1.6GHz Dual-Core, 8GB, Android 4.4   Iconia B1-730HD 1 reviews
+5   $101.99 IPS, Dual-Core 1.2GHz, 8GB, Android 4.3 Memo Pad HD 7   10 reviews
+6   $102.99 7&quot; screen, Android, 8GB Asus MeMO Pad   14 reviews
+8   $107.99 7&quot;, 8GB, Wi-Fi, Android 4.2, Yellow Galaxy Tab 3    14 reviews
+9   $121.99 Blue, 8&quot; IPS, Quad-Core 1.3GHz, 16GB, Android 4.2   IdeaTab A8-50   13 reviews
+10  $130.99 White, 7&quot;, Atom 1.2GHz, 8GB, Android 4.4    MeMO Pad 7  11 reviews
+11  $148.99 Blue, 7&quot; IPS, Quad-Core 1.3GHz, 8GB, 3G, Andro...   IdeaTab A3500-H 9 reviews
+12  $172.99 Silver, 7&quot; IPS, Quad-Core 1.2Ghz, 16GB, 3G, An...   IdeaTab S5000   8 reviews
+15  $320.99 White, 10.1&quot; IPS, 1.6GHz, 2GB, 16GB, Android 4.2    MeMo PAD FHD 10 7 reviews
+16  $399.99 10.1&quot;, 3G, Android 4.0, Garnet Red  Galaxy Note 12 reviews
+17  $489.99 12.2&quot;, 32GB, WiFi, Android 4.4, White   Galaxy Note 9 reviews
+</code></pre>
+","13856829","","13856829","","2020-07-03 03:12:00","2020-07-03 04:59:33","How do i return the result of all regular expression? I need to return results of all android phones from ""description"" and ""product""","<python><regex>","1","1","","","","CC BY-SA 4.0"
+"63004585","1","","","2020-07-20 22:15:44","","0","275","<p>I have a text with 50000 characters. I am using an APP to process the text but the APP can only process text up to 10000 characters in length. So I have to separate the text into at least 5 parts.</p>
+<p>The simple way to separate the text is text[:10000], text[10000:20000], ..., This way may split a sentence into two parts, which is not what I want.</p>
+<p>Another way is using tokenize.sent_tokenize(text) to separate sentences, but the output of this way is a list of all separated sentences. It is too ineffective because I do not want to separate all sentences.</p>
+<p>Is there any effective ways to separate a long text into several parts?</p>
+","13202738","","13202738","","2020-07-21 01:40:25","2020-07-21 19:42:15","Python NLP/regex: How to split a long text into two parts, but ensure that sentences are not split up?","<python><regex><nlp>","1","0","","","","CC BY-SA 4.0"
+"63708164","1","63708861","","2020-09-02 14:55:17","","-2","454","<p><strong>How can I replace occurrences of white-space with underscores, but only in a specific part of the line/string, using python?</strong></p>
+<p>source string:</p>
+<p><code> * this is the line with a [[filename01 as a wiki type link]] inside</code></p>
+<p>I'd like to convert to:</p>
+<p><code> * this is the line with a [[filename01_as_a_wiki_type_link]] inside</code></p>
+<p>In the end came up with this:</p>
+<p><code>res = re.sub(r'(?:.*)?(?&lt;=\[\[[a-zA-Z0-9]+)\s', r'_', line)</code></p>
+<p>And this is what I expected it to do:</p>
+<p><code>(?:.*)?</code> =&gt; re.sub don't do anything at all with this, no matter if it's in the line or not</p>
+<p><code>(?&lt;=\[\[[a-zA-Z0-9]+)\s+</code> =&gt; re.sub do something with the whitespace(s) &quot;\s&quot; that comes after alphanumerical characters after the (escaped) square brackets.</p>
+<p>And this gives me: &quot;look-behind requires fixed-width pattern&quot; meaning that I have to know the length of the string inside the square brackets which I don't.</p>
+<p>My question is now: what is the right approach for this? I want to replace whitespaces by underscores but only inside a square-brackets-enclosed string of random length.</p>
+","539796","","539796","","2020-09-03 06:25:33","2022-04-06 07:41:21","how to regex replace all whitespaces inside a substring delimited by square brackets using python?","<python><regex>","2","4","","2020-09-02 15:55:47","","CC BY-SA 4.0"
+"64221897","1","64222031","","2020-10-06 08:17:10","","1","73","<p>Say I have the following code in python:</p>
+<pre class=""lang-py prettyprint-override""><code>import re 
+a = 'AA_BB_CC' 
+b = 'AA_CC' 
+regex = r'(.+)_((.+)_)?(.+)' 
+groups_a = re.search(regex, a).groups()  # ('AA_BB', None, None, 'CC')
+groups_b = re.search(regex, b).groups()  # ('AA', None, None, 'CC')
+</code></pre>
+<p>I would like to have a regex where <code>groups_a = ('AA', 'BB', '_', 'CC')</code> and <code>groups_b = ('AA_BB', None, None, 'CC')</code>.
+My current regex is capturing <code>'AA_BB'</code> in the first group of <code>groups_a</code>. How should I change my regex?</p>
+","7635240","","3832970","","2020-10-06 09:12:35","2020-10-06 09:12:35","How can I write a simple regex to match an optional middle group?","<python><regex>","2","4","","2020-10-06 09:12:38","","CC BY-SA 4.0"
+"64863655","1","64863806","","2020-11-16 18:31:09","","1","270","<p>I have the following string:</p>
+<pre class=""lang-none prettyprint-override""><code>&lt;Chord: Aaug&gt;, &lt;Chord: C#aug/A&gt;, &lt;Chord: Faug/A&gt;
+</code></pre>
+<p>I want to extract the chord names, what is between <code>&lt;Chord:</code> and <code>&gt;</code> and also include the commas. So, for that string, I want to match <code>Aaug, C#aug/A, Faug/A</code>.</p>
+<p>I have tried this regex: <code>\b(?:(?!Chord:)\w)+\b</code>. This excludes the word <code>Chord</code>, but does not match <code>#</code> and <code>/</code>.</p>
+","10946777","","712649","","2020-11-16 18:37:19","2020-11-16 18:54:45","Exclude words but include characters in regex","<python><regex>","1","4","","","","CC BY-SA 4.0"
+"55810834","1","55845439","","2019-04-23 12:03:38","","2","2951","<p>I am trying to parse the dbus monitor output messages. It has most of the messages as multi-line entries(including parameters). I need to parse and concatenate individual log messages to a single line entry.</p>
+
+<p>The dbus-monitor output messages appear as below,</p>
+
+<pre><code>method call time=462.117843 sender=:1.62 -&gt; destination=org.freedesktop.filehandler serial=122 path=/org/freedesktop/filehandler/routing; interface=org.freedesktop.filehandler.routing; member=start
+int16 29877
+uint16 0
+method return time=462.117844 sender=org.freedesktop.filehandler -&gt; destination=:1.62 serial=2210 reply_serial=122
+int16 29877
+uint16 0
+method call time=462.117845 sender=:1.62 -&gt; destination=org.freedesktop.filehandler serial=123 path=/org/freedesktop/filehandler/routing; interface=org.freedesktop.filehandler.routing; member=comment
+string ""starting ..""
+string ""routing""
+method return time=462.117846 sender=:1.19 -&gt; destination=:1.62 serial=2212 reply_serial=123
+int12 -23145
+signal time=463.11223 sender=:1.64 -&gt; destination=(null destination) serial=124 path=/org/freedesktop/fileserver; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+  string ""com.freedesktop.Systemserver""
+  array[
+    dict entry(
+      string ""SystemTime""
+      variant       struct{
+            byte 12
+            byte 9
+            byte 0
+        }
+    )
+  ]
+  array [
+  ]
+</code></pre>
+
+<p>This is the <strong>regex</strong> I tried to group the dbus messages(Parameter not grouped),</p>
+
+<pre><code>\b(signal|method call|method return)\b time=([\d,.]*) sender=([\w,.,:,(,), ]*) -&gt; destination=([\w,.,:,(,), ]*) serial=([(,),\w]*) (?:path=([\w,\/]*); interface=([\w,.]*); member=([\w,_,-]*))?(?:reply_serial=([\d]*))?
+</code></pre>
+
+<p>I expect the output in the below format,</p>
+
+<pre><code>C [sender,serial] path interface+member (parameter1, parameter2, ...)
+R [destination,reply_serial] interface+member (parameter1, parameter2, ...)
+S [sender, serial] path interface+member (parameter1, parameter2, ...)
+</code></pre>
+
+<p>A sample output for the above dbus-monitor messages is shown below,</p>
+
+<pre><code>C [:1.62,122] /org/freedesktop/filehandler/routing org.freedesktop.filehandler.routing.start (29877,0)
+R [:1.62,122] org.freedesktop.filehandler.routing.start (29877,0)
+C [:1.62,123] /org/freedesktop/filehandler/routing org.freedesktop.filehandler.routing.comment (""starting"", ""routing"")
+R [:1.62,123] org.freedesktop.filehandler.routing.comment (-23145)
+S [:1.64, 124] /org/freedesktop/fileserver org.freedesktop.DBus.Properties.PropertiesChanged (""com.freedesktop.Systemserver""[(""SystemTime"",{12,9,0})][])
+</code></pre>
+
+<p>How can the above expected result be achieved when the entries are usually multi-line? Also, the SIGNALS has multiple encapsulations making it difficult to access the parameters. Can someone help with the parsing of these dbus messages to the expected format?</p>
+","11198982","","11198982","","2019-04-24 11:34:29","2019-05-02 10:50:19","Parsing dbus monitor output messages","<python><regex><parsing><dbus>","3","8","","","","CC BY-SA 4.0"
+"55565867","1","55566097","","2019-04-08 03:31:00","","-2","64","<p>How to append the empty list with the list without any changes using python3?</p>
+
+<pre><code>import re
+l=[]
+list1 = [""a"",""b"",""c""]
+sublist2=[]
+for i in sublist2:
+   list2 = re.sub(""[0-9']+"", '',i)
+l.append(list1)
+l.append(list2)
+print(l)
+</code></pre>
+
+<blockquote>
+  <p>Expected Output:</p>
+</blockquote>
+
+<pre><code> [[""a"",""b"",""c""],[]]
+</code></pre>
+","10651396","","10651396","","2019-04-08 03:32:05","2019-04-08 04:06:22","When appending empyt list, everything will gone empty why?","<python><regex>","3","8","0","","","CC BY-SA 4.0"
+"50971476","1","","","2018-06-21 14:49:12","","0","39","<p>I am trying to make a regex expression much like a sed command in bash. to replace the exact match of ""user-services-http"" but this can exist else where as ""user-services-http-two"" as well and gets replace.</p>
+
+<pre><code>&gt;&gt;&gt; f = ""'value: http://ec2-35-171-57-57.compute-1.amazonaws.com:32370ssoeproxy/logout    value: http://ec2-35-171-57-57.compute-1.amazonaws.com:user-services-http-two/ssoeproxy/logout  value: user-services-http #458930'""
+&gt;&gt;&gt; re.sub(r'\buser-services-http$', '11111', f)'value: http://ec2-xxx-xxx-xxx-xxx.compute-1.amazonaws.com:user-services-http/ssoeproxy/logout    value: http://ec2-xxx-xxx-xxx-xxx.compute-1.amazonaws.com:user-services-http-two/ssoeproxy/logout'
+&gt;&gt;&gt; re.sub(r'\buser-services-http\b', '11111', f)
+'value: http://ec2-xxx-xxx-xxx-xxx.compute-1.amazonaws.com:11111/ssoeproxy/logout    value: http://ec2-xxx-xxx-xxx-xxx.compute-1.amazonaws.com:11111-two/ssoeproxy/logout'
+</code></pre>
+","6855437","","6855437","","2018-06-21 15:06:09","2018-06-21 15:48:18","Regex wont replace exact match with boundary condition","<regex><python-3.x>","1","3","","","","CC BY-SA 4.0"
+"49938058","1","","","2018-04-20 09:09:45","","1","306","<p>In code i only want to fetch variable name from a c file which is used in if condition.
+Following is code snippet of regex:</p>
+
+<pre><code>fieldMatch = re.findall(itemFieldList[i]+""="", codeline, re.IGNORECASE);
+</code></pre>
+
+<p>here i can find variable itemFieldList[i] from file.
+But when i try to add <code>if</code> as shown below nothing is extracted as output even though variable exist in c code in if condition .</p>
+
+<pre><code>fieldMatch = re.findall((""^(\w+)if+[(](\w+)(""+itemFieldList[i]+"")=""), codeline, re.IGNORECASE|re.MULTILINE);
+</code></pre>
+
+<p>Can anyone suggest how can we create regex  to fetch mentioned scenario.</p>
+
+<p>Sample Input : </p>
+
+<pre><code>IF(WORK.env_flow_ind==""R"") 
+</code></pre>
+
+<p>OR</p>
+
+<pre><code>IF( WORK.qa_flow_ind==""Q"" OR WORK.env_flow_ind==""R"") 
+</code></pre>
+
+<p>here itemFieldList[i] = WORK.env_flow_ind</p>
+","2750690","","2750690","","2018-04-20 09:32:34","2018-04-23 12:26:39","How do I create a regex with regular variable and some fixed text in Python?","<python><regex><python-2.7><pattern-matching><findall>","2","4","","","","CC BY-SA 3.0"
+"49416476","1","49419084","","2018-03-21 21:03:50","","1","919","<p>I am working on a set of biological sequences which involves the use of ncbi-blast. I need some help with processing the output file using python regex. The text result containing multiple outputs (sequence analysis results) looks something like this,   </p>
+
+<blockquote>
+  <p><strong>Query= lcl|TRINITY_DN2888_c0_g2_i1</strong></p>
+  
+  <p>Length=1394
+                                                                        Score     E Sequences producing significant alignments:<br>
+  (Bits)  Value</p>
+  
+  <p>sp|Q9S775|PKL_ARATH</p>
+  
+  <p>CHD3-type chromatin-remodeling factor PICKLE...  1640    0.0  </p>
+  
+  <p>sp|Q9S775|PKL_ARATH CHD3-type chromatin-remodeling factor PICKLE
+  OS=Arabidopsis thaliana  OX=3702 GN=PKL PE=1 SV=1 Length=1384</p>
+  
+  <p>Score = 1640 bits (4248),  Expect = 0.0, Method: Compositional matrix
+  adjust.  Identities = 830/1348 (62%), Positives = 1036/1348 (77%),
+  Gaps = 53/1348 (4%)</p>
+  
+  <p>Query  1<br>
+  MSSLVERLRVRSERRPLYTDDDSDDDLYAARGGSESKQEERPPERIVRDDAKNDTCKTCG  60
+               MSSLVERLR+RS+R+P+Y  DDSDDD +  +     +Q     E IVR DAK + C+ CG Sbjct  1<br>
+  MSSLVERLRIRSDRKPVYNLDDSDDDDFVPKKDRTFEQ----VEAIVRTDAKENACQACG  56</p>
+  
+  <p>Lambda      K        H        a         alpha
+     0.317    0.134    0.389    0.792     4.96 </p>
+  
+  <p>Gapped Lambda      K        H        a         alpha    sigma
+     0.267   0.0410    0.140     1.90     42.6     43.6 </p>
+  
+  <p>Effective search space used: 160862965056</p>
+  
+  <p><strong>Query= lcl|TRINITY_DN2855_c0_g1_i1</strong></p>
+  
+  <p>Length=145 ........................................
+  ...................................................
+  ...................................................</p>
+</blockquote>
+
+<p>I want to extract the information starting from ""<strong><em>Query= lcl|TRINITY_DN2888_c0_g2_i1</em></strong>"" to the next query ""<strong><em>Query=lcl|TRINITY_DN2855_c0_g1_i1</em></strong>"" and store it in a python list for further analysis (since the entire file contains few thousands of query results). Is there a python regex code that can do this action?</p>
+
+<p>Here is my code:</p>
+
+<pre><code>#!/user/bin/python3
+file=open(""path/file_name"",""r+"")
+import re
+inter=file.read()
+lst=[]
+lst=re.findall(r'&gt;(.*)&gt;',inter,re.DOTALL)
+print(lst)
+for x in lst:
+    print(x)
+</code></pre>
+
+<p>I get the wrong output since the code prints the entire information present in file (thousands) rather than picking up one result at a time. </p>
+
+<p>Thank you </p>
+","9037648","","","","","2018-03-23 13:12:43","How to separate each blast result using python regex and store it in a list for further analysis","<python><regex><bioinformatics><biopython>","2","5","","","","CC BY-SA 3.0"
+"42043751","1","","","2017-02-04 18:07:52","","2","2670","<p>I have some emails</p>
+
+<pre><code>info@gmail.com
+epd@omi.ru
+salesall@finteca.ru
+</code></pre>
+
+<p>I need to ignore strings that contain <code>info, sales</code>, so I used pattern:</p>
+
+<pre><code>'/(?!spb)[a-zA-Z0-9-_\.]+@[a-z0-9\.]+$'
+</code></pre>
+
+<p>But it returns <code>[]</code>. What am I doing wrong?</p>
+","6840039","","355230","","2017-02-04 19:42:36","2017-02-04 22:26:15","Exclude string using a regex?","<python><regex>","3","4","","","","CC BY-SA 3.0"
+"37788830","1","37789369","","2016-06-13 11:36:39","","-1","41","<p>I read a list of pairs in the filesystem (Linux)...
+UniqueDocument.xml
+UniqueDocument.pdf</p>
+
+<p>I need to find the entries that does not have a xml file, then I need to fetch it.</p>
+
+<p>Been trying with os.list and regex but havent found a sutible solution and Dir() in Ruby. But I cant get to the end... my mind blocks me.</p>
+","371915","","","","","2016-06-13 13:07:59","List of pairs, find those who are not","<python><ruby><regex>","1","1","","2016-06-13 17:28:18","","CC BY-SA 3.0"
+"37660200","1","37660286","","2016-06-06 14:35:51","","1","91","<p>I know there must be a better way to accomplish the following.
+Here is my function:</p>
+
+<pre><code>def authenticated_url(url):
+    return re.sub(r""(^https://)"", ""https://"" + access_token() + ""@"", url)
+</code></pre>
+
+<p><code>access_token()</code> returns a token as a String, for example <code>""1248jkdfhjksabcd382""</code></p>
+
+<p>Desired output would be as follows: </p>
+
+<pre><code>&gt;&gt;&gt; url = ""https://github.com/jfach/autostager""
+&gt;&gt;&gt; auth_url = authenticated_url(url)
+&gt;&gt;&gt; url
+'https://1248jkdfhjksabcd382@github.com/jfach/autostager'
+</code></pre>
+
+<p>That is the output I currently get, so it works, but I can't help think that I'm using the <code>re</code> module incorrectly/inefficiently.</p>
+","4157918","","","","","2016-06-06 14:57:28","Cleaner way to use re.sub","<python><regex>","2","1","","","","CC BY-SA 3.0"
+"32027259","1","32027461","","2015-08-15 17:20:06","","0","328","<p>I have: 
+function names in various c files in the following format: </p>
+
+<pre><code>void function0__ROM(void) {
+     code for the function 
+     }
+void function1__ROM(void) {
+     code for the function
+     }
+</code></pre>
+
+<p>I wrote a Regex in python to extract function names, but somehow it is not working. </p>
+
+<p>Following is my Regex: </p>
+
+<pre><code>match= re.search(""\n\s*?(void|BYTE|WORD|bit)(\s*?\*\s*?)?\s+?)?\s+\?( "" +func.name[l:]+ "")(__ROM)?\s*?\(.*?\)s*?[{]"".file)
+</code></pre>
+
+<p>I am new to python, after a lot of study wrote this Regex, but somehow it is not working. </p>
+","2805274","","","","","2015-08-18 07:52:55","Python Regex not extracting function name from line","<python><regex>","1","0","","","","CC BY-SA 3.0"
+"29277119","1","","","2015-03-26 11:19:45","","0","206","<p>I have 2 different issues but they are closely related with each other:</p>
+
+<p>1) my python script copies the original code file to another file and read it line by line (utf-8) , detect chinese characters with regex and sends them to google translate , gets the answer back, write another file with the translation after the line containing chinese characters. This works perfectly under pycharm when i directly run the script under windows. However after converting into executable with cx_freeze, it basically reads the file but cannot see any chinese chars , so no translation is being done.Can you please help ? </p>
+
+<p>2) executable works on some other computers(windows).I found out that it has a strong relation with the windows -system locale settings`. After setting it to chinese we can make it work. I tried to change it via script by locale module with no success.</p>
+
+<p>Here is the code snippets that might help to understand the problem:</p>
+
+<pre><code>def initialize(self):
+    #several imports here
+    #several filename operations here
+
+    writefileF = codecs.open(writefile, ""w"", ""utf-8"")
+
+    # copy the original to another with  utf-8 encoding (to be safe)
+    with io.open(self.orig_filename, ) as source:
+            with io.open(readFileN, mode='w', encoding='utf-8') as target:
+                try:
+                    shutil.copyfileobj(source, target)
+                except:
+                    print 'trying single copy file with no metadata.. '
+                    shutil.copyfile(self.filename, readFileN)
+   readFile = codecs.open(readFileN, ""r"", ""utf-8"")
+   # generAtor func call
+   creategen = self.readfilebylines(readFile)
+   for iterator in creategen:
+       endd = myconcat.join(iterator[0])
+       writefileF.writelines(myconcat.join(endd))
+
+def readfilebylines(self, myfileobj):
+    linenum = 0
+    for lines in myfileobj.readlines():            
+        mygen = lines
+        mymatch = self.regularexpmatch(lines)
+        if mymatch:
+            print 'chinese word detected'
+            #do translation
+        else:
+            pass
+        yield mygen, linenum
+
+def regularexpmatch(self, mytext):
+    chinese_compile = re.compile(ur'[\u4e00-\u9fff]+')
+    matched = chinese_compile.search(mytext)
+    return matched
+</code></pre>
+","2516297","","2516297","","2015-03-26 12:02:22","2015-03-27 15:04:29","script cannot detect chinese characters in the file after cx_freeze","<python><regex><utf-8><io><utf8-decode>","1","0","","","","CC BY-SA 3.0"
+"28167322","1","","","2015-01-27 09:43:39","","1","46","<p>Is there an efficient and general way to match regular expressions as well as compositions based on them ?</p>
+
+<p>For instance, if I want matches for each of those 3 strings: <code>""I like""</code>, <code>""cats""</code>, and <code>""I like .* cats""</code>, I can obviously make 3 separate queries. </p>
+
+<p>Is there a more efficient way to do this (preferably in python) ?</p>
+","1460352","","","","","2015-01-27 16:38:49","Efficient nested regular expressions","<python><regex>","1","2","0","","","CC BY-SA 3.0"
+"24812753","1","24813356","","2014-07-17 20:18:18","","0","81","<p>There are four keywords: <code>title</code>, <code>blog</code>, <code>tags</code>, <code>state</code><br>
+Excess keyword occurrences are being removed from their respective matches.</p>
+
+<p><strong>Example:</strong><br>
+<code>blog: blog state title tags and</code> returns <code>state title tags and</code> instead of</p>
+
+<p><code>blog state title tags and</code><br>
+The <code>sub</code> function should be matching <code>.+</code> after it sees <code>blog:</code>, so I don't know why it treats <code>blog</code> as an exception to <code>.+</code></p>
+
+<p><strong>Regex:</strong></p>
+
+<pre><code>re.sub(r'((^|\n|\s|\b)(title|blog|tags|state)(\:\s).+(\n|$))', matcher, a)
+</code></pre>
+
+<p><strong>Code:</strong></p>
+
+<pre><code>def n15():
+    import re
+    a = """"""blog: blog: fooblog 
+state: private
+title: this is atitle bun
+and text""""""
+    kwargs = {}
+    def matcher(string):
+        v = string.group(1).replace(string.group(2), '').replace(string.group(3), '').replace(string.group(4), '').replace(string.group(5), '')
+        if string.group(3) == 'title':
+            kwargs['title'] = v
+        elif string.group(3) == 'blog':
+            kwargs['blog_url'] = v
+        elif string.group(3) == 'tags':
+            kwargs['comma_separated_tags'] = v
+        elif string.group(3) == 'state':
+            kwargs['post_state'] = v
+        return ''
+    a = re.sub(r'((^|\n|\s|\b)(title|blog|tags|state)(\:\s).+(\n|$))', matcher, a)
+    a = a.replace('\n', '&lt;br /&gt;')
+    a = a.replace('\r', '')
+    a = a.replace('""', r'\""')
+    a = '&lt;p&gt;' + a + '&lt;/p&gt;'
+    kwargs['body'] = a
+    print kwargs
+</code></pre>
+
+<p><strong>Output:</strong></p>
+
+<pre><code>{'body': '&lt;p&gt;and text&lt;/p&gt;', 'post_state': 'private', 'blog_url': 'foo', 'title': 'this is a bun'}
+</code></pre>
+
+<p>Edit:<br>
+<strong>Desired Output:</strong></p>
+
+<pre><code>{'body': '&lt;p&gt;and text&lt;/p&gt;', 'post_state': 'private', 'blog_url': 'fooblog', 'title': 'this is atitle bun'}
+</code></pre>
+","2825347","","2825347","","2014-07-17 20:44:26","2014-07-17 20:55:09","Python regex sub confusion","<python><regex>","1","2","","","","CC BY-SA 3.0"
+"20416842","1","20417265","","2013-12-06 05:42:09","","1","550","<p>I'm having trouble getting set operators to work in the regex module (regex 2013-11-29) in python-3.x. For example, to match ASCII characters minus punctuation I have tried:</p>
+
+<pre><code>import regex as rx
+
+data = '(foo)'
+for m in rx.finditer(r'[\p{ASCII}--\p{P}]+',data):
+    print(m.group(0))     # expect 'foo', getting '(foo)'
+</code></pre>
+
+<p>The documentation gives this example:</p>
+
+<p>[\p{N}--[0-9]] # Set containing all numbers except '0' .. '9'</p>
+
+<p>Am I missing something here?</p>
+","2164495","","","","","2013-12-06 06:14:30","Using set operators with python regex module","<regex><python-3.x>","1","0","","","","CC BY-SA 3.0"
+"20415545","1","20415622","","2013-12-06 03:43:16","","0","186","<p>I am trying to parse the input file which has thousands of lines of text in the form </p>
+
+<pre class=""lang-none prettyprint-override""><code>[month/day/year hh:mm:ss AM/PM] FirstName1 LastName1: text.... 
+
+[month/day/year hh:mm:ss AM/PM] FirstName2 LastName2: text....
+</code></pre>
+
+<p>I need to remove text between the brackets, <code>FirstName</code> and <code>LastName</code>, and leave only the <code>text</code> part. I did it the brute force way, but I am sure there is a more elegant way:</p>
+
+<pre><code>with open('inputfile.txt') as fin, open('file-out.txt','w') as fout:
+    for line in fin:
+        fout.write(re.sub('(\[[^)]*\])+(\sFirstName1 LastName1|\sFirstName2 LastName2)', '',line))
+</code></pre>
+
+<p>Is there a way to shorten this regexp (such as use only first 2 letters of the name and last 2 letters of last name or something else?). I haven't used regular expressions a lot, so any advice would be appreciated.</p>
+","2952335","","20938","","2013-12-06 04:34:15","2013-12-06 04:34:15","Python regular expression (is it possible to shorten it?)","<python><regex>","2","0","","","","CC BY-SA 3.0"
+"19427718","1","","","2013-10-17 13:12:34","","0","111","<p>I need a regex to pull tidbits out of the following data structure.  This data is in a javascript variable.  I'm using BeautifulSoup and Mechanize to make the request and parse the page but I don't see how I can get what I need without a regex.  More details follow below.</p>
+
+<p>raw data: </p>
+
+<pre><code>var d = [[909.0546875,842.3125,32429,'TownID: 32429','GREY','circle_grey.png',970,'goldpimp\'s city','','N/A'],[1434.8890625,1365.41484375,32143,'TownID: 32143','GREY','circle_grey.png',899,'1..','','N/A'],[1553.92265625,1117.43046875,32326,'TownID: 32326','GREY','circle_grey.png',522,'Avacyns Pantheon','','N/A'],[1305.17265625,1328.6421875,28927,'TownID: 28927','GREY','circle_grey.png',3554,'Furiocity','','N/A'],...(cont.)
+</code></pre>
+
+<p>For example on the first line I need to pull <code>TownID: 32429</code>, <code>970</code>, and <code>goldpimp\'s city</code></p>
+
+<p>I need to do this for the whole data structure to get each townID and associated information.  Sorry for the newbie question but regex really racks my brain.</p>
+","2890549","","","user2555451","2013-10-17 13:24:39","2013-10-17 13:30:23","Python Regex to pull multiple pieces of data out of a data structure","<python><regex><beautifulsoup><mechanize>","1","1","","","","CC BY-SA 3.0"
+"19279785","1","19280141","","2013-10-09 18:25:54","","0","406","<p>I want to be able to parse something like ""10.[3-25].0.X"" into the actual list of ip addresses described by this rule, so for the above example rule the list would be [10.3.0.0, 10.3.0.1....10.25.0.255]. What's the best way to do it?
+So far the only thing I was able to come out with is the following awful-looking function:</p>
+
+<pre><code>wc = ''.join(wc.split()).upper()
+wc = re.sub(r'(?&lt;![\[-])(\d+)(?![\]-])', r'[\1-\1]', wc)
+wc = re.sub(r'X', r'[0-255]', wc).split('.')
+ips = []
+for i in range(int(re.findall(r'(\d+)-(\d+)', wc[0])[0][0]), int(re.findall(r'(\d+)-(\d+)', wc[0])[0][1]) + 1): 
+
+    for j in range(int(re.findall(r'(\d+)-(\d+)', wc[1])[0][0]), int(re.findall(r'(\d+)-(\d+)', wc[1])[0][1]) + 1): 
+
+        for k in range(int(re.findall(r'(\d+)-(\d+)', wc[2])[0][0]), int(re.findall(r'(\d+)-(\d+)', wc[2])[0][1]) + 1):
+
+            for p in range(int(re.findall(r'(\d+)-(\d+)', wc[3])[0][0]), int(re.findall(r'(\d+)-(\d+)', wc[3])[0][1]) + 1):
+
+                ips.append(str(i) + '.' + str(j) + '.' + str(k) + '.' + str(p))
+
+return ips
+</code></pre>
+
+<p>Any improvement ideas would be greatly appreciated.</p>
+","2805352","","","","","2019-11-26 10:25:59","Python parse ip regex","<python><regex><parsing>","3","0","","","","CC BY-SA 3.0"
+"19149186","1","19149591","","2013-10-03 00:57:23","","12","21085","<p>This topic has been addressed for text based emoticons at <a href=""https://stackoverflow.com/questions/18283681/regular-expressions-emoticons"">link1</a>, <a href=""https://stackoverflow.com/questions/10890261/how-to-match-a-emoticon-in-sentence-with-regular-expressions"">link2</a>, <a href=""https://stackoverflow.com/questions/14571103/capturing-emoticons-using-regular-expression-in-python"">link3</a>. However, I would like to do something slightly different than matching simple emoticons. I'm sorting through tweets that contain the emoticons' icons. The following unicode information contains just such emoticons: <a href=""http://www.unicode.org/charts/PDF/U1F600.pdf"" rel=""nofollow noreferrer"">pdf</a>.</p>
+<p>Using a string with english words that also contains any of these emoticons from the <a href=""http://www.unicode.org/charts/PDF/U1F600.pdf"" rel=""nofollow noreferrer"">pdf</a>, I would like to be able to compare the number of emoticons to the number of words.</p>
+<p>The direction that I was heading down doesn't seem to be the best option and I was looking for some help. As you can see in the script below, I was just planning to do the work from the command line:</p>
+<pre><code>$cat &lt;file containing the strings with emoticons&gt; | ./emo.py
+</code></pre>
+<p>emo.py psuedo script:</p>
+<pre><code>import re
+import sys
+
+for row in sys.stdin:
+    print row.decode('utf-8').encode(&quot;ascii&quot;,&quot;replace&quot;)
+    #insert regex to find the emoticons
+    if match:
+       #do some counting using .split(&quot; &quot;)
+       #print the counting
+</code></pre>
+<p>The problem that I'm running into is the decoding/encoding. I haven't found a good option for how to encode/decode the string so I can correctly find the icons. An example of the string that I want to search to find the number of words and emoticons is as follows:</p>
+<p>&quot;Smiley emoticon rocks!<img src=""https://i.stack.imgur.com/hOZzk.png"" alt=""enter image description here"" /> I like you<img src=""https://i.stack.imgur.com/jccuO.png"" alt=""enter image description here"" />.&quot;</p>
+<p>The challenge: <strong>can you make a script that counts the number of words and emoticons in this string?</strong> Notice that the emoticons are both sitting next to the words with no space in between.</p>
+","2322417","","2322417","","2021-02-04 23:21:57","2022-02-08 04:04:06","How to find and count emoticons in a string using python?","<python><regex><string><unicode>","4","2","0","","","CC BY-SA 4.0"
+"10570937","1","10570951","","2012-05-13 10:16:17","","4","7273","<p>I have a program like this :</p>
+
+<pre><code>import re
+
+x='aaaaaaaa;aa;aaa;aaa;aaaaaaaaaa;'
+x=re.sub(';','.',x, re.IGNORECASE)
+
+print x
+</code></pre>
+
+<p>But the output is like this:</p>
+
+<pre><code>aaaaaaaa.aa.aaa;aaa;aaaaaaaaaa;
+</code></pre>
+
+<p>There are still some <code>;</code> not replaced by a <code>.</code>, why ?</p>
+
+<p>Using Python 2.6</p>
+","1322358","","20938","","2012-05-13 10:44:51","2012-05-13 10:44:51","Python regex re.sub : something","<python><regex>","1","1","0","","","CC BY-SA 3.0"
+"10557611","1","10557644","","2012-05-11 19:42:51","","1","582","<p>I'm writing a small script that will match a shoe size from a shoe identifier ( SKU ).</p>
+
+<p>There's a few cases that i want to be able to handle. Given the following list:</p>
+
+<pre><code>sizes = ['315122-603 10  A', '315122-608_12.0', '317982-019', '364781-019_5.5Y', 'V24088-001_10', '609048-035  8.5', '7-20Spm8231B5 10', 'G17295-001_9.5']
+</code></pre>
+
+<p>i want to be able to get the size for each like (10,12,5.5,etc..).</p>
+
+<p>My knowledge of  regular expressions is very limited, i have been looking for some snippets here and there and came up with the following</p>
+
+<pre><code>r = '\d{1,2}.\d+'
+for size in sizes:
+    re.findall(r, size)
+
+['315122', '603']
+['315122', '608', '12.0']
+['317982', '019']
+['364781', '019', '5.5']
+['24088', '001']
+['609048', '035', '8.5']
+['7-20', '8231', '5 10']
+['17295', '001', '9.5']
+</code></pre>
+
+<p>but as you can see it doesn't work. I want to be able to match only the number before the decimal and after the decimal but only the numbers.</p>
+","389453","","","","","2012-05-11 21:22:49","Python Regex to match shoe size","<python><regex>","2","3","","","","CC BY-SA 3.0"
+"4221534","1","4221566","","2010-11-19 02:11:55","","0","482","<p>Given string <code>s = '(A /something_1)(B /something_2)(C /something_3),/,(D /something_4)(D /something_5)'</code></p>
+
+<p>I would like to get this output: <code>(C /something_3),/,(D /something_4)(D /something_5)</code></p>
+
+<p>I keep matching the whole string s, instead of getting above substring.</p>
+
+<p>I am using <code>re.search(r'(\(C.*\)),/,(\(D.*\))+')</code> </p>
+
+<p>Any help is appreciated...</p>
+","178033","","66353","","2010-11-19 02:15:12","2010-11-19 02:20:55","python regex grouping","<python><regex>","2","0","","","","CC BY-SA 2.5"
+"1836637","1","1837430","","2009-12-02 23:32:39","","0","147","<p>I am doing simple regular expressions in python</p>
+
+<p>I am trying the re.split but things like ['\r\n', '\r\n'] are coming instead of the answer.
+Can someone please tell me how to display the actual text please?</p>
+
+<p>I tried this statement:</p>
+
+<pre><code>t_html = re.split(""&lt;[a-zA-Z0-9\s\w\W]*&gt;[a-zA-Z0-9\s\w\W]*&lt;/[a-zA-Z0-9\s\w\W]*&gt;"" ,s)
+</code></pre>
+
+<p>THanks</p>
+","92319","","12855","","2009-12-03 00:06:56","2009-12-03 03:23:28","python help display regular expression result","<python><regex>","2","5","","","","CC BY-SA 2.5"
+"64247233","1","64247280","","2020-10-07 15:23:02","","0","21","<p>I'm struggling to write a regex that extracts the following numbers in bold below.
+I set up 3 different regex for each value, but since the last value might have a space in between I don't know how to accommodate an &quot;AND&quot; here.</p>
+<p>tire = 'Tire: P<strong>275</strong>/<strong>65</strong>R<strong>18</strong> A/S; <strong>275</strong>/<strong>65</strong>R <strong>18</strong> A/T OWL;<strong>265</strong>/<strong>70</strong>R <strong>17</strong> A/T OWL;'</p>
+<p>I have tried this and it is working for the first 2 but not for the last one.  I'd like to have the last one in a single regex.</p>
+<pre><code>p1 = re.compile(r'(\d+)/')
+p2 = re.compile(r'/(\d+)')
+p3 = re.compile(r'(?=.*[R](\d+))(?=.*[R]\s(\d+))')
+</code></pre>
+<p>I've tried different stuff and this is the last code I tried with unsuccessful results</p>
+<p>if I do this</p>
+<pre><code>p1.findall(tire), p2.findall(tire), p3.findall(tire)
+</code></pre>
+<p>I would like to see this:</p>
+<pre><code>(['275', '275', '265'], ['65', '65', '70'], ['18', '18', '17'])
+</code></pre>
+","12981419","","","","","2020-10-07 15:31:45","Regex ""AND"" in an expression extract this and that","<python><regex>","1","0","","","","CC BY-SA 4.0"
+"63770358","1","63785129","","2020-09-07 01:31:10","","1","1065","<p>I have a weird column named <code>null</code> in a dataframe that contains some missing values from other columns. One column is lat-lon coordinates named <code>location</code>, the other is an integer representing a target variable named <code>level</code>. In some but not all of the cases where <code>location</code> or <code>level</code> have missing values, the values that should be there are in this <code>null</code> column. Here's an example df:</p>
+<pre><code>pd.DataFrame(
+     {'null': {0: '43.70477575,-72.28844073', 1: '2', 2: '43.70637091,-72.28704334', 3: '4', 4: '3'},
+     'location': {0: nan, 1: nan, 2: nan, 3: nan, 4: nan},
+     'level': {0: nan, 1: nan, 2: nan, 3: nan, 4: nan}
+     }
+)
+</code></pre>
+<p>I need to be able to filter the <code>null</code> column according to whether the value is an integer or a string, and then based on that fill the missing value in the appropriate column with the appropriate value. I've tried using <code>.apply()</code> with a lambda funcation as well as <code>.match()</code>, <code>.contains()</code> and <code>in</code> inside of a for loop with no luck so far.</p>
+","12399409","","12399409","","2020-09-07 02:06:23","2020-09-07 22:51:41","Fill missing values in selected columns with filtered values in other column","<python><regex><pandas><null><fillna>","3","3","","","","CC BY-SA 4.0"
+"61189020","1","61190316","","2020-04-13 13:32:25","","0","2747","<p>I need to replace every pattern like: <code>{foo}</code> by <code>FOO</code> + an increasing number, and also <code>do_something_else(...)</code> for each match. Example :</p>
+
+<p><code>'hell{o} this {is} a t{est}'</code> => <code>hellO1 this IS2 a tEST3</code></p>
+
+<p>How to do it <strong>without using a replacement function</strong>, but just with <strong>a loop over matches</strong>? I'm looking for something like:</p>
+
+<pre><code>import re
+
+def do_something_else(x, y):  # dummy function
+    return None, None
+
+def main(s):
+    i = 0
+    a, b = 0, 0
+    for m in re.findall(r""{([^{}]+)}"", s):  # loop over matches, can we
+        i += 1                              # do the replacement DIRECTLY IN THIS LOOP?
+        new = m.upper() + str(i)
+        print(new)
+        s = s.replace('{' + m + '}', new)    # BAD here because: 1) s.replace is not ok! bug if ""m"" is here mutliple times   
+                                             #                   2) modifying s while looping on f(.., s) is probably not good
+        a, b = do_something_else(a, b)
+    return s
+
+main('hell{o} this {is} a t{est}')    # hellO1 this IS2 a tEST3
+</code></pre>
+
+<hr>
+
+<p>The following code (<em>with</em> a replacement function) works but the use of global variables is a big problem here here because in fact <code>do_something_else()</code> can take a few milliseconds, and this process might be mixed with another concurrent run of <code>main()</code> :</p>
+
+<pre><code>import re
+
+def replace(m):
+    global i, a, b
+    a, b = do_something_else(a, b)
+    i += 1
+    return m.group(1).upper() + str(i)
+
+def main(s):
+    global i, a, b
+    i = 0
+    a, b = 0, 0
+    return re.sub(r""{([^{}]+)}"", replace, s)
+
+main('hell{o} this {is} a t{est}')
+</code></pre>
+","1422096","","1422096","","2020-04-13 13:38:29","2021-06-03 17:40:50","How to loop over regex matches and do replacement, without using a separate replacement function?","<python><regex><python-re>","1","3","","","","CC BY-SA 4.0"
