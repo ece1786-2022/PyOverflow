@@ -1,0 +1,696 @@
+Id,PostTypeId,AcceptedAnswerId,ParentId,CreationDate,DeletionDate,Score,ViewCount,Body,OwnerUserId,OwnerDisplayName,LastEditorUserId,LastEditorDisplayName,LastEditDate,LastActivityDate,Title,Tags,AnswerCount,CommentCount,FavoriteCount,ClosedDate,CommunityOwnedDate,ContentLicense
+"1979004","1","1979107","","2009-12-30 08:02:53","","164","88001","<pre><code>a='aaaa'
+print isinstance(a, basestring)#true
+print isinstance(a, str)#true
+</code></pre>
+","234322","","202229","","2020-06-28 06:20:09","2020-06-28 06:20:09","What is the difference between isinstance('aaa', basestring) and isinstance('aaa', str)?","<python><python-2.x><built-in-types>","4","0","0","","","CC BY-SA 2.5"
+"4092674","1","4092799","","2010-11-03 23:43:10","","2","1688","<p><strong>[Python 3.1]</strong></p>
+
+<p>I'm following up on <a href=""https://stackoverflow.com/questions/1566936/easy-pretty-printing-of-floats-in-python/1567630#1567630"">this answer</a>:</p>
+
+<pre><code>class prettyfloat(float):
+  def __repr__(self):
+    return ""%0.2f"" % self
+</code></pre>
+
+<p>I know I need to keep track of my float literals (i.e., replace <code>3.0</code> with  <code>prettyfloat(3.0)</code>, etc.), and that's fine.</p>
+
+<p>But whenever I do any calculations, <code>prettyfloat</code> objects get converted into <code>float</code>.</p>
+
+<p>What's the easiest way to fix it?</p>
+
+<p>EDIT:</p>
+
+<p>I need exactly two decimal digits; and I need it across the whole code, including where I print a dictionary with <code>float</code> values inside. That makes any formatting functions hard to use.</p>
+
+<p>I can't use <code>Decimal</code> global setting, since I want computations to be at full precision (just printing at 2 decimal points).</p>
+
+<p>@Glenn Maynard: I agree I shouldn't override <code>__repr__</code>; if anything, it would be just <code>__str__</code>. But it's a moot point because of the following point.</p>
+
+<p>@Glenn Maynard and @singularity: I won't subclass <code>float</code>, since I agree it will look very ugly in the end.</p>
+
+<p>I will stop trying to be clever, and just call a function everywhere a <code>float</code> is being printed. Though I am really sad that I can't override <code>__str__</code> in the builtin class <code>float</code>.</p>
+
+<p>Thank you!</p>
+","336527","","-1","","2017-05-23 12:14:50","2012-06-08 17:31:00","subclassing float to force fixed point printing precision in python","<python><floating-point><python-3.x><subclass><built-in-types>","3","5","0","","","CC BY-SA 2.5"
+"4698493","1","4698550","","2011-01-15 07:27:10","","95","41872","<p>For example&mdash;say I want to add a <code>helloWorld()</code> method to Python's dict type. Can I do this?</p>
+
+<p>JavaScript has a prototype object that behaves this way. Maybe it's bad design and I should subclass the dict object, but then it only works on the subclasses and I want it to work on any and all future dictionaries.</p>
+
+<p>Here's how it would go down in JavaScript:</p>
+
+<pre><code>String.prototype.hello = function() {
+    alert(""Hello, "" + this + ""!"");
+}
+""Jed"".hello() //alerts ""Hello, Jed!""
+</code></pre>
+
+<p>Here's a useful link with more examples&mdash; <a href=""http://www.javascriptkit.com/javatutors/proto3.shtml"" rel=""noreferrer"">http://www.javascriptkit.com/javatutors/proto3.shtml</a></p>
+","129847","","42223","","2017-04-05 20:57:35","2021-11-26 14:51:13","Can I add custom methods/attributes to built-in Python types?","<python><custom-attributes><monkeypatching><built-in-types>","8","4","0","","","CC BY-SA 2.5"
+"4827303","1","4827380","","2011-01-28 10:44:40","","6","1256","<pre><code># Python 3
+class Point(tuple):
+    def __init__(self, x, y):
+        super().__init__((x, y))
+
+Point(2, 3)
+</code></pre>
+
+<p>would result in</p>
+
+<blockquote>
+  <p>TypeError: tuple() takes at most 1
+  argument (2 given)</p>
+</blockquote>
+
+<p>Why? What should I do instead?</p>
+","336527","","","","","2011-01-28 11:12:49","problem subclassing builtin type","<python><python-3.x><subclassing><built-in-types>","1","1","","","","CC BY-SA 2.5"
+"4850370","1","4850571","","2011-01-31 11:32:32","","7","1172","<p>Can someone explain the following behaviour:</p>
+
+<pre><code>class derivedset1(frozenset):
+    def __new__(cls,*args):
+        return frozenset.__new__(cls,args)  
+
+class derivedset2(set):
+    def __new__(cls,*args):
+        return set.__new__(cls,args)    
+
+a=derivedset1('item1','item2') # WORKS 
+b=derivedset2('item1','item2') # DOESN'T WORK
+
+Traceback (most recent call last):
+  File ""inheriting-behaviours.py"", line 12, in &lt;module&gt;
+    b=derivedset2('item1','item2') # DOESN'T WORK
+TypeError: derivedset2 expected at most 1 arguments, got 2
+</code></pre>
+
+<p>This is surprising to me that you can alter the constructor of a frozen set whereas it is not possible for the constructor of a mutable set.</p>
+","583264","","355230","","2011-01-31 14:35:50","2011-01-31 14:35:50","Inheriting behaviours for set and frozenset seem to differ","<python><inheritance><immutability><built-in-types>","1","1","0","","","CC BY-SA 2.5"
+"6049533","1","","","2011-05-18 18:43:41","","0","908","<p>I have always been confused and falling over the minute details while inheriting the builtin types in Python e.g. list and dict.</p>
+
+<p>Can you please point to the tutorials and docs which give a comprehensive details about the internals and the syntax involved.</p>
+","69746","","302831","","2011-05-18 18:47:18","2016-10-16 16:51:04","Python: Inheriting builtin types dict and list","<python><inheritance><built-in><built-in-types>","3","4","","2011-05-19 14:48:44","","CC BY-SA 3.0"
+"6217351","1","6217668","","2011-06-02 16:29:28","","3","1946","<p>Is it possible to redefine which object the brackets [] use?</p>
+
+<p>I can subclass the <code>list</code> object, but how to I make the interpreter use my subclass in place of the buildin list object? Is it possible? </p>
+
+<p>(I'm pretty sure I'm using the wrong terms for the question- feel free to edit)</p>
+
+<pre><code>&gt;&gt;&gt; class mlist(list):
+...     def __init__(self):
+...         list.__init__(self)
+...     def __getitem__(self, item):
+...         return list.__getitem__(self, item) * 2
+... 
+&gt;&gt;&gt; testlist = mlist()
+&gt;&gt;&gt; testlist.append(21)
+&gt;&gt;&gt; testlist[0]
+42
+&gt;&gt;&gt; list = mlist() # maybe setting the 'list' type will do it?
+&gt;&gt;&gt; testlist = []
+&gt;&gt;&gt; testlist.append(21)
+&gt;&gt;&gt; testlist[0]
+21                 # Nope
+&gt;&gt;&gt; 
+</code></pre>
+
+<p>I don't have a practical use for this- just curious. </p>
+","592851","","592851","","2011-06-02 16:55:21","2011-06-02 19:22:26","Redefining Pythons builtin datatypes","<python><list><object><subclass><built-in-types>","4","1","0","","","CC BY-SA 3.0"
+"7402573","1","7403541","","2011-09-13 13:21:01","","4","8338","<p>In my application I have generated a number of values (three columns, of type int, str and datetime, see example below) and these values are stored in a flat file as comma-separated strings. Furthermore, I store a file containing the type of the values (see below). Now, how can I use this information to cast my values from the flat file to the correct data type in Python? Is is possible or do I need to do some other stuff?</p>
+
+<p>Data file:</p>
+
+<pre><code>#id,value,date
+1,a,2011-09-13 15:00:00
+2,b,2011-09-13 15:10:00
+3,c,2011-09-13 15:20:00
+4,d,2011-09-13 15:30:00
+</code></pre>
+
+<p>Type file:   </p>
+
+<pre><code>id,&lt;type 'int'&gt;
+value,&lt;type 'str'&gt;
+date,&lt;type 'datetime.datetime'&gt;
+</code></pre>
+","527116","","675568","","2011-09-13 14:01:41","2014-03-28 17:33:24","use type() information to cast values stored as strings","<python><casting><data-conversion><built-in-types>","7","0","0","","","CC BY-SA 3.0"
+"7983243","1","","","2011-11-02 15:48:00","","22","1175","<p>When subclassing builtin types, I noticed a rather important difference between Python 2 and Python 3 in the return type of the methods of the built-in types. The following code illustrates this for sets:</p>
+
+<pre><code>class MySet(set):
+
+    pass
+
+s1 = MySet([1, 2, 3, 4, 5])
+
+s2 = MySet([1, 2, 3, 6, 7])
+
+print(type(s1.union(s2)))
+
+print(type(s1.intersection(s2)))
+
+print(type(s1.difference(s2)))
+</code></pre>
+
+<p>With Python 2, all the return values are of type <code>MySet</code>. With Python 3, the return types are <code>set</code>. I could not find any documentation on what the result is supposed to be, nor any documentation about the change in Python 3.</p>
+
+<p>Anyway, what I really care about is this: is there a simple way in Python 3 to get the behavior seen in Python 2, without redefining every single method of the built-in types?</p>
+","1025973","","160206","","2011-11-02 16:22:17","2011-11-04 11:48:38","Subclassing builtin types in Python 2 and Python 3","<python><python-3.x><subclass><built-in-types>","3","2","0","","","CC BY-SA 3.0"
+"9486564","1","9486619","","2012-02-28 17:16:14","","1","353","<p>I've never really liked the way the dictionary class is converted into a string so I wrote a subclass which overrides the <code>__repr__</code> method (this method uses tabs to representing the level of nesting in the dictionary, mostly because I have some dictionaries which can be very big and end up <code>myDic['a']['b']['c']['d'] = someObject</code>).</p>
+
+<p>It works fine, but it doesn't allow me to use the <code>{}</code> syntax to make my dictionaries.</p>
+
+<p>Is it possible to override the dict class such that I can use the <code>{}</code> syntax to make my own custom dictionaries? </p>
+
+<p>I am using python 2.6/2.7.</p>
+","683111","","4230591","","2015-09-11 15:56:03","2015-09-11 15:56:03","Override built-in classes, in particular, dictionary class","<python><python-2.7><dictionary><overriding><built-in-types>","1","1","","","","CC BY-SA 3.0"
+"13736718","1","13736815","","2012-12-06 03:57:56","","25","23720","<p>While looking over some code in <a href=""http://greenteapress.com/complexity/html/thinkcomplexity003.html#toc13"" rel=""noreferrer"">Think Complexity</a>, I noticed their <code>Graph</code> class assigning values to itself.  I've copied a few important lines from that class and written an example class, <code>ObjectChild</code>, that fails at this behavior.</p>
+
+<pre><code>class Graph(dict):
+    def __init__(self, vs=[], es=[]):
+        for v in vs:
+            self.add_vertex(v)
+
+        for e in es:
+            self.add_edge(e)
+
+    def add_edge(self, e):
+        v, w = e
+        self[v][w] = e
+        self[w][v] = e
+
+    def add_vertex(self, v):
+        self[v] = {}
+
+class ObjectChild(object):
+    def __init__(self, name):
+        self['name'] = name
+</code></pre>
+
+<p>I'm sure the different built in types all have their own way of using this, but I'm not sure whether this is something I should try to build into my classes.  Is it possible, and how?  Is this something I shouldn't bother with, relying instead on simple composition, e.g. <code>self.l = [1, 2, 3]</code>?  Should it be avoided outside built in types?</p>
+
+<p>I ask because I was told ""You should almost never inherit from the builtin python collections""; advice I'm hesitant to restrict myself to.</p>
+
+<p>To clarify, I know that <code>ObjectChild</code> won't ""work"", and I could easily <em>make</em> it ""work"", but I'm curious about the inner workings of these built in types that makes their interface different from a child of <code>object</code>.</p>
+","521945","","521945","","2012-12-06 04:13:40","2021-07-28 18:36:20","How to make python class support item assignment?","<python><inheritance><built-in-types><object-composition>","8","2","0","","","CC BY-SA 3.0"
+"14484749","1","14484801","","2013-01-23 16:40:24","","7","2703","<p>What's wrong with this code?</p>
+
+<pre><code>class MyList(list):
+  def __init__(self, li): self = li
+</code></pre>
+
+<p>When I create an instance of <code>MyList</code> with, for example, <code>MyList([1, 2, 3])</code>, and then I print this instance, all I get is an empty list <code>[]</code>. If <code>MyDict</code> is subclassing <code>list</code>, isn't <code>MyDict</code> a <code>list</code> itself?</p>
+
+<p>NB: both in Python 2.x and 3.x.</p>
+","1478748","","2932052","","2014-09-24 12:57:55","2014-09-24 12:57:55","Python built-in types subclassing","<python><initialization><subclassing><built-in-types>","2","0","0","","","CC BY-SA 3.0"
+"16190465","1","16190527","","2013-04-24 11:11:46","","-3","106","<p>I could represent any list as a dictionary whose keys are the valid list indices, and whose values are the list's items. E.g., <code>[5, 6, 'a']</code> would be represented as <code>{0:5, 1:6, 2:'a'}</code>.</p>
+
+<p>In terms of asymptotic time and memory complexity, the <code>dict</code> representation is identical to <code>list</code>. <code>list</code> uses less memory by a constant factor.</p>
+
+<p>If memory is not an issue, is it true that I can always use <code>dict</code> instead of lists and other sequences (to gain the flexibility of using arbitrary keys, and to slightly standardize the code by reducing the number of different containers used)?</p>
+","336527","","336527","","2013-04-24 13:14:51","2013-04-24 13:14:51","Can `dict` replace `list` when memory is not a concern?","<python><python-3.x><containers><built-in-types>","1","16","","2013-04-24 13:21:26","","CC BY-SA 3.0"
+"16306844","1","16307000","","2013-04-30 18:43:00","","8","8765","<p>I am using Python's built-in sets to hold objects of a class I have defined. For this class, I defined <code>__eq__</code>, <code>__ne__</code>, and <code>__hash__</code> so that I can compare objects by my custom comparison functions. That works just fine, until I find out that I actually need <em>two</em> sets of comparison functions, which will be used in different ways at different times in my code.</p>
+
+<p>I can't define two sets of <code>__eq__</code>, etc. methods in my class, and Python's built-in set type does not accept a comparator argument. I suppose I could go write a wrapper class around set, but that seems like a lot more work than necessary.</p>
+
+<p>Is there any easier solution to this than writing my own set class?</p>
+","188046","","758446","","2013-04-30 18:49:10","2018-06-07 06:02:59","Custom comparison functions for built-in types in Python","<python><built-in-types>","1","4","0","","","CC BY-SA 3.0"
+"17408362","1","17408570","","2013-07-01 15:37:37","","1","302","<p>I'm looking for a good set of sentinel values, e.g. experimentally:</p>
+
+<pre><code>[] &gt; ""sdfasfg"" &gt; ()
+</code></pre>
+
+<p>And this seems to be documented:</p>
+
+<blockquote>
+  <p>CPython implementation detail: Objects of different types except
+  numbers are ordered by their type names; objects of the same types
+  that don’t support proper comparison are ordered by their address. <a href=""http://docs.python.org/2/library/stdtypes.html"" rel=""nofollow"">reference</a></p>
+</blockquote>
+
+<p>In the same fashion, </p>
+
+<pre><code>object() &lt; str()
+</code></pre>
+
+<p>The ""largest"" builtin type seems to be <code>unicode</code>, what can I use as a ""right"" sentinel value for comparison with unicode types? That is a value that's larger than any unicode string?</p>
+
+<p>Is comparison order of instances of built-in types really well defined in Python?</p>
+","705086","","","","","2013-07-01 15:59:26","Comparison ordering of python built-in types","<python><comparison><built-in-types>","1","4","","","","CC BY-SA 3.0"
+"17983598","1","17983640","","2013-08-01 01:03:42","","0","43","<p>Here is an example.</p>
+
+<pre><code>&gt;&gt;&gt; class MyList(list):
+&gt;&gt;&gt;    def __sub__(self, other):
+&gt;&gt;&gt;        L = self[:]
+&gt;&gt;&gt;        for x in other:
+&gt;&gt;&gt;            if x in L: L.remove(x)
+&gt;&gt;&gt;        return L
+
+&gt;&gt;&gt; L = MyList([1, 2, 3, 'spam', 4, 5])
+&gt;&gt;&gt; L = L - ['spam']
+&gt;&gt;&gt; print L
+[1, 2, 3, 4, 5]
+</code></pre>
+
+<p>When class takes arguments, it requires <strong>init</strong>, constructors to get. 
+But there is no <strong>init</strong> method above. How could it be possible?</p>
+
+<p>Thanks in advance :)</p>
+","2522245","","","","","2013-08-01 01:23:10","why not using constructor when making subclass of list class?","<python><constructor><built-in-types>","1","1","","","","CC BY-SA 3.0"
+"19345073","1","","","2013-10-13 12:13:05","","3","65","<p>This is such a common scenario when you just want to use a built-in type
+only with a different string representation.  For instance, consider a
+variable to store time measurements.  Typically you want a type that behaves
+exactly like int or float for all intents and purposes except that when
+coerced to string would produce a string formatted as HH:MM:SS or something like that.</p>
+
+<p>It <em>should</em> be easy.  Unfortunately the following doesn't work</p>
+
+<pre><code>class ElapsedTime(float):
+    def __str__(self):
+        return 'XXX'
+</code></pre>
+
+<p>because the result of operations will be type float.  The
+solution I know is rewrite a couple dozen methods, but this is most
+impractical.  I can't believe there is no other way.  Why is there no
+subclass-friendly UserInt, UserFloat types in the standard library intended to be
+used in these situations?</p>
+","1278855","","","","","2013-10-13 12:50:39","Subclass-friendly versions of built-in inmutable types?","<python><subclass><built-in-types>","1","6","0","","","CC BY-SA 3.0"
+"25211477","1","","","2014-08-08 20:09:17","","11","4304","<p>In the interactive interpreter, if you type the following in order you can see some pretty interesting stuff:</p>
+
+<p>1) <code>help()</code></p>
+
+<p>2) <code>modules</code></p>
+
+<p>3) <code>__builtin__</code></p>
+
+<p>When reading through the output for awhile I came across these lines in <code>class bool</code>:</p>
+
+<pre><code>__or__(...)
+    x.__or__(y) &lt;==&gt; x|y
+</code></pre>
+
+<p>and then later on:</p>
+
+<pre><code>__ror__(...)
+    x.__ror__(y) &lt;==&gt; y|x
+</code></pre>
+
+<p>This last method appears to describe <em>reverse or</em>. Why does this method exist? What could possibly cause <code>__or__(...)</code> to return anything different than <code>__ror__(...)</code>?</p>
+","3745189","","","","","2022-11-11 05:11:16","What is the purpose of Python's built-in bool method __ror__?","<python><built-in><built-in-types>","2","3","0","","","CC BY-SA 3.0"
+"28286411","1","28287728","","2015-02-02 20:45:24","","-2","3485","<p>I am trying to write the program that will be given a 2d list with coordinates of points on a grid (ex.<code>[[4, 7], [5, 6], [5, 2]]</code>), and will return all points passed during ""walking"". We can go diagonal.</p>
+
+<pre><code>def pole(lista):
+    passed = []   #List with all points passed
+    before = lista[0]  #list with coordinates before
+    for i in range(1,len(lista)):
+        first = [list(range(before[0],lista[i][0]))]   # Lists that should have all points
+        second = [list(range(before[1],lista[i][1]))]  # passed from point to point
+
+        if(len(first) == 1):                  #If we do not go diagonal, one list will only have one number here,
+            first = [before[0]*len(second)]   # but we need the same number of itmes,
+        if(len(second) == 1):                 # so we do not get IndexOutOFRange error in next for   
+            second = [before[1]*len(first)]
+        #print(first,second)
+        for j in range(len(first)):
+            passed.append([first[j], second[j]])
+        before = lista[i]
+    return passed
+</code></pre>
+
+<p>We are using the example list as an input. <code>[[4, 7], [5, 6], [5, 2]]</code></p>
+
+<p>The problem is that the output is wrong and I do not know why:</p>
+
+<pre><code>[[4, 7], [5, 6]]
+</code></pre>
+
+<p>And the output should be:</p>
+
+<pre><code>[[4,7], [5,6], [5,5], [5,4], [5,3], [5,2]]
+</code></pre>
+
+<p>I think it is a problem of range function</p>
+","4061413","","4061413","","2015-02-02 21:06:54","2015-02-02 22:08:55","Range() function not working","<python><python-3.x><built-in-types>","2","8","","","","CC BY-SA 3.0"
+"29054999","1","29055096","","2015-03-14 22:29:24","","0","1512","<p><em>I am receiving the count of each line in each list</em>, 
+I am looking to sum each particular values of entire list, (Nested lists included)</p>
+
+<p><code>[[3],[4],][1],[3]] = * 11</code>  is my desired result.</p>
+
+<p><strong>example:</strong> <em>code</em></p>
+
+<pre><code>ar1 = [
+          ['jam','apple','pear'],
+          ['toes','tail','pinky','liar'],
+          ['aha!'],
+          ['jam','apple','pear']
+      ]
+
+def function(arg1)
+    heads = 0
+    for i in arg1:
+        heads += arg1.count(i)
+        print heads
+</code></pre>
+
+<p>I have used this <code>print</code> because i dont know how to compile and debug any other for than the print statement and recheck work, so please no flaming.<strong>(newbie alert)</strong></p>
+
+<p><strong>example:</strong> <em>result</em></p>
+
+<pre><code>['jam','apple','pear']     1
+['toes','tail','pinky','liar']    2
+['aha!']     3
+['jam','apple','pear']    4
+</code></pre>
+
+<p>I prefer a hint, or hints to what methods i should be applying or an example. I am in no way expecting a solution. I </p>
+","4594742","","736937","","2015-03-14 22:34:26","2015-03-14 22:45:53","Using 'for loop' to sum nested list values and return (total of sum)","<python><list><for-loop><control-flow><built-in-types>","2","2","","2022-11-12 00:35:57","","CC BY-SA 3.0"
+"30525262","1","","","2015-05-29 08:53:59","","7","2260","<p>In other words, why does Python allow variable names which are identical to built-in type names such as int, float, list, etc? (C++ built-in type names are all reserved, in comparison). Consider the example</p>
+
+<pre><code># int = 1
+i = 2
+if type(i) == int:
+    print 'Is int'
+else:
+    print 'Not int'
+</code></pre>
+
+<p>The output is <strong>""Is int</strong>"". However, if I uncomment the first line, the output will be ""<strong>Not int</strong>"". Obviously my ""int"" has overridden the built-in type int. That is, in my opinion, potentially dangerous.</p>
+","2063354","","2971","","2015-05-29 09:00:39","2017-08-07 09:13:24","Why are Python built-in type names not reserved keywords?","<python><reserved-words><built-in-types>","2","2","0","","","CC BY-SA 3.0"
+"33997962","1","33998025","","2015-11-30 11:49:04","","1","47","<p>In this particular part of the program, I couldn't really get why the <code>.startswith</code> function wasn't the first one to be used:</p>
+
+<pre><code>for line in fhand:
+    line = line.rstrip()
+    if not line.startswith('From ') : continue
+    words = line.split()
+    print words[2]
+</code></pre>
+
+<p>I mean, wouldn't it be faster than stripping every single line at the beginning? Why or why not? </p>
+","5600257","","2291710","","2015-11-30 11:49:38","2015-11-30 11:52:53","Which built-in function should come first in this particular case?","<python><built-in-types>","1","0","","","","CC BY-SA 3.0"
+"38766579","1","38767232","","2016-08-04 11:50:43","","2","380","<p>This question is not about usage of <code>int</code> function, but rather how it is done internally.</p>
+
+<p>Because source code is in C I don't understand what is going on there.</p>
+
+<p>Maybe someone can explain how Python convert string <code>""123""</code> to integer <code>123</code>.
+What operations are performed for it?</p>
+","3726864","","","","","2016-08-04 13:47:18","How Python converts string to integer","<python><built-in><built-in-types>","2","4","0","2016-08-04 13:54:22","","CC BY-SA 3.0"
+"41144760","1","41144889","","2016-12-14 14:14:50","","3","4644","<p>I have to implement a class called <code>ComplexNumbers</code> which is representing a complex number and I'm <strong>not allowed</strong> to use the <strong>built in types</strong> for that.
+I already have overwritten the operators (<code>__add__</code>, <code>__sub__</code>, <code>__mul__</code>, <code>__abs__</code>, <code>__str_</code> which allows to perform basic operations.
+But now I'm stuck with overwriting the <code>__div__</code> operator.</p>
+
+<p>Allowed to use:</p>
+
+<p>I'm using <code>float</code> to represent the imaginary part of the number and <code>float</code> to represent the rel part.</p>
+
+<p>What I have already tried:</p>
+
+<ul>
+<li>I looked up how to perform a division of complex numbers (handwritten)</li>
+<li>I have done an example calculation</li>
+<li>Thought about how to implement it programatically without any good result</li>
+</ul>
+
+<p>Explanation of how to divide complex numbers:</p>
+
+<p><a href=""http://www.mathwarehouse.com/algebra/complex-number/divide/how-to-divide-complex-numbers.php"" rel=""nofollow noreferrer"">http://www.mathwarehouse.com/algebra/complex-number/divide/how-to-divide-complex-numbers.php</a></p>
+
+<p>My implementation of multiply:</p>
+
+<pre><code> def __mul__(self, other):
+        real = (self.re * other.re - self.im * other.im)
+        imag = (self.re * other.im + other.re * self.im)
+        return ComplexNumber(real, imag)
+</code></pre>
+","5111904","","5111904","","2016-12-14 16:40:33","2020-03-06 10:53:10","Python Division Of Complex Numbers Without Using Built In Types and Operators","<python><division><complex-numbers><built-in-types>","2","11","","","","CC BY-SA 3.0"
+"44493690","1","44493862","","2017-06-12 07:31:14","","1","40","<p>Can I assume that that type objects of python's built ins are always the same?
+Example:</p>
+
+<pre><code>type([]) == type([1,2,3,4]) == type([{1:1}, True])
+type(5) == type(0) == type(2**18) == type(-951)
+</code></pre>
+
+<p>If so, can I use ""is"" instead of ""=="" when comparing type objects?
+The question is referring to all builtin types.</p>
+
+<p>Thanks in advance!</p>
+","5355776","","","","","2017-06-12 08:00:42","Are type on python's builtin unique","<python><built-in-types>","1","1","","","","CC BY-SA 3.0"
+"49465215","1","49465277","","2018-03-24 13:26:00","","2","9285","<p>im trying to make an app that runs few files to make it organized, however im kinda lurker in python and got stuck trying to import values from <code>settings.py</code> in <code>main.py</code>.</p>
+
+<p>The error type im getting looks like this depending on how im trying to get the object's value:</p>
+
+<pre><code>self.code = sets.run().self.code
+AttributeError: 'NoneType' object has no attribute 'self'
+</code></pre>
+
+<p>or</p>
+
+<pre><code>self.code = sets.code
+AttributeError: 'settings' object has no attribute 'code'
+</code></pre>
+
+<p>The whole idea is to make get self. values in the other file not using the return but simply specifying the element.</p>
+
+<p>Simple sample code:</p>
+
+<p>Main file:</p>
+
+<pre><code>import settings
+def run():
+    sets = settings.settings()
+    code = sets.code 
+run()
+</code></pre>
+
+<p>Settings file:</p>
+
+<pre><code>class settings():
+    def run(self):
+       self.code = somevalue
+</code></pre>
+
+<p>so basicaly that is the minimum extension of what im trying to do, i could return the self.code in run however that is not what i want because i have many settings_values and id like to access them in different files. 
+help much appreciated.</p>
+
+<blockquote>
+  <p>Edit:
+  So how should i approach this if i need to <code>import settings</code> in <code>main</code> but only run() settings whenever i start running the main_run() and than just get the variables? 
+  I dont want to complicate it with saving to file and than reading a list() i need to just access them and only run</p>
+  
+  <p>basicaly: my settings gets a long list from pickle and than makes some operations that return the code combination and lots of other self.settings that need to be initiated when the program(main) starts and than for the whole While True inside run() the values are fixed unless i start refresh_settings() and change the settings than the data is recompiled and the program returns to while true</p>
+</blockquote>
+","9476382","","9476382","","2018-03-24 13:58:00","2018-03-24 13:58:00","Python getting values from class","<python><class><object><built-in-types>","2","0","0","","","CC BY-SA 3.0"
+"50118488","1","50121156","","2018-05-01 14:38:57","","5","124","<p>I noted that</p>
+
+<pre><code>int.__str__ = lambda x: pass
+</code></pre>
+
+<p>yields an error.</p>
+
+<p>I can see, why that is forbidden. But how? Can I use that in ""normal"" code?</p>
+","1175824","","1175824","","2018-05-02 06:31:38","2018-05-02 06:31:38","How are built-in types protected from overwriting (assigning to) their methods?","<python><built-in-types>","1","7","0","","","CC BY-SA 4.0"
+"50203630","1","","","2018-05-06 19:19:40","","2","101","<p>I teach coding using Python, and in some assignments, it's desirable for students to implement functionality which is otherwise provided by built-in functions or methods of built-in classes. An example assignment is where I want students to write two functions - one called <code>insert_sorted()</code> that adds an element to the list so that the list remains sorted, and another called <code>insertion_sort()</code> which returns a new list and uses <code>insert_sorted()</code> for sorting.</p>
+
+<p>My access to the students' code is through unit test cases, in which I can call these functions. The problem is that in the <code>insert_sorted()</code> function, students can use <code>list.sort()</code> method and in the <code>insertion_sorted()</code> function, they can use <code>sorted()</code> built-in function.</p>
+
+<p>It's easy to override the built-in functions (which in this case can raise an exception with the message that their use is not allowed). I can also override objects and functions in built-in modules (e.g., I needed to prevent the use of <code>math.factorial()</code> function). But I cannot replace the method of a built-in type, like in the code below:</p>
+
+<pre><code>def error():
+    raise Exception(""Not allowed."")
+list.sort = error
+</code></pre>
+
+<p>I get the error:</p>
+
+<pre><code>Traceback (most recent call last):
+  File ""main.py"", line 3, in &lt;module&gt;
+    list.sort = error
+TypeError: can't set attributes of built-in/extension type 'list'
+</code></pre>
+
+<p>Is there a way to ban the use of specific methods in built-in classes?</p>
+","1097171","","","","","2018-05-06 20:32:25","Limit use of methods in built-in classes for programming assignments","<python><overriding><built-in-types>","1","5","0","","","CC BY-SA 4.0"
+"54453192","1","","","2019-01-31 04:16:16","","2","1358","<p>I need to add an attribute (holding a tuple or object) to python objects dynamically. This works for Python classes written by me, but not for built in classes. </p>
+
+<p>Consider the following program: </p>
+
+<pre><code>import numpy as np
+
+class My_Class():
+    pass
+
+my_obj = My_Class()
+my_obj2 = My_Class()
+
+my_obj.__my_hidden_field = (1,1)
+my_obj2.__my_hidden_field = (2,1)
+
+print(my_obj.__my_hidden_field, my_obj2.__my_hidden_field)
+</code></pre>
+
+<p>This correctly prints <code>(1, 1) (2, 1)</code>. However the following program doesnt work.</p>
+
+<pre><code>X  = np.random.random(size=(2,3))
+
+
+X.__my_hidden_field = (3,1) 
+setattr(X, '__my_hidden_field', (3,1))
+</code></pre>
+
+<p>Both of the above line throws the following error <code># AttributeError: 'numpy.ndarray' object has no attribute '__my_hidden_field'</code></p>
+
+<p>Now, the reason found from these questions (i.e., <a href=""https://stackoverflow.com/questions/5741699/attribute-assignment-to-built-in-object"">Attribute assignment to built-in object</a>, <a href=""https://stackoverflow.com/questions/1529002/cant-set-attributes-of-object-class"">Can&#39;t set attributes of object class</a>, <a href=""https://stackoverflow.com/questions/8843140/python-dynamically-adding-attributes-to-a-built-in-class"">python: dynamically adding attributes to a built-in class</a>) is Python does not allow dynamically adding attributes to built_in objects. </p>
+
+<p>Excerpt from the answer: <a href=""https://stackoverflow.com/a/22103924/8413477"">https://stackoverflow.com/a/22103924/8413477</a> </p>
+
+<blockquote>
+  <p>This is prohibited intentionally to prevent accidental fatal changes to built-in types (fatal to parts of the code that you never though of). Also, it is done to prevent the changes to affect different interpreters residing in the address space, since built-in types (unlike user-defined classes) are shared between all such interpreters.</p>
+</blockquote>
+
+<p>However, all the answers are quite old, and I am badly in need of doing this for my research project. </p>
+
+<p>There is a module that allows to add methods to built in Class though: 
+<a href=""https://pypi.org/project/forbiddenfruit/"" rel=""nofollow noreferrer"">https://pypi.org/project/forbiddenfruit/</a></p>
+
+<p>However,it doesnt allow adding objects/attributes to each object. </p>
+
+<p>Any help ?</p>
+","8413477","","","","","2019-02-01 17:50:25","Is it possible to add attributes to built in python objects dynamically in Python?","<python><python-3.x><python-2.7><built-in><built-in-types>","3","7","","","","CC BY-SA 4.0"
+"54615019","1","","","2019-02-10 09:23:12","","0","144","<p>I have a input text file there has some c language code. I want to detect from that file how much c data types are included there and it will be saved another output file but first want to show my input text then under this text my another filtering code will show into output file.</p>
+
+<p>In this case first i have opened a file with 'a' or append mode but it's working opposite.</p>
+
+<h1>My Code</h1>
+
+<pre><code>keyword = ['auto', 'double', 'int', 'struct', 'break', 'else', 'long', 
+       'switch', 'case', 'enum', 'register', 'typedef', 'char', 
+       'extern', 'return', 'union', 'const', 'float', 'short', 
+       'unsigned', 'continue', 'for','signed', 'void', 'default', 
+       'goto', 'sizeof', 'volatile','do', 'if', 'static', 'while']
+f_read = open('input.txt', mode='r')
+f_write =  open('output.txt', 'a')
+for i in f_read.read():
+    f_write.write(i)
+f_read.close()
+empty = []
+for key in keyword:
+    with open('input.txt', mode='r') as read_fp:
+        if key in read_fp.read():
+            if key in empty:
+                empty[key] += 1
+            with open('output.txt', 'w') as write_fp:
+                empty.append(key)
+                write_fp.write(' \n'.join(empty))
+f_write.close()
+</code></pre>
+
+<h1>my expect output text file will show such like following</h1>
+
+<pre><code>My input text file all code 
+
+      then
+
+Data Types-------------Count
+
+int                       1
+
+float                     3
+
+return                    1
+</code></pre>
+
+<blockquote>
+  <p>into my input file has some c code after filtering it'll show 1 int, 3
+  float and 1 return data types.</p>
+</blockquote>
+
+<p>Thanks</p>
+","6519334","","6519334","","2019-02-10 10:39:10","2019-02-11 08:18:16","c builtin data types detect into input text file with python","<python><file><built-in-types>","1","6","","","","CC BY-SA 4.0"
+"55459493","1","","","2019-04-01 16:17:04","","0","403","<p>In Python, it is possible to dynamically access a <em>class</em> object by name with <code>getattr</code>:</p>
+
+<pre><code>getattr(module, ""&lt;class_name&gt;"")
+</code></pre>
+
+<p>How can I do that for <em>built-in type</em> objects (<code>int</code>, <code>str</code>, <code>list</code>, etc.)?</p>
+
+<p>I would like to use the same trick, but I don't know in which module built-in types are defined.</p>
+","2326961","","2326961","","2019-04-02 16:55:05","2019-04-02 16:56:37","Dynamically acessing a built-in type object by name","<python><module><dynamically-generated><built-in-types>","1","2","","","","CC BY-SA 4.0"
+"58603138","1","","","2019-10-29 07:43:24","","1","231","<p><strong>I want to implicitly extend the int, float, str, list, dict, set, and module classes with custom built substitutions (extensions).</strong></p>
+
+<p>When I say 'implicitly', what I mean is that when I declare 'a = 1', and object of the type Custom_Int (as an example) is produced, as opposed to a normal integer object.</p>
+
+<p>Now, I understand and respect the reasons not to do this. Firstly- messing with built-ins is like messing with the laws of physics. No good can come from it. That said- I do understand the gravity of what I'm trying to do and what can happen if I do it wrong.</p>
+
+<p>Second- I understand that modifying a base case will effect not just the current run-time but all running python processes. I feel that by overriding the __new__ method of these base classes, such that it returns Custom_Object_Whatever if and ONLY IF certain environmental factors are true, other run times will remain largely unaffected.</p>
+
+<p>So, getting back to the issue at hand- how can I override the __new__ method of these various types?</p>
+
+<p>Pythons forbiddenfruit package seems to be promising. I havn't had a chance to reeeeeeally investigate it though, and if someone who understands it could summarize what it does, that would save me a lot of time.</p>
+
+<p>Beyond that, I've observed something strange. </p>
+
+<p>Every answer to monkeypatching that doesn't eventually circle back to forbiddenfruit or how forbiddenfruit works has to do with modifying what I will refer to as the 'absolute_dictionary' of the class. Because everything in Python is essentially a mapping (or dictionary) of functions/values to names, if you change the name __new__ within the right mapping, you change the nature of the object.</p>
+
+<p>Problem is- every near-success I've had has it that if I call 'str( 'a' ).__new__( *args )' it works fine <em>{in some cases}</em>, but the calling of varOne = 'a' does not seem to actually call str.__new__().</p>
+
+<p>My guess- this has something to do with either python's parsing of a program prior to launch, or else the caching of the various classes during/post launch. Or maybe I'm totally off the mark. Either python pre-reads and applies some regex to it's modules prior to launch or else the machine code, when it attempts to <strong><em>implicitly</em></strong> create an object, it reaches for something other than the class located in moduleObject.builtins[ __classname__ ]</p>
+
+<p>Any ideas?</p>
+","10221867","","10221867","","2019-10-29 07:57:03","2019-10-29 08:48:11","(Python) Monkeypatch __new__ for objects of type int, float, str, list, dict, set, and module in python","<python><monkeypatching><built-in-types>","1","2","","","","CC BY-SA 4.0"
+"59223768","1","59224234","","2019-12-07 07:04:05","","0","477","<p>I created a model object.
+This object has several boolean fields.</p>
+
+<pre><code># models.py
+
+class TeamCharacteristic(models.Model):
+     team = models.ForeignKey('Teams',on_delete=models.CASCADE)
+     power1 = models.BooleanField(null=True, blank=True)
+     power2 = models.BooleanField(null=True, blank=True)
+     power3 = models.BooleanField(null=True, blank=True)
+     power4 = models.BooleanField(null=True, blank=True)
+     power5 = models.BooleanField(null=True, blank=True)
+
+class Meta:
+     verbose_name = 'Team style'
+     verbose_name_plural = 'Teams style'
+
+def __str__(self):
+     return ""{} 's style"".format(
+         self.team,
+     )
+</code></pre>
+
+<p>Some of them are right and others are wrong. 
+I want to show only the fields that have the correct value in the template. 
+How can I do this in a shorter way instead of checking each field individually?</p>
+
+<pre><code># views.py
+from django.shortcuts import render, get_object_or_404
+from .models import Matches
+from denemee.apps.home.models import TeamCharacteristic
+
+
+def matches_details(request, page_id=None, team=None, **kwargs):
+    m_detail = get_object_or_404(Matches, id=page_id)
+    home_team_chr = get_object_or_404(TeamCharacteristic, team=m_detail.h_team)
+    away_team_chr = get_object_or_404(TeamCharacteristic, team=m_detail.a_team)
+    payload = {
+        'm_detail': m_detail,
+        'home_team_chr': home_team_chr,
+        'away_team_chr': away_team_chr
+    }
+    return render(request, 'match_detail.html', payload)
+</code></pre>
+","11729336","","8430155","","2019-12-07 07:19:44","2019-12-07 08:23:42","How to display Django BooleanFields selected true in template?","<python><django><templates><built-in-types>","1","4","","","","CC BY-SA 4.0"
+"60715657","1","","","2020-03-17 02:55:54","","-1","45","<p>I am really confused about the replace python method.
+i used the replace function in two instances but the output is really confusing.
+This is the code below</p>
+
+<pre><code>story = 'there was once an old woman'
+
+story2 = story.replace('an', 'a') .replace('old', 'young'))
+print(story2)
+</code></pre>
+
+<p>and when i run the code below. the output becomes.
+there was once a young woma
+someone please tell me why was deleted from the woman.</p>
+","12807128","","12807128","","2020-03-21 23:42:42","2020-03-21 23:42:42","Python Biult-in Methods","<python><built-in-types>","2","3","","","","CC BY-SA 4.0"
