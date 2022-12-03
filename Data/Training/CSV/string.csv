@@ -1,0 +1,89 @@
+,content,topic
+0, The built-in string class provides the ability to do complex variable substitutions and value formatting via the format() method described in PEP 3101,String
+1,  The Formatter class in the string module allows you to create and customize your own string formatting behaviors using the same implementation as the built-in format() method,String
+2, The str,String
+3,"format() method and the Formatter class share the same syntax for format strings (although in the case of Formatter, subclasses can define their own format string syntax)",String
+4,"  The syntax is related to that of formatted string literals, but it is less sophisticated and, in particular, does not support arbitrary expressions",String
+5, Format strings contain replacement fields surrounded by curly braces {},String
+6," Anything that is not contained in braces is considered literal text, which is copied unchanged to the output",String
+7,"  If you need to include a brace character in the literal text, it can be escaped by doubling: {{ and }}",String
+8," The grammar for a replacement field is as follows: In less formal terms, the replacement field can start with a field_name that specifies the object whose value is to be formatted and inserted into the output instead of the replacement field",String
+9," The field_name is optionally followed by a  conversion field, which is preceded by an exclamation point '!', and a format_spec, which is preceded by a colon ':'",String
+10,  These specify a non-default format for the replacement value,String
+11, See also the Format Specification Mini-Language section,String
+12, The field_name itself begins with an arg_name that is either a number or a keyword,String
+13,"  If its a number, it refers to a positional argument, and if its a keyword, it refers to a named keyword argument",String
+14,"  If the numerical arg_names in a format string are 0, 1, 2, in sequence, they can all be omitted (not just some) and the numbers 0, 1, 2,  will be automatically inserted in that order",String
+15," Because arg_name is not quote-delimited, it is not possible to specify arbitrary dictionary keys (e",String
+16,g,String
+17,", the strings '10' or ':-]') within a format string",String
+18, The arg_name can be followed by any number of index or attribute expressions,String
+19, An expression of the form ',String
+20,"name' selects the named attribute using getattr(), while an expression of the form '[index]' does an index lookup using __getitem__()",String
+21, Some simple format string examples: The conversion field causes a type coercion before formatting,String
+22,"  Normally, the job of formatting a value is done by the __format__() method of the value itself",String
+23,"  However, in some cases it is desirable to force a type to be formatted as a string, overriding its own definition of formatting",String
+24,"  By converting the value to a string before calling __format__(), the normal formatting logic is bypassed",String
+25," Three conversion flags are currently supported: '!s' which calls str() on the value, '!r' which calls repr() and '!a' which calls ascii()",String
+26," Some examples: The format_spec field contains a specification of how the value should be presented, including such details as field width, alignment, padding, decimal precision and so on",String
+27,  Each value type can define its own formatting mini-language or interpretation of the format_spec,String
+28," Most built-in types support a common formatting mini-language, which is described in the next section",String
+29, A format_spec field can also include nested replacement fields within it,String
+30," These nested replacement fields may contain a field name, conversion flag and format specification, but deeper nesting is not allowed",String
+31,  The replacement fields within the format_spec are substituted before the format_spec string is interpreted,String
+32, This allows the formatting of a value to be dynamically specified,String
+33, See the Format examples section for some examples,String
+34, Template strings provide simpler string substitutions as described in PEP 292,String
+35,"  A primary use case for template strings is for internationalization (i18n) since in that context, the simpler syntax and functionality makes it easier to translate than other built-in string formatting facilities in Python",String
+36,"  As an example of a library built on template strings for i18n, see the flufl",String
+37,i18n package,String
+38," Template strings support $-based substitutions, using the following rules: Any other appearance of $ in the string will result in a ValueError being raised",String
+39, The string module provides a Template class that implements these rules,String
+40,"  The methods of Template are: Here is an example of how to use a Template: Advanced usage: you can derive subclasses of Template to customize the placeholder syntax, delimiter character, or the entire regular expression used to parse template strings",String
+41,"  To do this, you can override these class attributes: Alternatively, you can provide the entire regular expression pattern by overriding the class attribute pattern",String
+42,"  If you do this, the value must be a regular expression object with four named capturing groups",String
+43,"  The capturing groups correspond to the rules given above, along with the invalid placeholder rule: The methods on this class will raise ValueError if the pattern matches the template without one of these named groups matching",String
+44, Format specifications are used within replacement fields contained within a format string to define how individual values are presented (see Format String Syntax and Formatted string literals),String
+45, They can also be passed directly to the built-in format() function,String
+46,  Each formattable type may define how the format specification is to be interpreted,String
+47," Most built-in types implement the following options for format specifications, although some of the formatting options are only supported by the numeric types",String
+48, A general convention is that an empty format specification produces the same result as if you had called str() on the value,String
+49, A non-empty format specification typically modifies the result,String
+50," The general form of a standard format specifier is: If a valid align value is specified, it can be preceded by a fill character that can be any character and defaults to a space if omitted",String
+51, It is not possible to use a literal curly brace ({ or }) as the fill character in a formatted string literal or when using the str,String
+52,format() method,String
+53,"  However, it is possible to insert a curly brace with a nested replacement field",String
+54,  This limitation doesnt affect the format() function,String
+55," The meaning of the various alignment options is as follows: Note that unless a minimum field width is defined, the field width will always be the same size as the data to fill it, so that the alignment option has no meaning in this case",String
+56," The sign option is only valid for number types, and can be one of the following: The 'z' option coerces negative zero floating-point values to positive zero after rounding to the format precision",String
+57,  This option is only valid for floating-point presentation types,String
+58, The '#' option causes the alternate form to be used for the conversion,String
+59,  The alternate form is defined differently for different types,String
+60,"  This option is only valid for integer, float and complex types",String
+61," For integers, when binary, octal, or hexadecimal output is used, this option adds the respective prefix '0b', '0o', '0x', or '0X' to the output value",String
+62," For float and complex the alternate form causes the result of the conversion to always contain a decimal-point character, even if no digits follow it",String
+63," Normally, a decimal-point character appears in the result of these conversions only if a digit follows it",String
+64," In addition, for 'g' and 'G' conversions, trailing zeros are not removed from the result",String
+65," The ',' option signals the use of a comma for a thousands separator",String
+66," For a locale aware separator, use the 'n' integer presentation type instead",String
+67, The '_' option signals the use of an underscore for a thousands separator for floating point presentation types and for integer presentation type 'd',String
+68,"  For integer presentation types 'b', 'o', 'x', and 'X', underscores will be inserted every 4 digits",String
+69,"  For other presentation types, specifying this option is an error",String
+70," width is a decimal integer defining the minimum total field width, including any prefixes, separators, and other formatting characters",String
+71," If not specified, then the field width will be determined by the content",String
+72," When no explicit alignment is given, preceding the width field by a zero ('0') character enables sign-aware zero-padding for numeric types",String
+73,  This is equivalent to a fill character of '0' with an alignment type of '=',String
+74," The precision is a decimal integer indicating how many digits should be displayed after the decimal point for presentation types 'f' and 'F', or before and after the decimal point for presentation types 'g' or 'G'",String
+75,"  For string presentation types the field indicates the maximum field size - in other words, how many characters will be used from the field content",String
+76,  The precision is not allowed for integer presentation types,String
+77," Finally, the type determines how the data should be presented",String
+78," The available string presentation types are: The available integer presentation types are: In addition to the above presentation types, integers can be formatted with the floating point presentation types listed below (except 'n' and None)",String
+79," When doing so, float() is used to convert the integer to a floating point number before formatting",String
+80, The available presentation types for float and Decimal values are: This section contains examples of the str,String
+81,format() syntax and comparison with the old %-formatting,String
+82," In most of the cases the syntax is similar to the old %-formatting, with the addition of the {} and with : used instead of %",String
+83," For example, '%03",String
+84,2f' can be translated to '{:03,String
+85,2f}',String
+86," The new format syntax also supports new and different options, shown in the following examples",String
+87," Accessing arguments by position: Accessing arguments by name: Accessing arguments attributes: Accessing arguments items: Replacing %s and %r: Aligning the text and specifying a width: Replacing %+f, %-f, and % f and specifying a sign: Replacing %x and %o and converting the value to different bases: Using the comma as a thousands separator: Expressing a percentage: Using type-specific formatting: Nesting arguments and more complex examples:",String

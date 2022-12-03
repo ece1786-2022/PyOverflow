@@ -1,0 +1,35 @@
+,content,topic
+0," A regular expression (or RE) specifies a set of strings that matches it; the functions in this module let you check if a particular string matches a given regular expression (or if a given regular expression matches a particular string, which comes down to the same thing)",regex
+1," Regular expressions can be concatenated to form new regular expressions; if A and B are both regular expressions, then AB is also a regular expression",regex
+2," In general, if a string p matches A and another string q matches B, the string pq will match AB",regex
+3,  This holds unless A or B contain low precedence operations; boundary conditions between A and B; or have numbered group references,regex
+4,"  Thus, complex expressions can easily be constructed from simpler primitive expressions like the ones described here",regex
+5,"  For details of the theory and implementation of regular expressions, consult the Friedl book [Frie09], or almost any textbook about compiler construction",regex
+6, A brief explanation of the format of regular expressions follows,regex
+7,"  For further information and a gentler presentation, consult the Regular Expression HOWTO",regex
+8, Regular expressions can contain both special and ordinary characters,regex
+9," Most ordinary characters, like 'A', 'a', or '0', are the simplest regular expressions; they simply match themselves",regex
+10,"  You can concatenate ordinary characters, so last matches the string 'last'",regex
+11,"  (In the rest of this section, well write REs in this special style, usually without quotes, and strings to be matched 'in single quotes'",regex
+12,") Some characters, like '|' or '(', are special",regex
+13," Special characters either stand for classes of ordinary characters, or affect how the regular expressions around them are interpreted",regex
+14," Repetition operators or quantifiers (*, +, ?, {m,n}, etc) cannot be directly nested",regex
+15," This avoids ambiguity with the non-greedy modifier suffix ?, and with other modifiers in other implementations",regex
+16," To apply a second repetition to an inner repetition, parentheses may be used",regex
+17," For example, the expression (?:a{6})* matches any multiple of six 'a' characters",regex
+18, The special characters are: The special sequences consist of '\' and a character from the list below,regex
+19," If the ordinary character is not an ASCII digit or an ASCII letter, then the resulting RE will match the second character",regex
+20,"  For example, \$ matches the character '$'",regex
+21," Most of the standard escapes supported by Python string literals are also accepted by the regular expression parser: (Note that \b is used to represent word boundaries, and means backspace only inside character classes",regex
+22,") ' ', '\U', and '\N' escape sequences are only recognized in Unicode patterns",regex
+23,  In bytes patterns they are errors,regex
+24,  Unknown escapes of ASCII letters are reserved for future use and treated as errors,regex
+25, Octal escapes are included in a limited form,regex
+26,"  If the first digit is a 0, or if there are three octal digits, it is considered an octal escape",regex
+27," Otherwise, it is a group reference",regex
+28,"  As for string literals, octal escapes are always at most three digits in length",regex
+29," The module defines several functions, constants, and an exception",regex
+30, Some of the functions are simplified versions of the full featured methods for compiled regular expressions,regex
+31,  Most non-trivial applications always use the compiled form,regex
+32, Compiled regular expression objects support the following methods and attributes: Match objects always have a boolean value of True,regex
+33," Since match() and search() return None when there is no match, you can test whether there was a match with a simple if statement: Match objects support the following methods and attributes:",regex

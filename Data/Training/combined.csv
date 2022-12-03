@@ -175,3 +175,125 @@ default_max_str_digits,Built-in Types,1
 int_info,Built-in Types,1
 str_digits_check_threshold,Built-in Types,1
  Verification:,Built-in Types,1
+ The built-in string class provides the ability to do complex variable substitutions and value formatting via the format() method described in PEP 3101,String,2
+  The Formatter class in the string module allows you to create and customize your own string formatting behaviors using the same implementation as the built-in format() method,String,2
+ The str,String,2
+"format() method and the Formatter class share the same syntax for format strings (although in the case of Formatter, subclasses can define their own format string syntax)",String,2
+"  The syntax is related to that of formatted string literals, but it is less sophisticated and, in particular, does not support arbitrary expressions",String,2
+ Format strings contain replacement fields surrounded by curly braces {},String,2
+" Anything that is not contained in braces is considered literal text, which is copied unchanged to the output",String,2
+"  If you need to include a brace character in the literal text, it can be escaped by doubling: {{ and }}",String,2
+" The grammar for a replacement field is as follows: In less formal terms, the replacement field can start with a field_name that specifies the object whose value is to be formatted and inserted into the output instead of the replacement field",String,2
+" The field_name is optionally followed by a  conversion field, which is preceded by an exclamation point '!', and a format_spec, which is preceded by a colon ':'",String,2
+  These specify a non-default format for the replacement value,String,2
+ See also the Format Specification Mini-Language section,String,2
+ The field_name itself begins with an arg_name that is either a number or a keyword,String,2
+"  If its a number, it refers to a positional argument, and if its a keyword, it refers to a named keyword argument",String,2
+"  If the numerical arg_names in a format string are 0, 1, 2, in sequence, they can all be omitted (not just some) and the numbers 0, 1, 2,  will be automatically inserted in that order",String,2
+" Because arg_name is not quote-delimited, it is not possible to specify arbitrary dictionary keys (e",String,2
+g,String,2
+", the strings '10' or ':-]') within a format string",String,2
+ The arg_name can be followed by any number of index or attribute expressions,String,2
+ An expression of the form ',String,2
+"name' selects the named attribute using getattr(), while an expression of the form '[index]' does an index lookup using __getitem__()",String,2
+ Some simple format string examples: The conversion field causes a type coercion before formatting,String,2
+"  Normally, the job of formatting a value is done by the __format__() method of the value itself",String,2
+"  However, in some cases it is desirable to force a type to be formatted as a string, overriding its own definition of formatting",String,2
+"  By converting the value to a string before calling __format__(), the normal formatting logic is bypassed",String,2
+" Three conversion flags are currently supported: '!s' which calls str() on the value, '!r' which calls repr() and '!a' which calls ascii()",String,2
+" Some examples: The format_spec field contains a specification of how the value should be presented, including such details as field width, alignment, padding, decimal precision and so on",String,2
+  Each value type can define its own formatting mini-language or interpretation of the format_spec,String,2
+" Most built-in types support a common formatting mini-language, which is described in the next section",String,2
+ A format_spec field can also include nested replacement fields within it,String,2
+" These nested replacement fields may contain a field name, conversion flag and format specification, but deeper nesting is not allowed",String,2
+  The replacement fields within the format_spec are substituted before the format_spec string is interpreted,String,2
+ This allows the formatting of a value to be dynamically specified,String,2
+ See the Format examples section for some examples,String,2
+ Template strings provide simpler string substitutions as described in PEP 292,String,2
+"  A primary use case for template strings is for internationalization (i18n) since in that context, the simpler syntax and functionality makes it easier to translate than other built-in string formatting facilities in Python",String,2
+"  As an example of a library built on template strings for i18n, see the flufl",String,2
+i18n package,String,2
+" Template strings support $-based substitutions, using the following rules: Any other appearance of $ in the string will result in a ValueError being raised",String,2
+ The string module provides a Template class that implements these rules,String,2
+"  The methods of Template are: Here is an example of how to use a Template: Advanced usage: you can derive subclasses of Template to customize the placeholder syntax, delimiter character, or the entire regular expression used to parse template strings",String,2
+"  To do this, you can override these class attributes: Alternatively, you can provide the entire regular expression pattern by overriding the class attribute pattern",String,2
+"  If you do this, the value must be a regular expression object with four named capturing groups",String,2
+"  The capturing groups correspond to the rules given above, along with the invalid placeholder rule: The methods on this class will raise ValueError if the pattern matches the template without one of these named groups matching",String,2
+ Format specifications are used within replacement fields contained within a format string to define how individual values are presented (see Format String Syntax and Formatted string literals),String,2
+ They can also be passed directly to the built-in format() function,String,2
+  Each formattable type may define how the format specification is to be interpreted,String,2
+" Most built-in types implement the following options for format specifications, although some of the formatting options are only supported by the numeric types",String,2
+ A general convention is that an empty format specification produces the same result as if you had called str() on the value,String,2
+ A non-empty format specification typically modifies the result,String,2
+" The general form of a standard format specifier is: If a valid align value is specified, it can be preceded by a fill character that can be any character and defaults to a space if omitted",String,2
+ It is not possible to use a literal curly brace ({ or }) as the fill character in a formatted string literal or when using the str,String,2
+format() method,String,2
+"  However, it is possible to insert a curly brace with a nested replacement field",String,2
+  This limitation doesnt affect the format() function,String,2
+" The meaning of the various alignment options is as follows: Note that unless a minimum field width is defined, the field width will always be the same size as the data to fill it, so that the alignment option has no meaning in this case",String,2
+" The sign option is only valid for number types, and can be one of the following: The 'z' option coerces negative zero floating-point values to positive zero after rounding to the format precision",String,2
+  This option is only valid for floating-point presentation types,String,2
+ The '#' option causes the alternate form to be used for the conversion,String,2
+  The alternate form is defined differently for different types,String,2
+"  This option is only valid for integer, float and complex types",String,2
+" For integers, when binary, octal, or hexadecimal output is used, this option adds the respective prefix '0b', '0o', '0x', or '0X' to the output value",String,2
+" For float and complex the alternate form causes the result of the conversion to always contain a decimal-point character, even if no digits follow it",String,2
+" Normally, a decimal-point character appears in the result of these conversions only if a digit follows it",String,2
+" In addition, for 'g' and 'G' conversions, trailing zeros are not removed from the result",String,2
+" The ',' option signals the use of a comma for a thousands separator",String,2
+" For a locale aware separator, use the 'n' integer presentation type instead",String,2
+ The '_' option signals the use of an underscore for a thousands separator for floating point presentation types and for integer presentation type 'd',String,2
+"  For integer presentation types 'b', 'o', 'x', and 'X', underscores will be inserted every 4 digits",String,2
+"  For other presentation types, specifying this option is an error",String,2
+" width is a decimal integer defining the minimum total field width, including any prefixes, separators, and other formatting characters",String,2
+" If not specified, then the field width will be determined by the content",String,2
+" When no explicit alignment is given, preceding the width field by a zero ('0') character enables sign-aware zero-padding for numeric types",String,2
+  This is equivalent to a fill character of '0' with an alignment type of '=',String,2
+" The precision is a decimal integer indicating how many digits should be displayed after the decimal point for presentation types 'f' and 'F', or before and after the decimal point for presentation types 'g' or 'G'",String,2
+"  For string presentation types the field indicates the maximum field size - in other words, how many characters will be used from the field content",String,2
+  The precision is not allowed for integer presentation types,String,2
+" Finally, the type determines how the data should be presented",String,2
+" The available string presentation types are: The available integer presentation types are: In addition to the above presentation types, integers can be formatted with the floating point presentation types listed below (except 'n' and None)",String,2
+" When doing so, float() is used to convert the integer to a floating point number before formatting",String,2
+ The available presentation types for float and Decimal values are: This section contains examples of the str,String,2
+format() syntax and comparison with the old %-formatting,String,2
+" In most of the cases the syntax is similar to the old %-formatting, with the addition of the {} and with : used instead of %",String,2
+" For example, '%03",String,2
+2f' can be translated to '{:03,String,2
+2f}',String,2
+" The new format syntax also supports new and different options, shown in the following examples",String,2
+" Accessing arguments by position: Accessing arguments by name: Accessing arguments attributes: Accessing arguments items: Replacing %s and %r: Aligning the text and specifying a width: Replacing %+f, %-f, and % f and specifying a sign: Replacing %x and %o and converting the value to different bases: Using the comma as a thousands separator: Expressing a percentage: Using type-specific formatting: Nesting arguments and more complex examples:",String,2
+" A regular expression (or RE) specifies a set of strings that matches it; the functions in this module let you check if a particular string matches a given regular expression (or if a given regular expression matches a particular string, which comes down to the same thing)",regex,3
+" Regular expressions can be concatenated to form new regular expressions; if A and B are both regular expressions, then AB is also a regular expression",regex,3
+" In general, if a string p matches A and another string q matches B, the string pq will match AB",regex,3
+  This holds unless A or B contain low precedence operations; boundary conditions between A and B; or have numbered group references,regex,3
+"  Thus, complex expressions can easily be constructed from simpler primitive expressions like the ones described here",regex,3
+"  For details of the theory and implementation of regular expressions, consult the Friedl book [Frie09], or almost any textbook about compiler construction",regex,3
+ A brief explanation of the format of regular expressions follows,regex,3
+"  For further information and a gentler presentation, consult the Regular Expression HOWTO",regex,3
+ Regular expressions can contain both special and ordinary characters,regex,3
+" Most ordinary characters, like 'A', 'a', or '0', are the simplest regular expressions; they simply match themselves",regex,3
+"  You can concatenate ordinary characters, so last matches the string 'last'",regex,3
+"  (In the rest of this section, well write REs in this special style, usually without quotes, and strings to be matched 'in single quotes'",regex,3
+") Some characters, like '|' or '(', are special",regex,3
+" Special characters either stand for classes of ordinary characters, or affect how the regular expressions around them are interpreted",regex,3
+" Repetition operators or quantifiers (*, +, ?, {m,n}, etc) cannot be directly nested",regex,3
+" This avoids ambiguity with the non-greedy modifier suffix ?, and with other modifiers in other implementations",regex,3
+" To apply a second repetition to an inner repetition, parentheses may be used",regex,3
+" For example, the expression (?:a{6})* matches any multiple of six 'a' characters",regex,3
+ The special characters are: The special sequences consist of '\' and a character from the list below,regex,3
+" If the ordinary character is not an ASCII digit or an ASCII letter, then the resulting RE will match the second character",regex,3
+"  For example, \$ matches the character '$'",regex,3
+" Most of the standard escapes supported by Python string literals are also accepted by the regular expression parser: (Note that \b is used to represent word boundaries, and means backspace only inside character classes",regex,3
+") ' ', '\U', and '\N' escape sequences are only recognized in Unicode patterns",regex,3
+  In bytes patterns they are errors,regex,3
+  Unknown escapes of ASCII letters are reserved for future use and treated as errors,regex,3
+ Octal escapes are included in a limited form,regex,3
+"  If the first digit is a 0, or if there are three octal digits, it is considered an octal escape",regex,3
+" Otherwise, it is a group reference",regex,3
+"  As for string literals, octal escapes are always at most three digits in length",regex,3
+" The module defines several functions, constants, and an exception",regex,3
+ Some of the functions are simplified versions of the full featured methods for compiled regular expressions,regex,3
+  Most non-trivial applications always use the compiled form,regex,3
+ Compiled regular expression objects support the following methods and attributes: Match objects always have a boolean value of True,regex,3
+" Since match() and search() return None when there is no match, you can test whether there was a match with a simple if statement: Match objects support the following methods and attributes:",regex,3
