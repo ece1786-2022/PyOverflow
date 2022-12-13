@@ -6,3 +6,5 @@ numpy==1.21.5
 sklearn==1.0.2
 torch==1.12.1
 torchtext==0.13.1
+transformers==4.24.0
+datasets==2.7.0
