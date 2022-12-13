@@ -3,3 +3,9 @@ models/GPT-2/6_epochs/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
 models/GPT-2/single[[:space:]]sentence/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
 models/GPT-2/stackoverflow/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
 models/GPT-2/with_overlap/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
+D:/FILES/University[[:space:]]of[[:space:]]Toronto/Subjects/Fall[[:space:]]2022/NLP/project/PyOverflow/models/Baseline filter=lfs diff=lfs merge=lfs -text
+D:FILESUniversity filter=lfs diff=lfs merge=lfs -text
+D:/FILES/University[[:space:]]of[[:space:]]Toronto/Subjects/Fall[[:space:]]2022/NLP/project/PyOverflow/models/Baseline/Baseline_no_overlap.pt filter=lfs diff=lfs merge=lfs -text
+D:/FILES/University[[:space:]]of[[:space:]]Toronto/Subjects/Fall[[:space:]]2022/NLP/project/PyOverflow/models/Baseline/Baseline_overlap.pt filter=lfs diff=lfs merge=lfs -text
+D:/FILES/University[[:space:]]of[[:space:]]Toronto/Subjects/Fall[[:space:]]2022/NLP/project/PyOverflow/models/Baseline/Baseline_single_sentence.pt filter=lfs diff=lfs merge=lfs -text
+D:/FILES/University[[:space:]]of[[:space:]]Toronto/Subjects/Fall[[:space:]]2022/NLP/project/PyOverflow/models/Baseline/Baseline_stackoverflow.pt filter=lfs diff=lfs merge=lfs -text
